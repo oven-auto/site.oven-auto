@@ -1,0 +1,114 @@
+version: '2'
+services:
+
+  ####################
+  # SERVER
+  ###################
+  nginx-server:
+    container_name: nginx-server
+    build: 
+      context: ./
+      dockerfile: docker/nginx.docker
+    volumes: 
+      - ./app:/var/www
+      - ./docker/nginx/ssl:/etc/nginx/ssl
+    ports: 
+      - "30080:80"
+    links: 
+      - php-f
+      - php-c
+  
+  ###################
+  # PHP-FPM
+  ###################
+  php-f:
+    container_name: php-f
+    build:
+      context: ./
+      dockerfile: docker/php-fpm.docker
+    volumes:
+      - ./app:/var/www
+    links: 
+      - mysql
+      - redis
+    environment:
+      - "DB_PORT=3306"
+      - "DB_HOST=mysql"
+      - "REDIS_PORT=6379"
+      - "REDIS_HOST=redis"
+
+  ###################
+  # PHP-CLI
+  ###################
+  php-c:
+    container_name: php-c
+    build:
+      context: ./
+      dockerfile: docker/php-cli.docker
+    volumes:
+      - ./app:/var/www
+    links: 
+      - mysql
+      - redis
+    environment:
+      - "DB_PORT=3306"
+      - "DB_HOST=mysql"
+      - "REDIS_PORT=6379"
+      - "REDIS_HOST=redis"
+    tty: true
+  
+  ###################
+  # MYSQL
+  ###################
+  mysql:
+    container_name: mysql
+    image: mysql:5.7
+    command: --sql_mode=""
+    volumes: 
+      - ./docker/images/mysql:/var/lib/mysql
+    environment:
+      
+
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=app
+      - MYSQL_HOST= mysql
+      - MYSQL_USER=app
+      - MYSQL_PASSWORD=secret
+      - MYSQL_PORT=3306
+    ports:
+      - "33063:3306"
+
+  ###################
+  # REDIS
+  ###################
+  redis:
+    container_name: redis
+    image: redis:3.0
+    ports:
+      - "63793:6379"
+
+  ###################
+  # NODE
+  ###################
+  node:
+    container_name: node
+    build:
+      context: ./
+      dockerfile: docker/node.docker
+    volumes:
+      - ./app:/var/www
+    tty: true
+
+  ###################
+  # PHPMYADMIN
+  ###################
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: corbinu/docker-phpmyadmin
+    ports:
+        - 8283:80
+    environment:
+        MYSQL_USERNAME: app
+        MYSQL_ROOT_PASSWORD: secret
+        MYSQL_PORT_3306_TCP_ADDR: mysql
+  
