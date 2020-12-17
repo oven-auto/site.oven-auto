@@ -19,9 +19,9 @@ class CreateMarks extends Migration
             $table->integer('brand_id');
             $table->string('slug');
             $table->string('prefix')->nullable();
-            $table->string('banner',250);
-            $table->string('alpha',250);
-            $table->string('icon',250);
+            $table->string('banner',250)->nullable();
+            $table->string('alpha',250)->nullable();
+            $table->string('icon',250)->nullable();
 
             $table->string('slogan',250);
             $table->text('description');

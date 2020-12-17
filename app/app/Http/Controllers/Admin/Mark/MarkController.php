@@ -15,8 +15,6 @@ use App\Http\Requests\Admin\MarkUpdateRequest;
 use App\Services\UploadService;
 class MarkController extends Controller
 {
-
-	private $path = 'marks/';
 	private $UploadService;
 
 	public function __construct()
@@ -42,7 +40,7 @@ class MarkController extends Controller
     public function store(MarkCreateRequest $request)
     {
     	$mark = Mark::create($request->except(['icon','alpha','banner','brochure','manual','price','toy']));
-    	
+
     	$mark->update($this->UploadService->store($request->only(['icon','alpha','banner']), $mark));
 
     	/*DOCUMENTS*/
@@ -63,14 +61,13 @@ class MarkController extends Controller
     }
 
     public function update(MarkUpdateRequest $request,Mark $mark)
-    {	
+    {
     	$mark->update($request->except(['icon','alpha','banner','brochure','manual','price','toy']));
-    	$this->path .= $mark->id;
 
     	/*PICTURES*/
     	$mark->update($this->UploadService->store($request->only(['icon','alpha','banner']), $mark));
 
-    	/*DOCUMENTS*/
+        /*DOCUMENTS*/
     	$mark->documents->save(['mark_id'=>$mark->id]);
     	$mark->documents->fill($this->UploadService->store($request->only(['brochure','manual','price','toy']), $mark->documents));
     	$mark->documents->save();
