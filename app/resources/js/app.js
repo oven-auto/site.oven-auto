@@ -6,6 +6,7 @@
 
 require('./bootstrap');
 require('./admin/mark.ajax');
+require('./admin/color');
 
 //window.Vue = require('vue');
 

@@ -40,6 +40,9 @@ class MarkCreateRequest extends FormRequest
             'manual'=>'mimes:pdf',
             'price'=>'mimes:pdf',
             'toy'=>'mimes:pdf',
+
+            'properties'=>'array|required',
+            'properties.*'=>'required|min:2|max:200',
         ];
     }
 }

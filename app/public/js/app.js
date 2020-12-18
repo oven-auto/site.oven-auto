@@ -37265,6 +37265,70 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./resources/js/admin/color.js":
+/*!*************************************!*\
+  !*** ./resources/js/admin/color.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function fillPreviewColor() {
+  var mas = [];
+  $('input[type="color"]').each(function (i, item) {
+    if ($(this).val() != '') mas.push($(this).val());
+  });
+  var str = '';
+
+  if (mas.length == 1) {
+    str = mas[0];
+  } else if (mas.length == 2) {
+    str = 'linear-gradient(to bottom,' + mas[0] + ' 50%,' + mas[1] + ' 50%)';
+  }
+
+  $('.color-preview').css({
+    'background': str
+  });
+}
+
+$(document).on('click', '.append-color', function () {
+  if ($('.append-color').length == 1) {
+    var newColor = $(this).closest('.item-color').clone();
+    newColor.find('input').val('#ffffff');
+    newColor.find('.shift-color').removeClass('btn-dark').addClass('btn-danger').removeAttr('disabled');
+    $('.colors').append(newColor);
+    fillPreviewColor();
+  }
+});
+$(document).on('click', '.shift-color', function () {
+  $(this).closest('.item-color').remove();
+  fillPreviewColor();
+});
+$(document).on('change', 'input[type="color"]', function () {
+  fillPreviewColor();
+});
+$('.color-preview').ready(function () {
+  fillPreviewColor();
+});
+$('.color-pic').ready(function () {
+  $('.color-pic').each(function () {
+    var colorStr = $(this).attr('data-color');
+    var colorMas = colorStr.split(',');
+    var str = '';
+
+    if (colorMas.length == 1) {
+      str = colorMas[0];
+    } else if (colorMas.length == 2) {
+      str = 'linear-gradient(to bottom,' + colorMas[0] + ' 50%,' + colorMas[1] + ' 50%)';
+    }
+
+    $(this).css({
+      'background': str
+    });
+  });
+});
+
+/***/ }),
+
 /***/ "./resources/js/admin/mark.ajax.js":
 /*!*****************************************!*\
   !*** ./resources/js/admin/mark.ajax.js ***!
@@ -37294,6 +37358,19 @@ $(document).on('change', '.status-control', function () {
   })["catch"](function (error) {
     console.log(error);
   });
+}); //Получение палитры цветов по бренду
+
+$(document).on('click', '#get-color', function () {
+  var modal = $('#bigModal');
+  var parameters = {};
+  parameters.brand_id = $('[name="brand_id"]').val();
+  var url = $(this).attr('data-url');
+  axios.post(url, parameters).then(function (response) {
+    modal.find('.modal-body').html(response.data.view);
+    modal.modal('show');
+  })["catch"](function (error) {
+    console.log(error);
+  });
 });
 
 /***/ }),
@@ -37312,7 +37389,9 @@ $(document).on('change', '.status-control', function () {
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
-__webpack_require__(/*! ./admin/mark.ajax */ "./resources/js/admin/mark.ajax.js"); //window.Vue = require('vue');
+__webpack_require__(/*! ./admin/mark.ajax */ "./resources/js/admin/mark.ajax.js");
+
+__webpack_require__(/*! ./admin/color */ "./resources/js/admin/color.js"); //window.Vue = require('vue');
 
 /**
  * The following block of code may be used to automatically register your

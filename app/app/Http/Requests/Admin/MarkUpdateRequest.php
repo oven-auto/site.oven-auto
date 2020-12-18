@@ -39,7 +39,10 @@ class MarkUpdateRequest extends FormRequest
             'brochure'=>'mimes:pdf',
             'manual'=>'mimes:pdf',
             'price'=>'mimes:pdf',
-            'toy'=>'mimes:pdf'
+            'toy'=>'mimes:pdf',
+
+            'properties'=>'array|required',
+            'properties.*'=>'required|min:2|max:200',
         ];
     }
 }

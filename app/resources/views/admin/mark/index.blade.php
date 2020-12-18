@@ -4,7 +4,7 @@
 	<div class="container">
 		<table class="table">
 			<tr>
-				<th></th>
+				<th><a href="{{route('marks.create')}}" class="btn btn-success">Добавить</a></th>
 				<th>Название</th>
 				<th>Кузов</th>
 				<th>Страна</th>

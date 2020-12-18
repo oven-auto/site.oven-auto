@@ -79,7 +79,29 @@
             @show
 
             @yield('content')
+
+            @include('admin.modal.bigmodal')
+            
         </main>
+
+        @section('footer')
+            <div class="container-fluid py-4" style="background:#333;height: 300px;color: #ddd;">
+                <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <ul>
+                            <li><a href="{{route('brands.index')}}">Бренды</a></li>
+                            <li><a href="{{route('properties.index')}}">Характеристики</a></li>
+                            <li><a href="{{route('colors.index')}}">Цвета</a></li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <li><a href="{{route('marks.index')}}">Модели</a></li>
+                    </div>
+                </div>
+                </div>
+        </div>
+        @show
     </div>
 </body>
 </html>

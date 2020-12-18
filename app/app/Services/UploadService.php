@@ -6,7 +6,7 @@ use Illuminate\Http\UploadedFile;
 
 Class UploadService
 {
-	public function store($array = [],Model $model)
+	public function store($array = [],Model $model) : Array
 	{
 		$result = [];
 		foreach ($array as $key => $itemFile)

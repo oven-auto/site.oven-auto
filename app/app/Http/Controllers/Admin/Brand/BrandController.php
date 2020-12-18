@@ -7,6 +7,7 @@ use App\Models\Brand;
 use App\Http\Requests\Admin\BrandCreateRequest;
 use App\Http\Requests\Admin\BrandUpdateRequest;
 use Storage;
+use App\Services\UploadService;
 
 class BrandController extends Controller
 {
@@ -15,6 +16,12 @@ class BrandController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private $UploadService;
+    public function __construct()
+    {
+        $this->UploadService = new UploadService();
+    }
+
     public function index()
     {
         $brands = Brand::get();
@@ -39,11 +46,8 @@ class BrandController extends Controller
      */
     public function store(BrandCreateRequest $request)
     {
-        $path = $request->file('icon')->store('brands');
-        $brand = Brand::create([
-            'name'=>$request->get('name'),
-            'icon'=>$path
-        ]);
+        $brand = Brand::create($request->only(['name','icon']));
+        $brand->update($this->UploadService->store($request->only('icon'),$brand));
         return redirect()->route('brands.edit',$brand)->with('status','Бренд добавлен');
     }
 
@@ -78,17 +82,8 @@ class BrandController extends Controller
      */
     public function update(BrandUpdateRequest $request,Brand $brand)
     {
-        $path = $brand->icon;
-        if($request->has('icon'))
-        {
-            Storage::delete($brand->icon);
-            $path = $request->file('icon')->store('brands');
-        }
-
-        $brand->update([
-            'name'=>$request->get('name'),
-            'icon'=>$path
-        ]);
+        $data = array_merge($request->only('name'),$this->UploadService->store($request->only('icon'),$brand));
+        $brand->update($data);
         return redirect()->route('brands.edit',$brand)->with('status','Бренд обновлен');
     }
 

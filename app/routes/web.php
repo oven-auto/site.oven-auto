@@ -24,9 +24,12 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	Route::resource('brands','Brand\BrandController');
 	Route::resource('marks','Mark\MarkController');
+	Route::resource('properties','Property\PropertyController');
+	Route::resource('colors','Color\ColorController');
 
 	Route::group(['prefix'=>'ajax','namespace'=>'Ajax'],function(){
 		Route::put('/mark/sort/{mark}','MarkAjaxController@sort')->name('ajax.mark.sort');
 		Route::put('/mark/status/{mark}','MarkAjaxController@status')->name('ajax.mark.status');
+		Route::post('/mark/colors','MarkColorController@get')->name('ajax.mark.color.get');
 	});
 });

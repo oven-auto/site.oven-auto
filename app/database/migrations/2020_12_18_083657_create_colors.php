@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class MarkPropertiesCreate extends Migration
+class CreateColors extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class MarkPropertiesCreate extends Migration
      */
     public function up()
     {
-        Schema::create('mark_properties', function (Blueprint $table) {
+        Schema::create('colors', function (Blueprint $table) {
             $table->id();
-            $table->integer('mark_id');
-            $table->integer('property_id');
-            $table->string('value',250);
+            $table->string('name',255);
+            $table->string('code',255);
+            $table->string('web',255);
+            $table->integer('brand_id');
             $table->timestamps();
         });
     }
@@ -29,6 +30,6 @@ class MarkPropertiesCreate extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('mark_properties');
+        Schema::dropIfExists('colors');
     }
 }

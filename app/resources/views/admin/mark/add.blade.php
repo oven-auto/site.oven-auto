@@ -251,6 +251,14 @@
 			</div>
 		</div>
 
+
+		<div class="row">
+			<div class="col">
+				<div class="h4 mb-3">
+					Документы
+				</div>
+			</div>
+		</div>
 		<div class="row">
 			<div class="col">
 				<div class="input-group mb-3">
@@ -358,6 +366,60 @@
 						</div>
 					@enderror
 				</div>
+			</div>
+		</div>
+
+		@isset($properties)
+			<div class="row">
+				<div class="col">
+					<div class="h4 mb-3">
+						Характеристики
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				@foreach($properties as $itemProperty)
+					
+					<div class="col-4">
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text">{{$itemProperty->name}}</span>
+							</div>
+							{{Form::text(
+								'properties['.$itemProperty->id.']',
+								($mark->properties->contains('property_id',$itemProperty->id))?$mark->properties->where('property_id',$itemProperty->id)->first()->value:'',
+								['placeholder'=>'','class'=>'form-control' ]
+							)}}
+							@error('properties.'.$itemProperty->id)						
+							    <div class="alert alert-danger">
+							    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+									{{ $message }}
+								</div>
+							@enderror	
+						</div>
+					</div>
+					
+				@endforeach
+			</div>
+		@endisset
+
+		<div class="row ">
+			<div class="col-12">
+				<div class="h4 mb-3">
+					Цветовая палитра
+				</div>
+			</div>
+			<div class="col-12">
+				<button type="button" class="btn btn-dark" id="get-color" data-url="{{route('ajax.mark.color.get')}}">Добавить/удалить цвета</button>
+			</div>
+		</div>
+		<div class="palette">
+			<div class="row">
+				@if(isset($mark->colors) && $mark->colors->count())
+
+				@endif
 			</div>
 		</div>
 

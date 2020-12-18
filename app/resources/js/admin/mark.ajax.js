@@ -27,3 +27,18 @@ $(document).on('change','.status-control',function(){
 	})
 })
 
+//Получение палитры цветов по бренду
+$(document).on('click','#get-color',function(){
+	var modal = $('#bigModal')
+	var parameters = {}
+	parameters.brand_id = $('[name="brand_id"]').val()
+
+	var url = $(this).attr('data-url')
+	axios.post(url,parameters).then(function(response){
+		modal.find('.modal-body').html(response.data.view)
+		modal.modal('show')
+	}).catch(function(error){
+		console.log(error)
+	})
+})
+

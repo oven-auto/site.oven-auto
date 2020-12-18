@@ -27,4 +27,14 @@ class Mark extends Model
     {
         return $this->hasOne(\App\Models\Document::class,'mark_id','id')->withDefault();
     }
+
+    public function properties()
+    {
+        return $this->hasMany(\App\Models\MarkProperty::class,'mark_id','id');
+    }
+
+    public function colors()
+    {
+        return $this->hasMany(\App\Models\MarkColor::class,'mark_id','id');
+    }
 }
