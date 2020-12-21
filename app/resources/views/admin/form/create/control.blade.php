@@ -9,7 +9,7 @@
 <div class="row mt-5">
 	<div class="col text-right">
 		<div class="btn-group">
-			<a class="btn btn-primary" href="{{route($index)}}">Выход</a>
+			<a class="btn btn-primary" href="{{isset($backLink)?$backLink:route($index)}}">Выход</a>
 			<button type="submit" class="btn btn-success">Создать</button>
 		</div>
 	</div>

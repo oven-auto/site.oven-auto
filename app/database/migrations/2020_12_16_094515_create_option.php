@@ -16,9 +16,8 @@ class CreateOption extends Migration
         Schema::create('options', function (Blueprint $table) {
             $table->id();
             $table->string('name',255);
-            $table->integer('parent_id');
+            $table->integer('type_id');
             $table->integer('filter_id');
-            $table->integer('filter_order');
             $table->timestamps();
         });
     }

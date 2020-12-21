@@ -1,0 +1,16 @@
+.btn .fa{
+	margin-right:5px;
+}
+.area{
+	background: #fff;box-shadow: 0 0 10px #ddd;
+}
+.admin .pagination{
+	justify-content: center;
+}
+.admin .pagination .page-item a{
+	color:#777;
+}
+.admin .pagination .page-item.active .page-link{
+	background:#333;
+	border-color:#888;
+}

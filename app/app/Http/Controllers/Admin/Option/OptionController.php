@@ -11,6 +11,7 @@ use App\Models\OptionBrand;
 use App\Models\Brand;
 use App\Http\Requests\Admin\OptionCreateRequest;
 use App\Http\Requests\Admin\OptionFilterRequest;
+use Session;
 
 class OptionController extends Controller
 {
@@ -22,11 +23,19 @@ class OptionController extends Controller
     public function index(OptionFilterRequest $request)
     {
         $query = Option::with(['filter','type','brands.brand'])->select('options.*')->leftJoin('option_brands','option_brands.option_id','options.id');
-        foreach ($request->only([]) as $key => $value) {
-            # code...
+        foreach ($request->only(['name','brand_id','type_id','filter_id']) as $key => $value) {
+            if($value)
+                if(is_numeric($value))
+                    $query->where($key,$value);
+                else
+                    $query->where($key,'LIKE','%'.$value.'%');
         }
-        $options = $query->groupBy('options.id')->orderBy('type_id')->get();
-        return view('admin.option.index', compact('options')); 
+        $filters = OptionFilter::get()->pluck('name','id');
+        $types = OptionType::get()->pluck('name','id');;
+        $brands = Brand::get()->pluck('name','id');
+        $options = $query->groupBy('options.id')->orderBy('options.type_id')->orderBy('options.name')->paginate(25);
+        Session::put('filter.option',route('options.index',$request->query()));        
+        return view('admin.option.index', compact('options','filters','types','brands')); 
     }
 
     /**
@@ -60,7 +69,7 @@ class OptionController extends Controller
                 'option_id' => $option->id,
                 'brand_id' => $itemId
             ]);
-        return redirect()->route('options.edit',$option)->with('status','Новое оборудование записано');
+        return redirect()->route('options.edit',$option)->appends([])->with('status','Новое оборудование записано');
     }
 
     /**

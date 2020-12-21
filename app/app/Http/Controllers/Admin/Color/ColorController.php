@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Color;
 use App\Models\Brand;
 use App\Http\Requests\Admin\ColorRequest;
+use App\Http\Requests\Admin\ColorFilterRequest;
 
 class ColorController extends Controller
 {
@@ -15,10 +16,20 @@ class ColorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(ColorFilterRequest $request)
     {
-        $colors = Color::with('brand')->get();
-        return view('admin.color.index',compact('colors'));
+        $query = Color::with('brand');
+        foreach ($request->only(['name','brand_id','code']) as $key => $value) 
+            if($value)
+                if(is_numeric($value))
+                    $query->where($key,$value);
+                else
+                    $query->where($key,'LIKE','%'.$value.'%');
+        
+        $colors = $query->paginate(25);
+
+        $brands = Brand::get()->pluck('name','id');
+        return view('admin.color.index',compact('colors','brands'));
     }
 
     /**

@@ -4,7 +4,7 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class OptionFilterRequest extends FormRequest
+class ColorFilterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,9 +25,8 @@ class OptionFilterRequest extends FormRequest
     {
         return [
             'name'=>'string|nullable',
-            'type_id'=>'integer|nullable',
-            'filter_id'=>'integer|nullable',
-            'brand_id'=>'integer|nullable'
+            'code'=>'string|nullable',
+            'brand_id'=>'integer|nullable',
         ];
     }
 }

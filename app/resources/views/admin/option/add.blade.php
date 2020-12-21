@@ -93,7 +93,7 @@
 		</div>
 	</div>
 
-	@include('admin.form.create.control')
+	@include('admin.form.create.control',['backLink'=>Session::get('filter.option')])
 
 	{{Form::close()}}
 </div>
