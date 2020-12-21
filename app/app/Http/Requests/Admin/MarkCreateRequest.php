@@ -43,6 +43,8 @@ class MarkCreateRequest extends FormRequest
 
             'properties'=>'array|required',
             'properties.*'=>'required|min:2|max:200',
+
+            'colors_ids'=>'required',
         ];
     }
 }

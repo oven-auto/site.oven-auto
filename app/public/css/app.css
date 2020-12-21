@@ -10922,3 +10922,17 @@ form img {
   border: 1px solid #ccc;
 }
 
+.modal .color-pic {
+  margin: auto;
+}
+
+.modal .checked-color {
+  background: #ccc;
+}
+
+.palette .color-pic {
+  width: 100px;
+  height: 100px;
+  margin: auto;
+}
+

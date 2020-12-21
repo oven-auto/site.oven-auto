@@ -21,14 +21,14 @@
 					</div>
 					{{Form::text('name',isset($mark)?$mark->name:'',['placeholder'=>'Название','class'=>'form-control' , 'required'=>'required'])}}
 
-					@error('name')						
+					@error('name')
 					    <div class="alert alert-danger">
 					    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 							{{ $message }}
 						</div>
-					@enderror	
+					@enderror
 				</div>
 				<!--NAME END-->
 
@@ -39,14 +39,14 @@
 					</div>
 					{{Form::select('brand_id', $brands,isset($mark)?$mark->brand_id:'',['placeholder'=>'Укажите бренд','class'=>'form-control' , 'required'=>'required'])}}
 
-					@error('brand_id')						
+					@error('brand_id')
 					    <div class="alert alert-danger">
 					    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 							{{ $message }}
 						</div>
-					@enderror	
+					@enderror
 				</div>
 				<!--BRAND END-->
 
@@ -57,14 +57,14 @@
 					</div>
 					{{Form::select('body_id', $bodies,isset($mark)?$mark->body_id:'',['placeholder'=>'Укажите тип кузова','class'=>'form-control' , 'required'=>'required'])}}
 
-					@error('body_id')						
+					@error('body_id')
 					    <div class="alert alert-danger">
 					    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 							{{ $message }}
 						</div>
-					@enderror	
+					@enderror
 				</div>
 				<!--BODY END-->
 
@@ -75,14 +75,14 @@
 					</div>
 					{{Form::select('country_id', $countries,isset($mark)?$mark->country_id:'',['placeholder'=>'Укажите страну','class'=>'form-control' , 'required'=>'required'])}}
 
-					@error('country_id')						
+					@error('country_id')
 					    <div class="alert alert-danger">
 					    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 							{{ $message }}
 						</div>
-					@enderror	
+					@enderror
 				</div>
 				<!--BODY END-->
 
@@ -92,20 +92,20 @@
 						<span class="input-group-text">Статус</span>
 					</div>
 					{{Form::select(
-						'status', 
+						'status',
 						[0=>'не показывать',1=>'показывать'],
 						isset($mark)?$mark->status:'',
 						['placeholder'=>'Укажите статус','class'=>'form-control' , 'required'=>'required']
 					)}}
 
-					@error('status')						
+					@error('status')
 					    <div class="alert alert-danger">
 					    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 							{{ $message }}
 						</div>
-					@enderror	
+					@enderror
 				</div>
 				<!--BODY END-->
 
@@ -116,14 +116,14 @@
 					</div>
 					{{Form::text('prefix',isset($mark)?$mark->prefix:'',['placeholder'=>'Префикс','class'=>'form-control' ])}}
 
-					@error('predix')						
+					@error('predix')
 					    <div class="alert alert-danger">
 					    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 							{{ $message }}
 						</div>
-					@enderror	
+					@enderror
 				</div>
 				<!--PREFIX END-->
 			</div>
@@ -148,7 +148,7 @@
 								    {{ $message }}
 								</div>
 							@enderror
-						</div>	
+						</div>
 						@isset($mark)
 							<div class="">
 								<img src="{{asset('storage/'.$mark->icon)}}">
@@ -174,7 +174,7 @@
 								    {{ $message }}
 								</div>
 							@enderror
-						</div>	
+						</div>
 						@isset($mark)
 							<div class="">
 								<img src="{{asset('storage/'.$mark->alpha)}}">
@@ -200,7 +200,7 @@
 								    {{ $message }}
 								</div>
 							@enderror
-						</div>	
+						</div>
 						@isset($mark)
 							<div class="">
 								<img src="{{asset('storage/'.$mark->banner)}}">
@@ -220,14 +220,14 @@
 					</div>
 					{{Form::text('slogan',isset($mark)?$mark->slogan:'',['placeholder'=>'Слоган','class'=>'form-control' , 'required'=>'required'])}}
 
-					@error('slogan')						
+					@error('slogan')
 					    <div class="alert alert-danger">
 					    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 							{{ $message }}
 						</div>
-					@enderror	
+					@enderror
 				</div>
 				<!--SLOGAN END-->
 
@@ -238,14 +238,14 @@
 					</div>
 					{{Form::textarea('description',isset($mark)?$mark->description:'',['placeholder'=>'Описание','class'=>'form-control' , 'required'=>'required','style'=>'height:100px;'])}}
 
-					@error('description')						
+					@error('description')
 					    <div class="alert alert-danger">
 					    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
 							{{ $message }}
 						</div>
-					@enderror	
+					@enderror
 				</div>
 				<!--DESCRIPTION END-->
 			</div>
@@ -284,7 +284,7 @@
 						    {{ $message }}
 						</div>
 					@enderror
-				</div>	
+				</div>
 			</div>
 
 			<div class="col">
@@ -379,7 +379,7 @@
 			</div>
 			<div class="row">
 				@foreach($properties as $itemProperty)
-					
+
 					<div class="col-4">
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
@@ -387,20 +387,20 @@
 							</div>
 							{{Form::text(
 								'properties['.$itemProperty->id.']',
-								($mark->properties->contains('property_id',$itemProperty->id))?$mark->properties->where('property_id',$itemProperty->id)->first()->value:'',
+								(isset($mark) && $mark->properties->contains('property_id',$itemProperty->id))?$mark->properties->where('property_id',$itemProperty->id)->first()->value:'',
 								['placeholder'=>'','class'=>'form-control' ]
 							)}}
-							@error('properties.'.$itemProperty->id)						
+							@error('properties.'.$itemProperty->id)
 							    <div class="alert alert-danger">
 							    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 										<span aria-hidden="true">&times;</span>
 									</button>
 									{{ $message }}
 								</div>
-							@enderror	
+							@enderror
 						</div>
 					</div>
-					
+
 				@endforeach
 			</div>
 		@endisset
@@ -414,11 +414,29 @@
 			<div class="col-12">
 				<button type="button" class="btn btn-dark" id="get-color" data-url="{{route('ajax.mark.color.get')}}">Добавить/удалить цвета</button>
 			</div>
+			<div class="col-12">
+				@error('colors_ids')
+				    <div class="alert alert-danger">
+				    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						{{ $message }}
+					</div>
+				@enderror
+			</div>
 		</div>
 		<div class="palette">
-			<div class="row">
+			{{Form::hidden('colors_ids',(isset($mark->colors) && $mark->colors->count()) ? $mark->colors->implode('id',','):'')}}
+			<div class="row color-content text-center">
 				@if(isset($mark->colors) && $mark->colors->count())
+					@foreach($mark->colors as $itemInstallColor)
+						
+							<div class="p-2 my-2 pb-3 rounded color-check col-2 checked-color" data-color-id="{{$itemInstallColor->color->id}}">
+								{{$itemInstallColor->color->code}}
+								<div class="color-pic" data-color="{{$itemInstallColor->color->web}}"></div>
+							</div>
 
+					@endforeach
 				@endif
 			</div>
 		</div>

@@ -37290,6 +37290,24 @@ function fillPreviewColor() {
   });
 }
 
+window.FillColorDiv = function (selector) {
+  $(selector).each(function () {
+    var colorStr = $(this).attr('data-color');
+    var colorMas = colorStr.split(',');
+    var str = '';
+
+    if (colorMas.length == 1) {
+      str = colorMas[0];
+    } else if (colorMas.length == 2) {
+      str = 'linear-gradient(to bottom,' + colorMas[0] + ' 50%,' + colorMas[1] + ' 50%)';
+    }
+
+    $(this).css({
+      'background': str
+    });
+  });
+};
+
 $(document).on('click', '.append-color', function () {
   if ($('.append-color').length == 1) {
     var newColor = $(this).closest('.item-color').clone();
@@ -37358,7 +37376,17 @@ $(document).on('change', '.status-control', function () {
   })["catch"](function (error) {
     console.log(error);
   });
-}); //Получение палитры цветов по бренду
+});
+
+window.setCheckedColor = function () {
+  var input = $('.palette [name="colors_ids"]');
+  var str = input.val();
+  var masIds = str.split(',');
+  masIds.forEach(function (val, key) {
+    $('.modal [data-color-id="' + val + '"]').addClass('checked-color');
+  });
+}; //Получение палитры цветов по бренду
+
 
 $(document).on('click', '#get-color', function () {
   var modal = $('#bigModal');
@@ -37367,10 +37395,35 @@ $(document).on('click', '#get-color', function () {
   var url = $(this).attr('data-url');
   axios.post(url, parameters).then(function (response) {
     modal.find('.modal-body').html(response.data.view);
+    FillColorDiv('.color-pic');
+    setCheckedColor();
     modal.modal('show');
   })["catch"](function (error) {
     console.log(error);
   });
+});
+$(document).on('click', '.modal .color-check', function () {
+  console.log('click');
+  var input = $('.palette [name="colors_ids"]');
+  var str = input.val();
+  var masIds = str.split(',');
+  var pressedId = $(this).attr('data-color-id');
+
+  if (masIds.includes(pressedId)) {
+    masIds.splice(masIds.indexOf(pressedId), 1);
+    $(this).removeClass('checked-color');
+    $('.palette [data-color-id="' + pressedId + '"]').remove();
+    console.log('delete');
+  } else {
+    masIds.push(pressedId);
+    $(this).addClass('checked-color');
+    console.log('add');
+  }
+
+  var checkedColors = $(document).find('.modal .checked-color').clone().addClass('col-2').removeClass('border');
+  var colorContent = $('.palette .color-content');
+  colorContent.html(checkedColors);
+  input.val(masIds.join());
 });
 
 /***/ }),
