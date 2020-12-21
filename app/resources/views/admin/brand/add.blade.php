@@ -3,6 +3,15 @@
 @section('content')
 
 	<div class="container">
+
+		<div class="row">
+			<div class="col">
+				<div class="h2">
+					{{isset($brand)?'Изменить: '.$brand->name:'Новый бренд'}}
+				</div>
+			</div>
+		</div>
+
 		{{Form::open([
 			'url'=>isset($brand)?route('brands.update',$brand):route('brands.store'),
 			'files'=>true,

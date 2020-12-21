@@ -5,7 +5,7 @@
 		<div class="row">
 			<div class="col">
 				<div class="h2">
-					{{isset($color)?'Изменит: '.$color->name:'Новый цвет'}}
+					{{isset($color)?'Изменить: '.$color->name:'Новый цвет'}}
 				</div>
 			</div>
 		</div>
@@ -131,7 +131,7 @@
 			</div>
 		</div>
 
-		@include('admin.form.create.control')
+		@include('admin.form.create.control',['backLink'=>Session::get('filter.color')])
 
 		{{Form::close()}}
 	</div>

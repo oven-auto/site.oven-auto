@@ -8,7 +8,7 @@ use App\Models\Color;
 use App\Models\Brand;
 use App\Http\Requests\Admin\ColorRequest;
 use App\Http\Requests\Admin\ColorFilterRequest;
-
+use Session;
 class ColorController extends Controller
 {
     /**
@@ -21,14 +21,14 @@ class ColorController extends Controller
         $query = Color::with('brand');
         foreach ($request->only(['name','brand_id','code']) as $key => $value) 
             if($value)
-                if(is_numeric($value))
+                if(is_numeric($value) && $key!=='code')
                     $query->where($key,$value);
                 else
                     $query->where($key,'LIKE','%'.$value.'%');
         
         $colors = $query->paginate(25);
-
         $brands = Brand::get()->pluck('name','id');
+        Session::put('filter.color',route('colors.index',$request->query()));    
         return view('admin.color.index',compact('colors','brands'));
     }
 
