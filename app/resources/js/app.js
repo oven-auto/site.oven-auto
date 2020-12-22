@@ -5,6 +5,7 @@
  */
 
 require('./bootstrap');
+require('./inittooltips');
 require('./admin/mark.ajax');
 require('./admin/color');
 require('./admin/pack');

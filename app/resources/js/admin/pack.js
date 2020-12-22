@@ -2,7 +2,6 @@ window.getRender = function(url,parameters,pastInto){
 	axios.post(url,parameters).then(function(response){
 		if(response.data.status==1)
 			pastInto.html(response.data.view)
-			//console.log(response.data.view)
 		else
 			console.log('Ничего не нашлось')
 	}).catch(function(error){
@@ -20,4 +19,13 @@ $(document).on('change','#pack-edit [name="brand_id"]',function(){
 
 	var blockOption = $(document).find('.option-container')
 	getRender(urlOption,parameters,blockOption)
+})
+
+$(document).on('change','.option-container input',function(){
+	var me = $(this)
+	var label = me.closest('label')
+	if(me.prop('checked'))
+		label.addClass('fillblack')
+	else
+		label.removeClass('fillblack')
 })

@@ -13,7 +13,7 @@ class PackCreateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,16 @@ class PackCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'=>'string|nullable',
+            'code'=>'required|string',
+            'price'=>'integer|nullable',
+            'brand_id'=>'integer|nullable',
+
+            'mark_ids'=>'required|array',
+            'mark_ids.*'=>'required|integer',
+
+            'option_ids'=>'required|array',
+            'option_ids.*'=>'required|integer'
         ];
     }
 }

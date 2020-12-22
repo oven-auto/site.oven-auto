@@ -37437,8 +37437,7 @@ $(document).on('click', '.modal .color-check', function () {
 
 window.getRender = function (url, parameters, pastInto) {
   axios.post(url, parameters).then(function (response) {
-    if (response.data.status == 1) pastInto.html(response.data.view); //console.log(response.data.view)
-    else console.log('Ничего не нашлось');
+    if (response.data.status == 1) pastInto.html(response.data.view);else console.log('Ничего не нашлось');
   })["catch"](function (error) {
     console.log(error);
   });
@@ -37453,6 +37452,11 @@ $(document).on('change', '#pack-edit [name="brand_id"]', function () {
   getRender(urlMark, parameters, block);
   var blockOption = $(document).find('.option-container');
   getRender(urlOption, parameters, blockOption);
+});
+$(document).on('change', '.option-container input', function () {
+  var me = $(this);
+  var label = me.closest('label');
+  if (me.prop('checked')) label.addClass('fillblack');else label.removeClass('fillblack');
 });
 
 /***/ }),
@@ -37470,6 +37474,8 @@ $(document).on('change', '#pack-edit [name="brand_id"]', function () {
  * building robust, powerful web applications using Vue and Laravel.
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+
+__webpack_require__(/*! ./inittooltips */ "./resources/js/inittooltips.js");
 
 __webpack_require__(/*! ./admin/mark.ajax */ "./resources/js/admin/mark.ajax.js");
 
@@ -37541,6 +37547,22 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/inittooltips.js":
+/*!**************************************!*\
+  !*** ./resources/js/inittooltips.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  $('body').tooltip({
+    trigger: 'hover',
+    selector: '[data-toggle="tooltip"]'
+  });
+});
 
 /***/ }),
 

@@ -60,7 +60,14 @@ class MarkController extends Controller
     			'value'=>$value
     		]);
     	}
-
+        foreach (explode(',', $request->get('colors_ids')) as $key => $color) 
+        {
+            if($color)
+                MarkColor::create([
+                    'mark_id'=>$mark->id,
+                    'color_id'=>$color
+                ]);
+        }
     	return redirect()->route('marks.edit',$mark)->with('status','Новая модель добавлена');
     }
 

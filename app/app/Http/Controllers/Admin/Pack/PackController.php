@@ -10,6 +10,7 @@ use App\Models\PackOption;
 use App\Models\Mark;
 use App\Models\Option;
 use App\Models\Brand;
+use App\Http\Requests\Admin\PackCreateRequest;
 
 class PackController extends Controller
 {
@@ -20,7 +21,7 @@ class PackController extends Controller
      */
     public function index()
     {
-        $packs = Pack::with(['brand','mark','option'])->get();
+        $packs = Pack::with(['brand','marks','options'])->get();
         dd($packs);
     }
 
@@ -41,9 +42,20 @@ class PackController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PackCreateRequest $request)
     {
-        //
+        $pack = Pack::create($request->only('name','code','price','brand_id'));
+        foreach ($request->get('mark_ids') as $key => $markId) 
+            PackMark::create([
+                'pack_id'=>$pack->id,
+                'mark_id'=>$markId
+            ]);
+        foreach ($request->get('option_ids') as $key => $optionId) 
+            PackOption::create([
+                'pack_id'=>$pack->id,
+                'option_id'=>$optionId
+            ]);
+        
     }
 
     /**
@@ -63,9 +75,11 @@ class PackController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Pack $pack)
     {
-        //
+        $brands = Brand::get()->pluck('name','id');
+        $marks = Mark::where('brand_id',$pack->brand_id)->get()->pluck('name','id');
+        return view('admin.pack.add',compact('brands','pack','marks'));
     }
 
     /**

@@ -1,7 +1,14 @@
 @extends('layouts.app')
 
 @section('content')
+	
 	<div class="container">
+
+	{{Form::open([
+		'url'=>isset($pack)?route('packs.update',$pack):route('packs.store'),
+		'method'=>isset($pack)?'PUT':'POST'
+	])}}
+	
 		<div class="row">
 			<div class="col">
 				<div class="h2">
@@ -16,7 +23,7 @@
 					<div class="input-group-prepend">
 						<span class="input-group-text">Название</span>
 					</div>
-					{{Form::text('name',isset($pack)?$pack->name:'',['placeholder'=>'Название','class'=>'form-control' , 'required'=>'required'])}}
+					{{Form::text('name',isset($pack)?$pack->name:'',['placeholder'=>'Название','class'=>'form-control' ])}}
 				</div>
 
 				@error('pack')						
@@ -94,8 +101,16 @@
 			</div>
 		</div>
 
-		<div class="row option-container">
-			
+
+		<div class="row">
+			<div class="col option-container">
+
+			</div>
 		</div>
+
+		@include('admin.form.create.control')
+
+	{{Form::close()}}
 	</div>
+
 @endsection
