@@ -28,8 +28,14 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	Route::resource('colors','Color\ColorController');
 	Route::resource('options','Option\OptionController');
 	Route::resource('motors','Motor\MotorController');
+	Route::resource('packs','Pack\PackController');
 
 	Route::group(['prefix'=>'ajax','namespace'=>'Ajax'],function(){
+		Route::group(['prefix'=>'get','namespace'=>'Get'],function(){
+			Route::post('marks','MarkController@getMarksByBrand')->name('ajax.get.mark');
+			Route::post('options','OptionController@getOptionByBrand')->name('ajax.get.option');
+		});
+
 		Route::put('/mark/sort/{mark}','MarkAjaxController@sort')->name('ajax.mark.sort');
 		Route::put('/mark/status/{mark}','MarkAjaxController@status')->name('ajax.mark.status');
 		Route::post('/mark/colors','MarkColorController@get')->name('ajax.mark.color.get');

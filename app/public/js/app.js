@@ -37428,6 +37428,35 @@ $(document).on('click', '.modal .color-check', function () {
 
 /***/ }),
 
+/***/ "./resources/js/admin/pack.js":
+/*!************************************!*\
+  !*** ./resources/js/admin/pack.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+window.getRender = function (url, parameters, pastInto) {
+  axios.post(url, parameters).then(function (response) {
+    if (response.data.status == 1) pastInto.html(response.data.view); //console.log(response.data.view)
+    else console.log('Ничего не нашлось');
+  })["catch"](function (error) {
+    console.log(error);
+  });
+};
+
+$(document).on('change', '#pack-edit [name="brand_id"]', function () {
+  var urlMark = $(this).attr('data-url-mark');
+  var urlOption = $(this).attr('data-url-option');
+  var parameters = {};
+  parameters.brand_id = $(this).val();
+  var block = $(document).find('#pack-edit .mark-container');
+  getRender(urlMark, parameters, block);
+  var blockOption = $(document).find('.option-container');
+  getRender(urlOption, parameters, blockOption);
+});
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -37444,7 +37473,9 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! ./admin/mark.ajax */ "./resources/js/admin/mark.ajax.js");
 
-__webpack_require__(/*! ./admin/color */ "./resources/js/admin/color.js"); //window.Vue = require('vue');
+__webpack_require__(/*! ./admin/color */ "./resources/js/admin/color.js");
+
+__webpack_require__(/*! ./admin/pack */ "./resources/js/admin/pack.js"); //window.Vue = require('vue');
 
 /**
  * The following block of code may be used to automatically register your

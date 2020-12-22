@@ -12,4 +12,9 @@ class OptionBrand extends Model
     {
     	return $this->hasOne(\App\Models\Brand::class,'id','brand_id');
     }
+
+    public function option()
+    {
+    	return $this->hasOne(\App\Models\Option::class,'id','option_id');
+    }
 }

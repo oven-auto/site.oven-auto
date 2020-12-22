@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMotor extends Migration
+class CreatePacks extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,13 @@ class CreateMotor extends Migration
      */
     public function up()
     {
-        Schema::create('motors', function (Blueprint $table) {
+        Schema::create('packs', function (Blueprint $table) {
             $table->id();
-            $table->string('name',255);
-            $table->integer('type_id');
-            $table->integer('size');
-            $table->integer('valve');
-            $table->integer('power');
-            $table->integer('transmission_id');
-            $table->integer('driver_id');
+            $table->string('name')->nullable();
+            $table->string('code',200)->nullable();
+            $table->integer('price')->default(0);
             $table->integer('brand_id');
+            $table->boolean('colored')->default(0);
             $table->timestamps();
         });
     }
@@ -34,6 +31,6 @@ class CreateMotor extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('motors');
+        Schema::dropIfExists('packs');
     }
 }

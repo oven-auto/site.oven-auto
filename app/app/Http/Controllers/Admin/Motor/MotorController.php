@@ -8,6 +8,8 @@ use App\Models\Motor;
 use App\Models\Driver;
 use App\Models\MotorType;
 use App\Models\Transmission;
+use App\Models\Brand;
+use App\Http\Requests\Admin\MotorCreateRequest;
 
 class MotorController extends Controller
 {
@@ -18,7 +20,8 @@ class MotorController extends Controller
      */
     public function index()
     {
-        $motors = Motor::with(['type','drive','transmission'])->get();
+        $motors = Motor::with(['type','driver','transmission'])->get();
+        return view('admin.motor.index',compact('motors'));
     }
 
     /**
@@ -28,10 +31,11 @@ class MotorController extends Controller
      */
     public function create()
     {
+        $brands = Brand::get()->pluck('name','id');
         $drivers = Driver::get()->pluck('name','id');
         $types = MotorType::get()->pluck('name','id');
         $transmissions = Transmission::get()->pluck('name','id');
-        return view('admin.motor.add',compact('transmissions','drivers','types'));
+        return view('admin.motor.add',compact('transmissions','drivers','types','brands'));
     }
 
     /**
@@ -40,9 +44,10 @@ class MotorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MotorCreateRequest $request)
     {
-        //
+        $motor = Motor::create($request->input());
+        return redirect()->route('motors.edit',$motor)->with('status','Новый мотор создан');
     }
 
     /**
@@ -62,9 +67,13 @@ class MotorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Motor $motor)
     {
-        //
+        $brands = Brand::get()->pluck('name','id');
+        $drivers = Driver::get()->pluck('name','id');
+        $types = MotorType::get()->pluck('name','id');
+        $transmissions = Transmission::get()->pluck('name','id');
+        return view('admin.motor.add',compact('transmissions','drivers','types','brands','motor'));
     }
 
     /**
@@ -74,9 +83,10 @@ class MotorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(MotorCreateRequest $request, Motor $motor)
     {
-        //
+        $motor->update($request->input());
+        return redirect()->route('motors.edit',$motor)->with('status','Мотор перезаписан');
     }
 
     /**

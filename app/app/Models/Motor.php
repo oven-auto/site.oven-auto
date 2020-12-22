@@ -15,11 +15,21 @@ class Motor extends Model
 
     public function driver()
     {
-    	return $this->hasOne(\App\Models\Driver::class,'id','drive_id')->withDefault();
+    	return $this->hasOne(\App\Models\Driver::class,'id','driver_id')->withDefault();
     }
 
     public function type()
     {
     	return $this->hasOne(\App\Models\MotorType::class,'id','type_id')->withDefault();
+    }
+
+    public function brand()
+    {
+        return $this->hasOne(\App\Models\Brand::class,'id','brand_id')->withDefault();
+    }
+
+    public function getFullNameAttribute()
+    {
+        return $this->brand->name.' '.$this->size.' ('.$this->power.'л.с.)'.$this->transmission->name.' '.$this->driver->name.' ('.$this->name.')';
     }
 }
