@@ -27,6 +27,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	Route::resource('properties','Property\PropertyController');
 	Route::resource('colors','Color\ColorController');
 	Route::resource('options','Option\OptionController');
+	Route::resource('motors','Motor\MotorController');
 
 	Route::group(['prefix'=>'ajax','namespace'=>'Ajax'],function(){
 		Route::put('/mark/sort/{mark}','MarkAjaxController@sort')->name('ajax.mark.sort');

@@ -96,6 +96,7 @@
                                 <li><a href="{{route('properties.index')}}">Характеристики</a></li>
                                 <li><a href="{{route('colors.index')}}">Цвета</a></li>
                                 <li><a href="{{route('options.index')}}">Оборудование</a></li>
+                                <li><a href="{{route('motors.index')}}">Агрегаты</a></li>
                             </ul>
                         </div>
                         <div class="col">
