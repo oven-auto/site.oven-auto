@@ -103,12 +103,15 @@
 
 
 		<div class="row">
+			<div class="col-12 py-3 h4">Список оборудования</div>
 			<div class="col option-container">
-
+				@isset($pack->options)
+					@include('admin.pack.options')
+				@endisset
 			</div>
 		</div>
 
-		@include('admin.form.create.control')
+		@include('admin.form.create.control',['backLink'=>Session::get('filter.pack')])
 
 	{{Form::close()}}
 	</div>

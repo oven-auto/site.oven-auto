@@ -3,7 +3,7 @@
 		<span class="input-group-text">Модели</span>
 	</div>
 
-	{{Form::select('mark_ids[]',$marks,'',['class'=>'form-control' , 'required'=>'required','multiple', 'size'=>count($marks)])}}
+	{{Form::select('mark_ids[]',$marks,isset($pack)?$pack->marks->pluck('mark_id'):'',['class'=>'form-control' , 'required'=>'required','multiple', 'size'=>count($marks)])}}
 </div>
 
 @error('mark_ids[]')						

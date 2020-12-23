@@ -59,7 +59,7 @@
 					</td>
 
 					<td>
-						<!--NAME BEGIN-->
+						<!--TYPE BEGIN-->
 						<div class="input-group">
 							
 							{{Form::select('type_id',$types,request()->type_id,['placeholder'=>'Укажите раздел','class'=>'form-control'])}}
@@ -73,11 +73,11 @@
 								</div>
 							@enderror
 						</div>
-						<!--NAME END-->
+						<!--TYPE END-->
 					</td>
 
 					<td>
-						<!--NAME BEGIN-->
+						<!--FILTER BEGIN-->
 						<div class="input-group">
 							
 							{{Form::select('filter_id',$filters,request()->filter_id,['placeholder'=>'Укажите фильтр','class'=>'form-control'])}}
@@ -91,11 +91,11 @@
 								</div>
 							@enderror
 						</div>
-						<!--NAME END-->
+						<!--FILTER END-->
 					</td>
 
 					<td>
-						<!--NAME BEGIN-->
+						<!--BRAND BEGIN-->
 						<div class="input-group ">
 							{{Form::select('brand_id',$brands,request()->brand_id,['placeholder'=>'Укажите бренд','class'=>'form-control'])}}
 
@@ -108,7 +108,7 @@
 								</div>
 							@enderror
 						</div>
-						<!--NAME END-->
+						<!--BRAND END-->
 					</td>
 				</tr>
 				@foreach($options as $itemOption)

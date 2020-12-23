@@ -26,4 +26,20 @@ class OptionController extends Controller
 	    	'status'=>0
 	    ]);
     }
+
+    public function getOptionAll(Request $request)
+    {
+    	$options = Option::orderBy('type_id')->orderBy('name')->get()->groupBy('type_id');
+
+    	if($options->count())
+	    	return response()->json([
+	    		'view'=>view('admin.pack.options',compact('options'))->render(),
+	    		'status'=>1
+	    	]);
+
+	    return response()->json([
+	    	'view'=>'',
+	    	'status'=>0
+	    ]);
+    }
 }
