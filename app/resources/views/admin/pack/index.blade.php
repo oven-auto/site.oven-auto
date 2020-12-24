@@ -24,8 +24,8 @@
 					<th>Код</th>
 					<th>Цена</th>
 					<th style="min-width: 50%;">Состав</th>
-					<th>Бренд</th>
-					<th>Допуск</th>
+					<th style="min-width: 110px;">Бренд</th>
+					<th style="min-width: 110px;">Допуск</th>
 				</tr>
 
 				<tr>

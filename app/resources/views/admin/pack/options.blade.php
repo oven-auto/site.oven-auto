@@ -7,8 +7,11 @@
 	</div>
 @enderror
 
-<div class="row">
-	<div class="col">
+<div class="row pt-3">
+	<div class="col h4">
+		Список оборудования
+	</div>
+	<div class="col text-right">
 		<button type="button" class="btn unset-checkbox btn-danger" data-unset="option-checkbox">Снять всё</button>
 	</div>
 </div>
@@ -17,7 +20,7 @@
 	<div class="row">
 	@foreach($itemGroup->chunk(ceil($itemGroup->count()/3)) as $itemChunk)
 		@if($loop->first)
-			<div class="col-12 h4 my-3"> {{$itemChunk->first()->type->name}} </div>
+			<div class="col-12 h5 my-3"> {{$itemChunk->first()->type->name}} </div>
 		@endif
 		<div class="col-4">
 		@foreach($itemChunk as $itemOption)			

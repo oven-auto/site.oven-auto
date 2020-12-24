@@ -29,6 +29,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	Route::resource('options','Option\OptionController');
 	Route::resource('motors','Motor\MotorController');
 	Route::resource('packs','Pack\PackController');
+	Route::resource('complects','Complect\ComplectController');
 
 	Route::group(['prefix'=>'ajax','namespace'=>'Ajax'],function(){
 		Route::group(['prefix'=>'get','namespace'=>'Get'],function(){

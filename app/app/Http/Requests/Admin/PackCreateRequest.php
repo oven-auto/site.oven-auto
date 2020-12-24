@@ -28,7 +28,7 @@ class PackCreateRequest extends FormRequest
             'code'=>'required|string',
             'price'=>'integer|nullable',
             'brand_id'=>'integer|nullable',
-
+            'colored'=>'boolean|nullable',
             'mark_ids'=>'required|array',
             'mark_ids.*'=>'required|integer',
 

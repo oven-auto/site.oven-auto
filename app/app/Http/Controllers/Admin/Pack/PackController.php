@@ -83,7 +83,7 @@ class PackController extends Controller
      */
     public function store(PackCreateRequest $request)
     {
-        $pack = Pack::create($request->only('name','code','price','brand_id'));
+        $pack = Pack::create($request->only('name','code','price','brand_id','colored'));
         foreach ($request->get('mark_ids') as $key => $markId) 
             PackMark::create([
                 'pack_id'=>$pack->id,
@@ -138,7 +138,7 @@ class PackController extends Controller
      */
     public function update(PackCreateRequest $request, Pack $pack)
     {
-        $pack->update($request->only('name','code','price','brand_id'));
+        $pack->update($request->only('name','code','price','brand_id','colored'));
         
         PackMark::where('pack_id',$pack->id)->delete();
         foreach ($request->get('mark_ids') as $key => $markId) 

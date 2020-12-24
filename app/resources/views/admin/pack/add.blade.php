@@ -67,6 +67,26 @@
 					</div>
 				@enderror
 
+				
+
+				<div class="input-group mb-3 border">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Опция цвета</span>
+					</div>
+					{{Form::checkbox('colored',1,isset($pack)?$pack->colored:'',['class'=>'form-control'])}}
+				</div>
+
+				@error('colored')						
+				    <div class="alert alert-danger">
+				    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						{{ $message }}
+					</div>
+				@enderror
+			</div>
+
+			<div class="col-6">
 				<div class="input-group mb-3">
 					<div class="input-group-prepend">
 						<span class="input-group-text">Бренд</span>
@@ -82,17 +102,6 @@
 					)}}
 				</div>
 
-				@error('brand_id')						
-				    <div class="alert alert-danger">
-				    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						{{ $message }}
-					</div>
-				@enderror
-			</div>
-
-			<div class="col-6">
 				<div class="mark-container">
 					@isset($pack)
 						@include('admin.pack.mark-select')
@@ -102,8 +111,7 @@
 		</div>
 
 
-		<div class="row">
-			<div class="col-12 py-3 h4">Список оборудования</div>
+		<div class="row">			
 			<div class="col option-container">
 				@isset($pack->options)
 					@include('admin.pack.options')
