@@ -5,10 +5,12 @@
  */
 
 require('./bootstrap');
+require('./axios_query');
 require('./inittooltips');
 require('./admin/mark.ajax');
 require('./admin/color');
 require('./admin/pack');
+require('./admin/complect');
 
 //window.Vue = require('vue');
 

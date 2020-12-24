@@ -1,13 +1,4 @@
-window.getRender = function(url,parameters,pastInto){
-	axios.post(url,parameters).then(function(response){
-		if(response.data.status==1)
-			pastInto.html(response.data.view)
-		else
-			console.log('Ничего не нашлось')
-	}).catch(function(error){
-		console.log(error)
-	})
-}
+
 
 $(document).on('change','#pack-edit [name="brand_id"]',function(){
 	var urlMark = $(this).attr('data-url-mark')
@@ -52,15 +43,18 @@ $(document).on('click','#pack-option-button',function(){
 })
 
 window.setHiddenOptionIds = function(){
-	var str = ''
-	var mas = []
-	$('[name="option_ids[]"]').each(function(){
-		if($(this).prop('checked'))
-			mas.push($(this).val())
-	})
-	str = mas.join(',')
+	if($('.modal').jquery)
+	{
+		var str = ''
+		var mas = []
+		$('.modal [name="option_ids[]"]').each(function(){
+			if($(this).prop('checked'))
+				mas.push($(this).val())
+		})
+		str = mas.join(',')
 
-	$('.option-filter').val(str)
+		$('.option-filter').val(str)
+	}
 }
 
 $(document).on('change','.modal [name="option_ids[]"]',function(){
@@ -72,7 +66,7 @@ $(document).on('click','.unset-checkbox',function(){
 	if(unsetElems.jquery)
 	{
 		unsetElems.prop('checked',false)
-		unsetElems.removeClass('fillblack')
+		unsetElems.closest('label').removeClass('fillblack')
 	}
 	setHiddenOptionIds()
 })

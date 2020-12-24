@@ -17,7 +17,7 @@ class OptionController extends Controller
     	
     	if($options->count())
 	    	return response()->json([
-	    		'view'=>view('admin.pack.options',compact('options'))->render(),
+	    		'view'=>view('admin.getters.options',compact('options'))->render(),
 	    		'status'=>1
 	    	]);
 
@@ -33,7 +33,7 @@ class OptionController extends Controller
 
     	if($options->count())
 	    	return response()->json([
-	    		'view'=>view('admin.pack.options',compact('options'))->render(),
+	    		'view'=>view('admin.getters.options',compact('options'))->render(),
 	    		'status'=>1
 	    	]);
 

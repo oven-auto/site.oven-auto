@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin\Complect;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Complect;
+use App\Models\ComplectOption;
+use App\Models\Brand;
 
 class ComplectController extends Controller
 {
@@ -24,7 +27,8 @@ class ComplectController extends Controller
      */
     public function create()
     {
-        //
+        $brands = Brand::get()->pluck('name','id');        
+        return view('admin.complect.add',compact('brands'));
     }
 
     /**

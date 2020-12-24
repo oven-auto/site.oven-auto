@@ -15,7 +15,7 @@ class MarkController extends Controller
 
     	if($marks->count())
 	    	return response()->json([
-	    		'view'=>view('admin.pack.mark-select',compact('marks'))->render(),
+	    		'view'=>view('admin.getters.mark-select',compact('marks'))->render(),
 	    		'status'=>1
 	    	]);
 

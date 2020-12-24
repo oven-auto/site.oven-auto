@@ -104,7 +104,7 @@
 
 				<div class="mark-container">
 					@isset($pack)
-						@include('admin.pack.mark-select')
+						@include('admin.getters.mark-select')
 					@endisset
 				</div>
 			</div>
@@ -114,7 +114,7 @@
 		<div class="row">			
 			<div class="col option-container">
 				@isset($pack->options)
-					@include('admin.pack.options')
+					@include('admin.getters.options')
 				@endisset
 			</div>
 		</div>
