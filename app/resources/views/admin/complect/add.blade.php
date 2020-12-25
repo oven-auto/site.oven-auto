@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container" id="complect-edit">
 	<div class="row">
 		<div class="col">
@@ -9,7 +10,10 @@
 			</div>
 		</div>
 	</div>
-
+	{{Form::open([
+		'url'=>isset($complect)?route('complects.update',$complect):route('complects.store'),
+		'method'=>isset($complect)?'PUT':'POST'
+	])}}
 	<div class="row">
 		<div class="col-6">
 
@@ -18,7 +22,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Название</span>
 				</div>
-				{{Form::text('name',isset($complect)?$complect->name:'',['placeholder'=>'Название','class'=>'form-control' , 'required'=>'required'])}}
+				{{Form::text('name',isset($complect)?$complect->name:'',['placeholder'=>'Название','class'=>'form-control'])}}
 
 				@error('name')
 				    <div class="alert alert-danger">
@@ -82,7 +86,8 @@
 						'class'=>'form-control',
 						'required'=>'required',
 						'data-url-mark'=>route('ajax.get.mark'),
-						'data-url-option'=>route('ajax.get.option')
+						'data-url-option'=>route('ajax.get.option'),
+						'data-url-motor'=>route('ajax.get.motor')
 					]
 				)}}
 
@@ -98,22 +103,42 @@
 			<!--NAME END-->
 
 			<div class="mark-container">
-
+				@isset($complect)
+					@include('admin.getters.mark-select',['data'=>[$complect->mark_id]])
+				@endisset
 			</div>
+
+			<div class="motor-container">
+				@isset($complect)
+					@include('admin.getters.motor-select',['data'=>[$complect->motor_id]])
+				@endisset
+			</div>
+
 		</div>
 	</div>
 
 	<div class="row">
 
 		<div class="col option-container">
-
+			@isset($complect)
+				@include('admin.getters.options',['data'=>isset($complect->options)?$complect->options:''])
+			@endisset
 		</div>
 
 	</div>
 
-	<div class="row pack-container">
-
+	<div class="row pt-5">
+		<div class="col pack-container">
+			@isset($complect)
+				@include('admin.getters.packs',['data'=>isset($complect->packs)?$complect->packs:''])
+			@endisset
+		</div>
 	</div>
 
+	@include('admin.form.create.control')
+
+	{{Form::close()}}
 </div>
+
+
 @endsection

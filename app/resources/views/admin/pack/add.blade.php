@@ -104,7 +104,7 @@
 
 				<div class="mark-container">
 					@isset($pack)
-						@include('admin.getters.mark-select')
+						@include('admin.getters.mark-select',['data'=>$pack->marks->pluck('mark_id')])
 					@endisset
 				</div>
 			</div>
@@ -114,7 +114,7 @@
 		<div class="row">			
 			<div class="col option-container">
 				@isset($pack->options)
-					@include('admin.getters.options')
+					@include('admin.getters.options',['data'=>isset($pack->options)?$pack->options:''])
 				@endisset
 			</div>
 		</div>

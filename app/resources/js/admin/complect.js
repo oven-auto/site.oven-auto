@@ -1,6 +1,7 @@
 $(document).on('change','#complect-edit [name="brand_id"]',function(){
 	var urlMark = $(this).attr('data-url-mark')
 	var urlOption = $(this).attr('data-url-option')
+	var urlMotor = $(this).attr('data-url-motor')
 	var parameters = {}
 	parameters.brand_id = $(this).val()
 
@@ -10,6 +11,8 @@ $(document).on('change','#complect-edit [name="brand_id"]',function(){
 	var blockOption = $(document).find('.option-container')
 	getRender(urlOption,parameters,blockOption)
 
+	var blockMotor = $(document).find('.motor-container')
+	getRender(urlMotor,parameters,blockMotor)
 
 })
 

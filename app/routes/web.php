@@ -38,6 +38,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 			Route::post('options/all','OptionController@getOptionAll')->name('ajax.get.option.all');
 
 			Route::post('packs/brand','PackController@getPackByBrand')->name('ajax.get.pack');
+			Route::post('motors/brand','MotorController@getMotorByBrand')->name('ajax.get.motor');
 		});
 
 		Route::put('/mark/sort/{mark}','MarkAjaxController@sort')->name('ajax.mark.sort');

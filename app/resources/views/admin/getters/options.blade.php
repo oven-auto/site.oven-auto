@@ -25,7 +25,7 @@
 		<div class="col-4">
 		@foreach($itemChunk as $itemOption)			
 
-			@php ($checked = (isset($pack->options) && $pack->options->contains('option_id',$itemOption->id))) 
+			@php ($checked = (isset($data) && $data->contains('option_id',$itemOption->id))) 
 			
 			<label title="{{$itemOption->name}}" data-toggle="tooltip" data-placement="right" class="d-flex align-items-center py-1 pl-1 m-0 {{ $checked ? 'fillblack' : ''}}" style="overflow-x: hidden;width: 100%;white-space: nowrap;">
 				

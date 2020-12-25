@@ -5,13 +5,13 @@
 
 <div class="input-group mb-3">
 	<div class="input-group-prepend">
-		<span class="input-group-text">Модели</span>
+		<span class="input-group-text">Мотор</span>
 	</div>
 
-	{{Form::select('mark_ids[]',$marks,$needArr,['class'=>'form-control' , 'required'=>'required','multiple', 'size'=>count($marks),'data-url-pack'=>route('ajax.get.pack')])}}
+	{{Form::select('motor_id',$motors,$needArr,['class'=>'form-control', 'required'=>'required','placeholder'=>'Мотор'])}}
 </div>
 
-@error('mark_ids[]')						
+@error('motor_id')						
     <div class="alert alert-danger">
     	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 			<span aria-hidden="true">&times;</span>

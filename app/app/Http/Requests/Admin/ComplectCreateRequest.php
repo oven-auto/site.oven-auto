@@ -13,7 +13,7 @@ class ComplectCreateRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,18 @@ class ComplectCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name'=>'nullable|string',
+            'code'=>'required|string',
+            'price'=>'required|integer',
+            'brand_id'=>'required|integer',
+            'mark_ids'=>'required|array',
+            'mark_ids.*'=>'required|integer',
+            'motor_id'=>'required|integer',
+            'option_ids'=>'required|array',
+            'option_ids.*'=>'integer|required',
+
+            'pack_ids'=>'array|nullable',
+            'pack_ids.*'=>'integer'
         ];
     }
 }

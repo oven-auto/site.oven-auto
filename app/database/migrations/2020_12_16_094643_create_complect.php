@@ -15,14 +15,14 @@ class CreateComplect extends Migration
     {
         Schema::create('complects', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->integer('mark_id');
             $table->integer('motor_id');
             $table->integer('price');
             $table->string('code');
-            $table->integer('parent_id');
-            $table->integer('sort');
-            $table->boolean('status');
+            $table->integer('parent_id')->nullable();
+            $table->integer('sort')->nullable();
+            $table->boolean('status')->nullable();
             $table->timestamps();
         });
     }
