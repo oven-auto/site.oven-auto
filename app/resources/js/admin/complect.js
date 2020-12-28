@@ -25,3 +25,15 @@ $(document).on('change','#complect-edit [name="mark_ids[]"]',function(){
 	console.log(block)
 	getRender(url,parameters,block)
 })
+
+$(document).on('change','.complect-table [name="complect-status"]',function(){
+	var url = $(this).attr('data-url')
+	var parameters = {}
+	parameters.status = $(this).prop('checked') ? 1 : 0
+	axios.put(url,parameters).then(function(response){
+		if(response.data.status==1)
+			alert(response.data.message)
+	}).catch(function(error){
+		console.log(error)
+	})
+})

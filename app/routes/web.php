@@ -39,10 +39,14 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 
 			Route::post('packs/brand','PackController@getPackByBrand')->name('ajax.get.pack');
 			Route::post('motors/brand','MotorController@getMotorByBrand')->name('ajax.get.motor');
+			Route::post('/mark/colors','MarkColorController@get')->name('ajax.mark.color.get');
 		});
 
-		Route::put('/mark/sort/{mark}','MarkAjaxController@sort')->name('ajax.mark.sort');
-		Route::put('/mark/status/{mark}','MarkAjaxController@status')->name('ajax.mark.status');
-		Route::post('/mark/colors','MarkColorController@get')->name('ajax.mark.color.get');
+		Route::group(['prefix'=>'set','namespace'=>'Set'],function(){
+			Route::put('/mark/sort/{mark}','MarkAjaxController@sort')->name('ajax.mark.sort');
+			Route::put('/mark/status/{mark}','MarkAjaxController@status')->name('ajax.mark.status');
+			Route::put('/complect/status/{complect}','ComplectAjaxController@status')->name('ajax.complect.status');
+		});
+		
 	});
 });

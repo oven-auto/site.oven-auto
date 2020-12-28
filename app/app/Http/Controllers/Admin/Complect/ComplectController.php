@@ -19,12 +19,27 @@ class ComplectController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response id_model,sort,price,parent,name
      */
-    public function index()
+    public function index(Request $request)
     {
-        $complects = Complect::with(['mark','options.option','packs.pack','motor','brand'])->get();
-        return view('admin.complect.index',compact('complects'));
+        $query = Complect::with(['mark','options.option','packs.pack','motor','brand']);        
+        if($request->has('code') && $request->get('code'))
+            $query->where('code',$request->get('code'));
+        if($request->has('name') && $request->get('name'))
+            $query->where('name',$request->get('name'));
+        if($request->has('status') && $request->get('status')!='')
+            $query->where('status',$request->get('status'));
+        if($request->has('mark_id') && $request->get('mark_id'))
+            $query->where('mark_id',$request->get('mark_id'));
+
+        $complects = $query
+            ->orderBy('mark_id')
+            ->orderBy('parent_id')
+            ->get();
+        $marks = Mark::orderBy('brand_id')->orderBy('name')->get()->pluck('name','id');
+        $statuses = [1=>'Только включенные',0=>'Только выключенные'];
+        return view('admin.complect.index',compact('complects','marks','statuses'));
     }
 
     /**
