@@ -3,7 +3,7 @@
 @if(isset($packs) && $packs->count())
 <table class="table">
 		<tr class="thead-dark">
-			<th></th>
+			<th style="width: 50px;"></th>
 			<th>Название</th>
 			<th>Код</th>
 			<th>Цена</th>

@@ -32,4 +32,9 @@ class Motor extends Model
     {
         return $this->brand->name.' '.$this->size.' ('.$this->power.'л.с.)'.$this->transmission->name.' '.$this->driver->name.' ('.$this->name.')';
     }
+
+    public function getAdminNameAttribute()
+    {
+        return ($this->size/1000).' '.$this->power.' '.$this->transmission->name.' '.$this->driver->name;
+    }
 }

@@ -10,7 +10,7 @@ class Complect extends Model
 
     public function mark()
     {
-    	return $this->hasOne(\App\Models\ComplectMark::class,'id_complect','mark_id')->with();
+    	return $this->hasOne(\App\Models\Mark::class,'id','mark_id')->withDefault();
     }
 
     public function options()
@@ -31,5 +31,10 @@ class Complect extends Model
     public function brand()
     {
         return $this->hasOne(\App\Models\Brand::class,'id','brand_id')->withDefault();
+    }
+
+    public function getFormatPriceAttribute()
+    {
+        return number_format($this->price,0,'',' ').'р.';
     }
 }

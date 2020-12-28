@@ -15,5 +15,41 @@
 				</div>
 			</div>
 		</div>
+
+		{{Form::open([
+			'url'=>route('options.index'),
+			'method'=>'GET'
+		])}}
+
+		<div class="row pt-3">
+			<table class="table">
+				<tr class="thead-dark">
+					<th></th>
+					
+					<th>Код</th>
+					<th>Модель</th>
+					<th>Название</th>
+					<th>Наличие</th>
+					<th>Агрегат</th>
+					<th>Цена</th>
+					<th>Порядок</th>
+					<th>Статус</th>
+				</tr>
+
+				@foreach($complects as $itemComplect)
+					<tr>
+						<td></td>
+						<td>{{$itemComplect->code}}</td>
+						<td>{{$itemComplect->brand->name}} {{$itemComplect->mark->name}}</td>
+						<td>{{$itemComplect->name}}</td>
+						<td>Наличие</td>
+						<td>{{$itemComplect->motor->adminName}}</td>
+						<td>{{$itemComplect->formatPrice}}</td>
+						<td>{{$itemComplect->sort}}</td>
+						<td>{{$itemComplect->status}}</td>
+					</tr>
+				@endforeach
+			</table>
+		</div>
 	</div>
 @endsection

@@ -23,7 +23,7 @@ class ComplectController extends Controller
      */
     public function index()
     {
-        $complects = Complect::with(['mark','options.option','packs.pack','motor','brand']);
+        $complects = Complect::with(['mark','options.option','packs.pack','motor','brand'])->get();
         return view('admin.complect.index',compact('complects'));
     }
 
