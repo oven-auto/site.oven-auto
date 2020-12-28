@@ -30,13 +30,14 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 	Route::resource('motors','Motor\MotorController');
 	Route::resource('packs','Pack\PackController');
 	Route::resource('complects','Complect\ComplectController');
+	Route::resource('cars','Car\CarController');
 
 	Route::group(['prefix'=>'ajax','namespace'=>'Ajax'],function(){
 		Route::group(['prefix'=>'get','namespace'=>'Get'],function(){
-			Route::post('marks','MarkController@getMarksByBrand')->name('ajax.get.mark');
+			Route::post('marks/{single?}','MarkController@getMarksByBrand')->name('ajax.get.mark');
 			Route::post('options/brand','OptionController@getOptionByBrand')->name('ajax.get.option');
 			Route::post('options/all','OptionController@getOptionAll')->name('ajax.get.option.all');
-
+			Route::post('complect/mark','ComplectGetController@getComplectByMark')->name('ajax.get.complect');
 			Route::post('packs/brand','PackController@getPackByBrand')->name('ajax.get.pack');
 			Route::post('motors/brand','MotorController@getMotorByBrand')->name('ajax.get.motor');
 			Route::post('/mark/colors','MarkColorController@get')->name('ajax.mark.color.get');

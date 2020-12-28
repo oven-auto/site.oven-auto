@@ -11,6 +11,7 @@ require('./admin/mark.ajax');
 require('./admin/color');
 require('./admin/pack');
 require('./admin/complect');
+require('./admin/car');
 
 //window.Vue = require('vue');
 

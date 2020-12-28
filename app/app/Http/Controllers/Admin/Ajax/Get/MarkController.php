@@ -8,16 +8,22 @@ use App\Models\Mark;
 
 class MarkController extends Controller
 {
-    public function getMarksByBrand(Request $request)
+    public function getMarksByBrand(Request $request, $single = '')
     {
     	if($request->has('brand_id') && $request->get('brand_id'))
     		$marks = Mark::where('brand_id',$request->get('brand_id'))->get()->pluck('name','id');
 
     	if($marks->count())
-	    	return response()->json([
-	    		'view'=>view('admin.getters.mark-select',compact('marks'))->render(),
-	    		'status'=>1
-	    	]);
+    		if($single)
+    			return response()->json([
+		    		'view'=>view('admin.getters.single-mark-select',compact('marks'))->render(),
+		    		'status'=>1
+		    	]);
+    		else
+		    	return response()->json([
+		    		'view'=>view('admin.getters.mark-select',compact('marks'))->render(),
+		    		'status'=>1
+		    	]);
 
 	    return response()->json([
 	    	'view'=>'',

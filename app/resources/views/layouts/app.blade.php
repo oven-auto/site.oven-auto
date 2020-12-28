@@ -103,6 +103,7 @@
                         <div class="col">
                             <li><a href="{{route('marks.index')}}">Модели</a></li>
                             <li><a href="{{route('complects.index')}}">Комплектации</a></li>
+                            <li><a href="{{route('cars.index')}}">Автомобили</a></li>
                         </div>
                     </div>
                 </div>

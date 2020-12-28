@@ -37,4 +37,9 @@ class Complect extends Model
     {
         return number_format($this->price,0,'',' ').'р.';
     }
+
+    public function getFullNameAttribute()
+    {
+        return $this->name.' '.$this->code.' '.$this->motor->adminName;
+    }
 }

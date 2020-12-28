@@ -37265,6 +37265,34 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./resources/js/admin/car.js":
+/*!***********************************!*\
+  !*** ./resources/js/admin/car.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).on('change', '#car-tab-add [name="brand_id"]', function () {
+  var url = $(this).attr('data-url');
+  var parameters = {};
+  parameters.brand_id = $(this).val();
+  var block = $('.car-mark-add');
+  block.find('select').html('');
+  $('[name="complect_id"]').html('');
+  getRender(url, parameters, block);
+});
+$(document).on('change', '#car-tab-add [name="mark_id"]', function () {
+  var url = $(this).attr('data-url-complect');
+  parameters = {};
+  parameters.mark_id = $(this).val();
+  var block = $('.car-complect-add');
+  block.find('select').html('');
+  $('[name="complect_id"]').html('');
+  getRender(url, parameters, block);
+});
+
+/***/ }),
+
 /***/ "./resources/js/admin/color.js":
 /*!*************************************!*\
   !*** ./resources/js/admin/color.js ***!
@@ -37562,7 +37590,9 @@ __webpack_require__(/*! ./admin/color */ "./resources/js/admin/color.js");
 
 __webpack_require__(/*! ./admin/pack */ "./resources/js/admin/pack.js");
 
-__webpack_require__(/*! ./admin/complect */ "./resources/js/admin/complect.js"); //window.Vue = require('vue');
+__webpack_require__(/*! ./admin/complect */ "./resources/js/admin/complect.js");
+
+__webpack_require__(/*! ./admin/car */ "./resources/js/admin/car.js"); //window.Vue = require('vue');
 
 /**
  * The following block of code may be used to automatically register your
