@@ -42,3 +42,17 @@ $(document).on('click','.car-color',function(){
 	$(this).addClass('active')
 	$('#car-tab-add [name="color_id"]').val($(this).attr('data-id'))
 })
+
+$(document).on('change','#car-tab-add [name="pack_id[]"]',function(){
+	var priceBlock = $('.car-price')
+	var carPrice = Number.parseInt(priceBlock.attr('data-price'))
+	var itemPackPrice = Number.parseInt($(this).attr('data-price'))
+
+	if($(this).prop('checked'))
+		carPrice+=itemPackPrice
+	else
+		carPrice-=itemPackPrice
+
+	priceBlock.attr('data-price',carPrice)
+	priceBlock.html(number_format(carPrice,0,'',' ','р.'))
+})

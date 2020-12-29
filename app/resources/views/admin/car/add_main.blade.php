@@ -21,7 +21,7 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text">Выпуск</span>
 			</div>
-			{{Form::date('year',isset($car)?$car->year:'',['placeholder'=>'Выпуск','class'=>'form-control' , 'required'=>'required'])}}
+			{{Form::number('year',isset($car)?$car->year:'',['placeholder'=>'Выпуск','class'=>'form-control' , 'required'=>'required'])}}
 		</div>
 
 		@error('year')						
@@ -63,9 +63,9 @@
 	<div class="col">
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">
-				<span class="input-group-text">Тип поставки</span>
+				<span class="input-group-text">Автор заказа</span>
 			</div>
-			{{Form::select('delivery_id',$deliveryTypes,isset($car)?$car->delivery_id:'',['placeholder'=>'Тип доставки','class'=>'form-control' , 'required'=>'required'])}}
+			{{Form::select('author_id',[],isset($car)?$car->author_id:'',['placeholder'=>'Автор заказа','class'=>'form-control' ])}}
 		</div>
 
 		@error('delivery_id')						
@@ -127,7 +127,7 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text">Маркер</span>
 			</div>
-			{{Form::select('marker_id',$logistMarkers,isset($car)?$car->marker_id:'',['placeholder'=>'Маркер логиста','class'=>'form-control' , 'required'=>'required'])}}
+			{{Form::select('marker_id',$logistMarkers,isset($car)?$car->marker_id:'',['placeholder'=>'Маркер логиста','class'=>'form-control'])}}
 		</div>
 
 		@error('delivery_id')						

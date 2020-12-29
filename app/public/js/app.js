@@ -37314,6 +37314,14 @@ $(document).on('click', '.car-color', function () {
   $(this).addClass('active');
   $('#car-tab-add [name="color_id"]').val($(this).attr('data-id'));
 });
+$(document).on('change', '#car-tab-add [name="pack_id[]"]', function () {
+  var priceBlock = $('.car-price');
+  var carPrice = Number.parseInt(priceBlock.attr('data-price'));
+  var itemPackPrice = Number.parseInt($(this).attr('data-price'));
+  if ($(this).prop('checked')) carPrice += itemPackPrice;else carPrice -= itemPackPrice;
+  priceBlock.attr('data-price', carPrice);
+  priceBlock.html(number_format(carPrice, 0, '', ' ', 'р.'));
+});
 
 /***/ }),
 
@@ -37606,6 +37614,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! ./axios_query */ "./resources/js/axios_query.js");
 
+__webpack_require__(/*! ./number_format */ "./resources/js/number_format.js");
+
 __webpack_require__(/*! ./inittooltips */ "./resources/js/inittooltips.js");
 
 __webpack_require__(/*! ./admin/mark.ajax */ "./resources/js/admin/mark.ajax.js");
@@ -37715,6 +37725,45 @@ $(document).ready(function () {
     selector: '[data-toggle="tooltip"]'
   });
 });
+
+/***/ }),
+
+/***/ "./resources/js/number_format.js":
+/*!***************************************!*\
+  !*** ./resources/js/number_format.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+window.number_format = function (number, decimals, dec_point, separator) {
+  var valute = arguments.length > 4 && arguments[4] !== undefined ? arguments[4] : '';
+  number = (number + '').replace(/[^0-9+\-Ee.]/g, '');
+
+  var n = !isFinite(+number) ? 0 : +number,
+      prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
+      sep = typeof separator === 'undefined' ? ',' : separator,
+      dec = typeof dec_point === 'undefined' ? '.' : dec_point,
+      s = '',
+      toFixedFix = function toFixedFix(n, prec) {
+    var k = Math.pow(10, prec);
+    return '' + (Math.round(n * k) / k).toFixed(prec);
+  }; // Фиксим баг в IE parseFloat(0.55).toFixed(0) = 0;
+
+
+  s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.');
+
+  if (s[0].length > 3) {
+    s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep);
+  }
+
+  if ((s[1] || '').length < prec) {
+    s[1] = s[1] || '';
+    s[1] += new Array(prec - s[1].length + 1).join('0');
+  }
+
+  if (valute) return s.join(dec) + valute;
+  return s.join(dec);
+};
 
 /***/ }),
 

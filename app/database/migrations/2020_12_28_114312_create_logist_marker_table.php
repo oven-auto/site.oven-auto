@@ -15,6 +15,7 @@ class CreateLogistMarkerTable extends Migration
     {
         Schema::create('logist_markers', function (Blueprint $table) {
             $table->id();
+            $table->string('name',200);
             $table->timestamps();
         });
     }

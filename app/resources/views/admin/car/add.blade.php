@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+{{Form::open([
+	'url'=>isset($car) ? route('cars.update',$car) : route('cars.store'),
+	'method'=>isset($car) ? 'PUT' : 'POST'
+])}}
 <div class="container">
 	<div class="row">
 		<div class="col">
@@ -28,8 +32,10 @@
 		</div>
 	</div>
 
-	
+	@include('admin.form.create.control')
+
 </div>
+{{Form::close()}}
 @endsection
 
 

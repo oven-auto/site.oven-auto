@@ -23,4 +23,9 @@ class Pack extends Model
     	return $this->hasOne(\App\Models\Brand::class,'id','brand_id');
     }
 
+    public function getFormatPriceAttribute()
+    {
+        return number_format($this->price,0,'',' ').'р.';
+    }
+
 }

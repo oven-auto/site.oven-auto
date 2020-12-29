@@ -45,7 +45,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 
 			Route::post('brand/packs','PackGetController@getPackByBrand')->name('ajax.get.pack');
 			Route::post('brand/motors','MotorGetController@getMotorByBrand')->name('ajax.get.motor');
-			Route::post('mark/colors','MarkGetColorController@get')->name('ajax.mark.color.get');
+			Route::post('mark/colors','ColorGetController@get')->name('ajax.mark.color.get');
 
 			Route::post('car/view','CarGetController@getView')->name('ajax.get.car.view');
 		});

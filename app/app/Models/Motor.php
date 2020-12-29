@@ -37,4 +37,6 @@ class Motor extends Model
     {
         return ($this->size/1000).' '.$this->power.' '.$this->transmission->name.' '.$this->driver->name;
     }
+
+    
 }
