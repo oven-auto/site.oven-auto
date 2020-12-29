@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Ajax\Get;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Complect;
+
 class ComplectGetController extends Controller
 {
     public function getComplectByMark(Request $request)

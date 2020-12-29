@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Option;
 use App\Models\OptionBrand;
 
-class OptionController extends Controller
+class OptionGetController extends Controller
 {
     public function getOptionByBrand(Request $request)
     {

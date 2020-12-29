@@ -34,13 +34,20 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
 
 	Route::group(['prefix'=>'ajax','namespace'=>'Ajax'],function(){
 		Route::group(['prefix'=>'get','namespace'=>'Get'],function(){
-			Route::post('marks/{single?}','MarkController@getMarksByBrand')->name('ajax.get.mark');
-			Route::post('options/brand','OptionController@getOptionByBrand')->name('ajax.get.option');
-			Route::post('options/all','OptionController@getOptionAll')->name('ajax.get.option.all');
-			Route::post('complect/mark','ComplectGetController@getComplectByMark')->name('ajax.get.complect');
-			Route::post('packs/brand','PackController@getPackByBrand')->name('ajax.get.pack');
-			Route::post('motors/brand','MotorController@getMotorByBrand')->name('ajax.get.motor');
-			Route::post('/mark/colors','MarkColorController@get')->name('ajax.mark.color.get');
+
+			Route::post('brand/marks/{single?}','MarkGetController@getMarksByBrand')->name('ajax.get.mark');
+			Route::post('brand/options','OptionGetController@getOptionByBrand')->name('ajax.get.option');
+			Route::post('all/options','OptionGetController@getOptionAll')->name('ajax.get.option.all');
+
+			Route::post('mark/complects','ComplectGetController@getComplectByMark')->name('ajax.get.complect');
+			Route::post('complect/colors','ColorGetController@getColorByComplect')->name('ajax.get.complect.color');
+			Route::post('complect/packs','PackGetController@getPackByComplect')->name('ajax.get.complect.pack');
+
+			Route::post('brand/packs','PackGetController@getPackByBrand')->name('ajax.get.pack');
+			Route::post('brand/motors','MotorGetController@getMotorByBrand')->name('ajax.get.motor');
+			Route::post('mark/colors','MarkGetColorController@get')->name('ajax.mark.color.get');
+
+			Route::post('car/view','CarGetController@getView')->name('ajax.get.car.view');
 		});
 
 		Route::group(['prefix'=>'set','namespace'=>'Set'],function(){

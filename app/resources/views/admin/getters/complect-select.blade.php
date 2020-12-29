@@ -11,7 +11,9 @@
 	{{Form::select('complect_id',$complects,$needArr,[
 		'class'=>'form-control' , 
 		'required'=>'required', 
-		'data-url-pack'=>route('ajax.get.pack'),
+		'data-url-pack'=>route('ajax.get.complect.pack'),
+		'data-url-color'=>route('ajax.get.complect.color'),
+		'data-url-carview'=>route('ajax.get.car.view'),
 		'placeholder'=>'Комплектация'
 	])}}
 </div>

@@ -32,7 +32,6 @@ window.FillColorDiv = function(selector){
 		{
 			str = 'linear-gradient(to bottom,'+colorMas[0]+' 50%,'+colorMas[1]+' 50%)'
 		}
-		
 		$(this).css({'background':str})
 	})
 }

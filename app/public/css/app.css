@@ -13291,3 +13291,25 @@ form img {
   color: #fff;
 }
 
+#car-tab-add img {
+  width: 100%;
+}
+
+#car-tab-add .car-color {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  transition: border-radius 0.3s linear;
+  cursor: pointer;
+}
+
+#car-tab-add .car-color:hover {
+  border-radius: 100%;
+}
+
+#car-tab-add .car-color.active {
+  border: 5px solid #fff;
+  box-sizing: border-box;
+}
+

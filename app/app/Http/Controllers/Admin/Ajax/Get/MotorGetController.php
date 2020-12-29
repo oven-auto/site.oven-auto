@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Admin\Ajax\Get;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Motor;
-class MotorController extends Controller
+
+class MotorGetController extends Controller
 {
     public function getMotorByBrand(Request $request)
     {

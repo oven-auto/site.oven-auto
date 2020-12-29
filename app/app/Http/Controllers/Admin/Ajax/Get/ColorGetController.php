@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Color;
 use App\Models\Brand;
 
-class MarkColorController extends Controller
+class ColorGetController extends Controller
 {
     public function get(Request $request)
     {
@@ -16,5 +16,10 @@ class MarkColorController extends Controller
     	return response()->json([
     		'view'=>view('admin.mark.colorlist',compact('colors','brand'))->render()
     	]);
+    }
+
+    public function getColorByComplect(Request $request)
+    {
+
     }
 }

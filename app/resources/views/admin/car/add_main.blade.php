@@ -180,6 +180,6 @@
 	</div>
 </div>
 
-<div class="row">
+<div class="row" id="car-view">
 
 </div>

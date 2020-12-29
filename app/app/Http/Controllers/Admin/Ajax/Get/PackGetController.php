@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Pack;
 
-class PackController extends Controller
+class PackGetController extends Controller
 {
     public function getPackByBrand(Request $request)
     {
