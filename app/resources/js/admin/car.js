@@ -6,6 +6,10 @@ $(document).on('change','#car-tab-add [name="brand_id"]',function(){
 	block.find('select').html('')
 	$('[name="complect_id"]').html('')
 	getRender(url,parameters,block)
+
+	var block = $('#car-option')
+	var url = $(this).attr('data-url-option')
+	getRender(url,parameters,block)
 })
 
 $(document).on('change','#car-tab-add [name="mark_id"]',function(){

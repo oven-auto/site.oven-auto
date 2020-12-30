@@ -26,7 +26,7 @@
 
 		<div class="col">
 			<div class="container">
-				<div class="row mt-3 py-1" style="background: #333;color:#ddd;">
+				<div class="row mt-3 py-1 mb-3" style="">
 					<div class="col h4 py-0 my-0" >
 						{{$complect->brand->name}} {{$complect->mark->name}} {{$complect->name}}
 					</div>
@@ -38,7 +38,7 @@
 
 				<div class="row">
 					<div class="col">
-						<table class="table table-sm ">
+						<table class="" style="width: 100%;">
 							<tr class="h5">
 								<td>Исполнение</td>
 								<td>{{$complect->code}}</td>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Models\Car;
+use App\Models\CarPack;
 
 class CarController extends Controller
 {
@@ -14,6 +15,8 @@ class CarController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private $carColumns = ['delivery_id','author_id','marker_id','year','vin','order_number','brand_id','mark_id','complect_id','color_id'];
+
     public function index()
     {
         //
@@ -40,7 +43,12 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        $car = Car::create($request->only($this->carColumns));
+        foreach($request->pack_id as $itemPackId) 
+            CarPack::create([
+                'car_id'=>$car->id,
+                'pack_id'=>$itemPackId
+            ]);
     }
 
     /**

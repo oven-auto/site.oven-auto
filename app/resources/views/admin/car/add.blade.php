@@ -23,13 +23,13 @@
 		</div>
 		
 		<div class="tab-pane fade" id="car-log" role="tabpanel" aria-labelledby="car-log-tab">
-			2
+			@include('admin.car.car_logistic')
 		</div>
 		<div class="tab-pane fade" id="car-receiving" role="tabpanel" aria-labelledby="car-receiving-tab">
 			3
 		</div>
 		<div class="tab-pane fade" id="car-option" role="tabpanel" aria-labelledby="car-option-tab">
-			4
+			@include('admin.car.option_car')
 		</div>
 	</div>
 

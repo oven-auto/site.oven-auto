@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class CarPack extends Model
 {
-    //
+    protected $guarded = [];
 }

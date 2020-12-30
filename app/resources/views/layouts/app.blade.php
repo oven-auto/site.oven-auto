@@ -72,7 +72,7 @@
             </div>
         </nav>
 
-        <main class="py-4 admin">
+        <main class="py-4 admin" style="min-height: 71vh;">
             
             @section('alert')
                 @include('admin.alert.create')
@@ -87,7 +87,7 @@
         </main>
 
         @section('footer')
-            <div class="container-fluid py-4" style="background:#333;height: 300px;color: #ddd;">
+            <div class="container-fluid py-4" style="background:#333;min-height: 20vh;color: #ddd;">
                 <div class="container">
                     <div class="row">
                         <div class="col">

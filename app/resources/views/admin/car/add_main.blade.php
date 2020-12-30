@@ -40,7 +40,14 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text">Бренд</span>
 			</div>
-			{{Form::select('brand_id',$brands,isset($car)?$car->brand_id:'',['placeholder'=>'Бренд','class'=>'form-control' , 'required'=>'required', 'data-url'=>route('ajax.get.mark','single')])}}
+			{{Form::select('brand_id',$brands,isset($car)?$car->brand_id:'',
+				[
+					'placeholder'=>'Бренд',
+					'class'=>'form-control' , 
+					'required'=>'required', 
+					'data-url'=>route('ajax.get.mark','single'),
+					'data-url-option'=>route('ajax.get.option')
+				])}}
 		</div>
 
 		@error('brand_id')						
@@ -186,5 +193,7 @@
 </div>
 
 <div class="row" id="car-view">
-
+	@isset($car)
+		@include('admin.car.view')
+	@endisset
 </div>
