@@ -21,7 +21,8 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text">Выпуск</span>
 			</div>
-			{{Form::number('year',isset($car)?$car->year:'',['placeholder'=>'Выпуск','class'=>'form-control' , 'required'=>'required'])}}
+			@php ($mas = range(date('Y')-3,date('Y')+1))
+			{{Form::select('year',array_combine($mas, $mas),isset($car)?$car->year:'',['placeholder'=>'Выпуск','class'=>'form-control' , 'required'=>'required'])}}
 		</div>
 
 		@error('year')						
@@ -65,9 +66,13 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text">Автор заказа</span>
 			</div>
-			{{Form::select('author_id',[],isset($car)?$car->author_id:'',['placeholder'=>'Автор заказа','class'=>'form-control' ])}}
+			{{Form::select(
+				'author_id',
+				isset($car)?[]:[Auth::user()->id=>Auth::user()->name],
+				isset($car)?$car->author_id: Auth::user()->id,
+				['placeholder'=>'Автор заказа','class'=>'form-control','style'=>'pointer-events:none;'
+			])}}
 		</div>
-
 		@error('delivery_id')						
 		    <div class="alert alert-danger">
 		    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">

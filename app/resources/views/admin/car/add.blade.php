@@ -3,7 +3,8 @@
 @section('content')
 {{Form::open([
 	'url'=>isset($car) ? route('cars.update',$car) : route('cars.store'),
-	'method'=>isset($car) ? 'PUT' : 'POST'
+	'method'=>isset($car) ? 'PUT' : 'POST',
+	'style'=>'width:100%;'
 ])}}
 <div class="container">
 	<div class="row">
