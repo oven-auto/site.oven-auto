@@ -85,7 +85,7 @@
 						'placeholder'=>'Бренд',
 						'class'=>'form-control',
 						'required'=>'required',
-						'data-url-mark'=>route('ajax.get.mark'),
+						'data-url-mark'=>route('ajax.get.mark','single'),
 						'data-url-option'=>route('ajax.get.option'),
 						'data-url-motor'=>route('ajax.get.motor')
 					]
@@ -104,7 +104,7 @@
 
 			<div class="mark-container">
 				@isset($complect)
-					@include('admin.getters.mark-select',['data'=>[$complect->mark_id]])
+					@include('admin.getters.single-mark-select',['data'=>[$complect->mark_id]])
 				@endisset
 			</div>
 

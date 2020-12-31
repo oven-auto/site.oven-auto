@@ -37272,6 +37272,13 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+window.FillAlpha = function (color) {
+  var back = $('.alpha-back');
+  back.css({
+    'background': color
+  });
+};
+
 $(document).on('change', '#car-tab-add [name="brand_id"]', function () {
   var url = $(this).attr('data-url');
   var parameters = {};
@@ -37307,23 +37314,27 @@ $(document).on('change', '#car-tab-add [name="complect_id"]', function () {
   });
 });
 $(document).on('click', '.car-color', function () {
-  var back = $('.alpha-back');
   var text = $('.color-name');
-  back.css({
-    'background': $(this).attr('data-color')
-  });
   text.html($(this).attr('data-code'));
+  FillAlpha($(this).attr('data-color'));
   $('.car-color').removeClass('active');
   $(this).addClass('active');
   $('#car-tab-add [name="color_id"]').val($(this).attr('data-id'));
 });
-$(document).on('change', '#car-tab-add [name="pack_id[]"]', function () {
+$(document).on('change', '#car-tab-add [name="pack_ids[]"]', function () {
   var priceBlock = $('.car-price');
   var carPrice = Number.parseInt(priceBlock.attr('data-price'));
   var itemPackPrice = Number.parseInt($(this).attr('data-price'));
   if ($(this).prop('checked')) carPrice += itemPackPrice;else carPrice -= itemPackPrice;
   priceBlock.attr('data-price', carPrice);
   priceBlock.html(number_format(carPrice, 0, '', ' ', 'р.'));
+});
+$(document).ready(function () {
+  FillColorDiv('.car-color');
+  FillAlpha($('.car-color.active').attr('data-color'));
+  $('#car-tab-add [name="pack_ids[]"]').each(function () {
+    if ($(this).hasClass('checked')) $(this).click();
+  });
 });
 
 /***/ }),

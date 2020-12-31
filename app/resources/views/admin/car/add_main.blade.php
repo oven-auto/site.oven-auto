@@ -113,7 +113,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Модель</span>
 				</div>
-				{{Form::select('mark_id',[],'',['placeholder'=>'Модель','class'=>'form-control' , 'required'=>'required'])}}
+				{{Form::select('mark_id',isset($marks)?$marks:'',isset($car)?$car->mark_id:'',['placeholder'=>'Модель','class'=>'form-control' , 'required'=>'required'])}}
 			</div>
 
 			@error('mark_id')						
@@ -175,7 +175,14 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Комплектация</span>
 				</div>
-				{{Form::select('complect_id',[],'',['placeholder'=>'Комплектация','class'=>'form-control' , 'required'=>'required'])}}
+				{{Form::select(
+					'complect_id',
+					isset($complects) ? $complects : [],
+					isset($car) ? $car->complect_id : '',
+					[
+						'placeholder'=>'Комплектация','class'=>'form-control' , 'required'=>'required'
+					]
+				)}}
 			</div>
 
 			@error('complect_id')						
@@ -193,7 +200,7 @@
 </div>
 
 <div class="row" id="car-view">
-	@isset($car)
-		@include('admin.car.view')
+	@isset($car->complect)
+		@include('admin.car.view',['complect'=>$car->complect])
 	@endisset
 </div>

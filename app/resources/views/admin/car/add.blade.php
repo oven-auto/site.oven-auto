@@ -14,7 +14,18 @@
 			</div>
 		</div>
 	</div>
-
+	
+	<div class="">
+		@if ($errors->any())
+		    <div class="alert alert-danger">
+		        <ul>
+		            @foreach ($errors->all() as $error)
+		                <li>{{ $error }}</li>
+		            @endforeach
+		        </ul>
+		    </div>
+		@endif
+	</div>
 	@include('admin.car.tabs')
 
 	<div class="tab-content" id="car-tab-add">
@@ -23,13 +34,13 @@
 		</div>
 		
 		<div class="tab-pane fade" id="car-log" role="tabpanel" aria-labelledby="car-log-tab">
-			@include('admin.car.car_logistic')
+			<!--include('admin.car.car_logistic')-->
 		</div>
 		<div class="tab-pane fade" id="car-receiving" role="tabpanel" aria-labelledby="car-receiving-tab">
-			3
+			
 		</div>
 		<div class="tab-pane fade" id="car-option" role="tabpanel" aria-labelledby="car-option-tab">
-			@include('admin.car.option_car')
+			<!--include('admin.car.option_car')-->
 		</div>
 	</div>
 

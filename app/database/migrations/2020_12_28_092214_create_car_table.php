@@ -22,7 +22,6 @@ class CreateCarTable extends Migration
             $table->integer('delivery_id');
             $table->integer('author_id');
             $table->integer('marker_id');
-            $table->string('order_number');
             $table->integer('year');
             $table->string('vin');
             $table->timestamps();

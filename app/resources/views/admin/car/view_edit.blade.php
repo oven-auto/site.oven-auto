@@ -8,12 +8,12 @@
 			<div class="text-center color-name mb-3">
 				Код цвета				
 			</div>
-			<input type="hidden" name="color_id" value="{{isset($car)?$car->color_id:''}}">
+			<input type="hidden" name="color_id" value="{{isset($car) ? $car->color_id : ''">
 			<div class="text-center">
 				@isset($complect->mark->colors)
 					@foreach($complect->mark->colors as $itemColor)
 						<span 
-							class="car-color {{(isset($car) && $car->color_id==$itemColor->color->id) ? 'active' : ''}}" 
+							class="car-color active" 
 							data-color="{{$itemColor->color->web}}"
 							data-id="{{$itemColor->color->id}}"
 							data-code="{{$itemColor->color->code}}"
@@ -80,13 +80,7 @@
 								<div class="row">
 									<div class="col">
 										<label class="checkbox">
-											<input
-												class="{{(isset($car) && $car->packs->contains('pack_id',$itemPack->pack->id))?'checked':''}}"
-												type="checkbox" 
-												name="pack_ids[]" 
-												value="{{$itemPack->pack->id}}" 
-												data-price="{{$itemPack->pack->price}}"
-											>
+											<input type="checkbox" name="pack_ids[]" value="{{$itemPack->pack->id}}" data-price="{{$itemPack->pack->price}}">
 											<div class="checkbox__text"></div>
 										</label>
 									</div>
@@ -96,8 +90,8 @@
 							</div>
 						@endforeach
 					</div>
-				</div>
 			</div>
 		</div>
+	
 	</div>
 </div>

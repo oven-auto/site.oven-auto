@@ -1,14 +1,14 @@
 <div class="row">
 	<div class="col">
-		<!--YEAR BEGIN-->
+		<!--ЗАКАЗ В ПРОИЗВОДСТВО BEGIN-->
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">
 				<span class="input-group-text">Заказа в производство</span>
 			</div>
-			{{Form::date('year',isset($car)?$car->year:'',['placeholder'=>'Выпуск','class'=>'form-control' ])}}
+			{{Form::date('order_date',isset($car)?$car->year:'',['placeholder'=>'Заказ в вроизводство','class'=>'form-control' ])}}
 		</div>
 
-		@error('year')						
+		@error('order_date')						
 		    <div class="alert alert-danger">
 		    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -16,18 +16,20 @@
 				{{ $message }}
 			</div>
 		@enderror
-		<!--YEAR END-->
+		<!--ЗАКАЗ В ПРОИЗВОДСТВО END-->
+
+
 
 		<div class="plan-date">
-			<!--YEAR BEGIN-->
+			<!--ПЛАНИРУЕМАЯ СБОРКА BEGIN-->
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Планируемая сборка</span>
 				</div>
-				{{Form::date('year',isset($car)?$car->year:'',['placeholder'=>'Выпуск','class'=>'form-control' ])}}
+				{{Form::date('plan_date',isset($car)?$car->year:'',['placeholder'=>'Выпуск','class'=>'form-control' ])}}
 			</div>
 
-			@error('year')						
+			@error('plan_date')						
 			    <div class="alert alert-danger">
 			    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -35,20 +37,27 @@
 					{{ $message }}
 				</div>
 			@enderror
-			<!--YEAR END-->
+			<!--ПЛАНИРУЕМАЯ СБОРКА  END-->
+
+
 		</div>
 	</div>
 
+
+
+
+
+
 	<div class="col">
-		<!--YEAR BEGIN-->
+		<!--УВЕДОМЛЕНИЕ О СБОРКЕ BEGIN-->
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">
 				<span class="input-group-text">Уведомление о сборке</span>
 			</div>
-			{{Form::date('year',isset($car)?$car->year:'',['placeholder'=>'Выпуск','class'=>'form-control' ])}}
+			{{Form::date('notice_date',isset($car)?$car->year:'',['placeholder'=>'Выпуск','class'=>'form-control' ])}}
 		</div>
 
-		@error('year')						
+		@error('notice_date')						
 		    <div class="alert alert-danger">
 		    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -56,17 +65,21 @@
 				{{ $message }}
 			</div>
 		@enderror
-		<!--YEAR END-->
+		<!--УВЕДОМЛЕНИЕ О СБОРКЕ END-->
 
-		<!--YEAR BEGIN-->
+
+
+
+
+		<!--ФАКТИЧЕСКАЯ СБОРКА BEGIN-->
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">
 				<span class="input-group-text">Фактическая сборка</span>
 			</div>
-			{{Form::date('year',isset($car)?$car->year:'',['placeholder'=>'Выпуск','class'=>'form-control' ])}}
+			{{Form::date('build_date',isset($car)?$car->year:'',['placeholder'=>'Выпуск','class'=>'form-control' ])}}
 		</div>
 
-		@error('year')						
+		@error('build_date')						
 		    <div class="alert alert-danger">
 		    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -74,19 +87,19 @@
 				{{ $message }}
 			</div>
 		@enderror
-		<!--YEAR END-->
+		<!--ФАКТИЧЕСКАЯ СБОРКА END-->
 	</div>
 
 	<div class="col">
-		<!--YEAR BEGIN-->
+		<!--ГОТОВНОСТЬ К ОТГРУЗКЕ BEGIN-->
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">
 				<span class="input-group-text">Готовность к отгрузке</span>
 			</div>
-			{{Form::date('year',isset($car)?$car->year:'',['placeholder'=>'Выпуск','class'=>'form-control' ])}}
+			{{Form::date('ready_date',isset($car)?$car->year:'',['placeholder'=>'Выпуск','class'=>'form-control' ])}}
 		</div>
 
-		@error('year')						
+		@error('ready_date')						
 		    <div class="alert alert-danger">
 		    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -94,36 +107,27 @@
 				{{ $message }}
 			</div>
 		@enderror
-		<!--YEAR END-->
+		<!--ГОТОВНОСТЬ К ОТГРУЗКЕ END-->
 
-		<!--YEAR BEGIN-->
+		<!--ЦЕХ ОТГРУЗКИ BEGIN-->
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">
 				<span class="input-group-text">Цех отгрузки</span>
 			</div>
-			{{Form::text('year',isset($car)?$car->year:'',['placeholder'=>'Выпуск','class'=>'form-control' ])}}
+			<div class="form-control">ЦЕХ</div>
 		</div>
-
-		@error('year')						
-		    <div class="alert alert-danger">
-		    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-				{{ $message }}
-			</div>
-		@enderror
-		<!--YEAR END-->
+		<!--ЦЕХ ОТГРУЗКИ END-->
 
 		<div class="ship-date">
-			<!--YEAR BEGIN-->
+			<!--ДАТА ОТГРУЗКИ BEGIN-->
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Отгрузка</span>
 				</div>
-				{{Form::date('year',isset($car)?$car->year:'',['placeholder'=>'Выпуск','class'=>'form-control' ])}}
+				{{Form::date('ship_date',isset($car)?$car->year:'',['placeholder'=>'Выпуск','class'=>'form-control' ])}}
 			</div>
 
-			@error('year')						
+			@error('ship_date')						
 			    <div class="alert alert-danger">
 			    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -131,7 +135,7 @@
 					{{ $message }}
 				</div>
 			@enderror
-			<!--YEAR END-->
+			<!--ДАТА ОТГРУЗКИ END-->
 		</div>
 
 	</div>

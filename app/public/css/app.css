@@ -13311,6 +13311,15 @@ form img {
   width: 100px;
 }
 
+.input-group-prepend {
+  width: 100%;
+}
+
+.input-group-text {
+  background: #fff;
+  border: 0px;
+}
+
 .color-pic {
   width: 40px;
   height: 40px;
