@@ -9,6 +9,7 @@ use App\Models\Car;
 use App\Models\CarPack;
 use App\Models\CarOption;
 use App\Models\CarProdaction;
+use App\Models\Option;
 
 class CarController extends Controller
 {
@@ -59,7 +60,7 @@ class CarController extends Controller
             foreach($request->get('option_ids') as $itemOptionId) 
                 CarOption::create([
                     'car_id'=>$car->id,
-                    'option_id'=>$itemPackId
+                    'option_id'=>$itemOptionId
                 ]);
 
         $productionData = $request->only($this->carProdColumns);
@@ -94,7 +95,15 @@ class CarController extends Controller
         $logistMarkers= \App\Models\LogistMarker::get()->pluck('name','id');
         $marks = \App\Models\Mark::where('brand_id',$car->brand_id)->get()->pluck('name','id');
         $complects = \App\Models\Complect::where('mark_id',$car->mark_id)->get()->pluck('name','id');
-        return view('admin.car.add',compact('brands','deliveryTypes','logistMarkers','car','marks','complects'));
+        $options = Option::select('options.*')
+            ->leftJoin('option_brands','option_brands.option_id','options.id')
+            ->where('option_brands.brand_id',$car->brand_id)
+            ->orderBy('options.type_id')
+            ->orderBy('options.name')
+            ->groupBy('options.id')
+            ->get()
+            ->groupBy('type_id');
+        return view('admin.car.add',compact('brands','deliveryTypes','logistMarkers','car','marks','complects','options'));
     }
 
     /**

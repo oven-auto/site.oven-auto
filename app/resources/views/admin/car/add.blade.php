@@ -40,7 +40,7 @@
 			
 		</div>
 		<div class="tab-pane fade" id="car-option" role="tabpanel" aria-labelledby="car-option-tab">
-			<!--include('admin.car.option_car')-->
+			@include('admin.car.option_car',['data'=>isset($car->options) ? $car->options : [] ])
 		</div>
 	</div>
 

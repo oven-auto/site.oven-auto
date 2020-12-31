@@ -17,4 +17,9 @@ class Car extends Model
     {
     	return $this->hasMany(\App\Models\CarPack::class,'car_id','id');
     }
+
+    public function options()
+    {
+    	return $this->hasMany(\App\Models\CarOption::class,'car_id','id');
+    }
 }
