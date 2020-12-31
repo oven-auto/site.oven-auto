@@ -113,7 +113,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Модель</span>
 				</div>
-				{{Form::select('mark_id',isset($marks)?$marks:'',isset($car)?$car->mark_id:'',['placeholder'=>'Модель','class'=>'form-control' , 'required'=>'required'])}}
+				{{Form::select('mark_id',isset($marks)?$marks:[],isset($car)?$car->mark_id:'',['placeholder'=>'Модель','class'=>'form-control' , 'required'=>'required'])}}
 			</div>
 
 			@error('mark_id')						
