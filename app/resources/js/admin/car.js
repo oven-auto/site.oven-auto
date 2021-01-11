@@ -35,8 +35,11 @@ $(document).on('change','#car-tab-add [name="complect_id"]',function(){
 	block.html('')
 	axios.post(url,parameters).then(function(response){
 		if(response.data.status==1)
+		{
 			block.html(response.data.view)
-		FillColorDiv('.car-color')
+			FillColorDiv('.car-color')
+			$('.car-city').html(response.data.complect.mark.country.city)
+		}		
 	}).catch(function(error){
 		console.log(error)
 	})

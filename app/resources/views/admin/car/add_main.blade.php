@@ -75,7 +75,7 @@
 			</div>
 			{{Form::select(
 				'author_id',
-				isset($car)?[]:[Auth::user()->id=>Auth::user()->name],
+				$authors,
 				isset($car)?$car->author_id: Auth::user()->id,
 				['placeholder'=>'Автор заказа','class'=>'form-control','style'=>'pointer-events:none;'
 			])}}
@@ -156,7 +156,7 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text">№ заказа</span>
 			</div>
-			{{Form::text('order_number',isset($car)?$car->order_number:'',['placeholder'=>'Номер заказа','class'=>'form-control' , 'required'=>'required'])}}
+			{{Form::text('order_number',isset($car)?$car->prodaction->order_number:'',['placeholder'=>'Номер заказа','class'=>'form-control' , 'required'=>'required'])}}
 		</div>
 
 		@error('year')						

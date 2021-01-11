@@ -10,6 +10,9 @@ use App\Models\CarPack;
 use App\Models\CarOption;
 use App\Models\CarProdaction;
 use App\Models\Option;
+use App\User;
+use DB;
+use App\Repositories\CarRepository;
 
 class CarController extends Controller
 {
@@ -20,6 +23,13 @@ class CarController extends Controller
      */
     private $carColumns = ['delivery_id','author_id','marker_id','year','vin','brand_id','mark_id','complect_id','color_id'];
     private $carProdColumns = ['order_date','ship_date','build_date', 'ready_date', 'order_number'];
+    
+    // private $carRep;
+
+    // public function __construct(CarRepository $carRep)
+    // {
+    //     $this->carRep = $carRep;
+    // }
 
     public function index()
     {
@@ -36,7 +46,8 @@ class CarController extends Controller
         $brands = \App\Models\Brand::get()->pluck('name','id');
         $deliveryTypes = \App\Models\DeliveryType::get()->pluck('name','id');
         $logistMarkers= \App\Models\LogistMarker::get()->pluck('name','id');
-        return view('admin.car.add',compact('brands','deliveryTypes','logistMarkers'));
+        $authors = User::get()->pluck('name','id');
+        return view('admin.car.add',compact('brands','deliveryTypes','logistMarkers','authors'));
     }
 
     /**
@@ -47,27 +58,25 @@ class CarController extends Controller
      */
     public function store(CarCreateRequest $request)
     {
-        $car = Car::create($request->only($this->carColumns));
-
-        if($request->get('pack_ids'))
-            foreach($request->get('pack_ids') as $itemPackId) 
-                CarPack::create([
-                    'car_id'=>$car->id,
-                    'pack_id'=>$itemPackId
-                ]);
-
-        if($request->get('option_ids'))
-            foreach($request->get('option_ids') as $itemOptionId) 
-                CarOption::create([
-                    'car_id'=>$car->id,
-                    'option_id'=>$itemOptionId
-                ]);
-
-        $productionData = $request->only($this->carProdColumns);
-        $productionData['car_id'] = $car->id;
-        $productionData['user_id'] = $car->author_id;
-        CarProdaction::create($productionData);
-
+        try
+        {
+            $car = DB::transaction(function() use ($request)
+            {
+                $car = Car::create($request->only($this->carColumns));
+                if($request->get('pack_ids'))
+                    foreach($request->get('pack_ids') as $itemPackId) 
+                        $car->packs()->create(['pack_id'=>$itemPackId]);
+                if($request->get('option_ids'))
+                    foreach($request->get('option_ids') as $itemOptionId) 
+                        $car->options()->create(['option_id'=>$itemOptionId]);
+                $car->prodaction()->create(array_merge(['user_id'=>$car->author_id],$request->only($this->carProdColumns)));
+                return $car;
+            });          
+        }
+        catch(Exception $e)
+        {
+            return redirect()->route('cars.create')->with('status','Ошибка. Автомобиль не добавлен');
+        }
         return redirect()->route('cars.edit',$car)->with('status','Новый автомобиль добавлен');
     }
 
@@ -103,7 +112,8 @@ class CarController extends Controller
             ->groupBy('options.id')
             ->get()
             ->groupBy('type_id');
-        return view('admin.car.add',compact('brands','deliveryTypes','logistMarkers','car','marks','complects','options'));
+        $authors = User::get()->pluck('name','id');
+        return view('admin.car.add',compact('brands','deliveryTypes','logistMarkers','car','marks','complects','options','authors'));
     }
 
     /**
@@ -113,9 +123,35 @@ class CarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CarCreateRequest $request, $id)
+    public function update(CarCreateRequest $request, Car $car)
     {
-        //
+        try
+        {
+            DB::transaction(function() use ($request, & $car)
+            {
+                $car->update($request->only($this->carColumns));
+
+                $car->packs()->delete();
+                if($request->get('pack_ids'))
+                    foreach($request->get('pack_ids') as $itemPackId) 
+                        $car->packs()->create(['pack_id'=>$itemPackId]);
+
+                $car->options()->delete();
+                if($request->get('option_ids'))
+                    foreach($request->get('option_ids') as $itemOptionId) 
+                        $car->options()->create(['option_id'=>$itemOptionId]);
+
+                if(isset($car->prodaction->id))
+                    $car->prodaction()->update(array_merge(['user_id'=>$car->author_id],$request->only($this->carProdColumns)));
+                else
+                    $car->prodaction()->create(array_merge(['user_id'=>$car->author_id],$request->only($this->carProdColumns)));
+            });          
+        }
+        catch(Exception $e)
+        {
+            return redirect()->route('cars.create')->with('status','Ошибка. Автомобиль не изменен');
+        }
+        return redirect()->route('cars.edit',$car)->with('status','Автомобиль изменен');
     }
 
     /**

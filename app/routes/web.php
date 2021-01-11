@@ -21,7 +21,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
+Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>'auth'],function(){
 	Route::resource('brands','Brand\BrandController');
 	Route::resource('marks','Mark\MarkController');
 	Route::resource('properties','Property\PropertyController');

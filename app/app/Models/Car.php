@@ -22,4 +22,14 @@ class Car extends Model
     {
     	return $this->hasMany(\App\Models\CarOption::class,'car_id','id');
     }
+
+    public function mark()
+    {
+        return $this->hasOne(\App\Models\Mark::class,'id','mark_id')->withdefault();
+    }
+
+    public function prodaction()
+    {
+        return $this->hasOne(\App\Models\CarProdaction::class,'car_id','id')->withdefault();
+    }
 }

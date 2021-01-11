@@ -5,7 +5,7 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text">Заказа в производство</span>
 			</div>
-			{{Form::date('order_date',isset($car)?$car->year:'',['placeholder'=>'Заказ в вроизводство','class'=>'form-control' ])}}
+			{{Form::date('order_date',isset($car)?$car->prodaction->order_date:'',['placeholder'=>'Заказ в производство','class'=>'form-control' ])}}
 		</div>
 
 		@error('order_date')						
@@ -26,7 +26,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Планируемая сборка</span>
 				</div>
-				{{Form::date('plan_date',isset($car)?$car->year:'',['placeholder'=>'Выпуск','class'=>'form-control' ])}}
+				{{Form::date('plan_date',isset($car)?$car->year:'',['placeholder'=>'Планируемая сборка','class'=>'form-control' ])}}
 			</div>
 
 			@error('plan_date')						
@@ -54,7 +54,7 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text">Уведомление о сборке</span>
 			</div>
-			{{Form::date('notice_date',isset($car)?$car->year:'',['placeholder'=>'Выпуск','class'=>'form-control' ])}}
+			{{Form::date('notice_date',isset($car)?$car->year:'',['placeholder'=>'Уведомление о сборке','class'=>'form-control' ])}}
 		</div>
 
 		@error('notice_date')						
@@ -76,7 +76,7 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text">Фактическая сборка</span>
 			</div>
-			{{Form::date('build_date',isset($car)?$car->year:'',['placeholder'=>'Выпуск','class'=>'form-control' ])}}
+			{{Form::date('build_date',isset($car)?$car->prodaction->build_date:'',['placeholder'=>'Фактическая сборка','class'=>'form-control' ])}}
 		</div>
 
 		@error('build_date')						
@@ -96,7 +96,7 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text">Готовность к отгрузке</span>
 			</div>
-			{{Form::date('ready_date',isset($car)?$car->year:'',['placeholder'=>'Выпуск','class'=>'form-control' ])}}
+			{{Form::date('ready_date',isset($car)?$car->prodaction->ready_date:'',['placeholder'=>'Готовность к отгрузке','class'=>'form-control' ])}}
 		</div>
 
 		@error('ready_date')						
@@ -114,7 +114,7 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text">Цех отгрузки</span>
 			</div>
-			<div class="form-control">ЦЕХ</div>
+			<div class="form-control car-city">{{isset($car)?$car->mark->country->city : ''}}</div>
 		</div>
 		<!--ЦЕХ ОТГРУЗКИ END-->
 
@@ -124,7 +124,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Отгрузка</span>
 				</div>
-				{{Form::date('ship_date',isset($car)?$car->year:'',['placeholder'=>'Выпуск','class'=>'form-control' ])}}
+				{{Form::date('ship_date',isset($car)?$car->prodaction->ship_date:'',['placeholder'=>'Отгрузка','class'=>'form-control' ])}}
 			</div>
 
 			@error('ship_date')						
