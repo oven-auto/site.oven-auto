@@ -9,6 +9,7 @@ use App\Models\Car;
 use App\Models\CarPack;
 use App\Models\CarOption;
 use App\Models\CarProdaction;
+use App\Models\CarPlan;
 use App\Models\Option;
 use App\User;
 use DB;
@@ -70,6 +71,19 @@ class CarController extends Controller
                     foreach($request->get('option_ids') as $itemOptionId) 
                         $car->options()->create(['option_id'=>$itemOptionId]);
                 $car->prodaction()->create(array_merge(['user_id'=>$car->author_id],$request->only($this->carProdColumns)));
+
+                if($request->has('plan_date') && $car->prodaction->lastplandate->plan_date != $request->get('plan_date'))
+                    $car->prodaction->lastplandate()->create([
+                        'prodaction_id'=>$car->prodaction->id,
+                        'plan_date'=>$request->get('plan_date')
+                    ]);
+
+                if($request->has('notice_date') && $car->prodaction->lastnoticedate->notice_date != $request->get('notice_date'))
+                    $car->prodaction->lastnoticedate()->create([
+                        'prodaction_id'=>$car->prodaction->id,
+                        'notice_date'=>$request->get('notice_date')
+                    ]);
+
                 return $car;
             });          
         }
@@ -145,6 +159,18 @@ class CarController extends Controller
                     $car->prodaction()->update(array_merge(['user_id'=>$car->author_id],$request->only($this->carProdColumns)));
                 else
                     $car->prodaction()->create(array_merge(['user_id'=>$car->author_id],$request->only($this->carProdColumns)));
+
+                if($request->has('plan_date') && $car->prodaction->lastplandate->plan_date != $request->get('plan_date'))
+                    $car->prodaction->lastplandate()->create([
+                        'prodaction_id'=>$car->prodaction->id,
+                        'plan_date'=>$request->get('plan_date')
+                    ]);
+
+                if($request->has('notice_date') && $car->prodaction->lastnoticedate->notice_date != $request->get('notice_date'))
+                    $car->prodaction->lastnoticedate()->create([
+                        'prodaction_id'=>$car->prodaction->id,
+                        'notice_date'=>$request->get('notice_date')
+                    ]);
             });          
         }
         catch(Exception $e)

@@ -15,7 +15,7 @@ class CarPlans extends Migration
     {
         Schema::create('car_plans', function (Blueprint $table) {
             $table->id();
-            $table->integer('order_id');
+            $table->integer('prodaction_id');
             $table->date('plan_date');
             $table->timestamps();
         });

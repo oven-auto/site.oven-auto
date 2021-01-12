@@ -15,7 +15,7 @@ class CarNotices extends Migration
     {
         Schema::create('car_notices', function (Blueprint $table) {
             $table->id();
-            $table->integer('order_id');
+            $table->integer('prodaction_id');
             $table->date('notice_date');
             $table->timestamps();
         });
