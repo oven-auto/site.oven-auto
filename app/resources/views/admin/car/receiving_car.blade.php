@@ -5,12 +5,12 @@
 		<!--ПРИЁМКА НА СКЛАД BEGIN-->
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">
-				<span class="input-group-text">Приёмка на склад</span>
+				<span class="input-group-text">Дата приёмки на склад</span>
 			</div>
-			{{Form::date('vin',isset($car)?$car->vin:'',['placeholder'=>'VIN','class'=>'form-control' ])}}
+			{{Form::date('accept_stock_date',isset($car)?'':'',['placeholder'=>'','class'=>'form-control' ])}}
 		</div>
 
-		@error('year')						
+		@error('accept_stock_date')						
 		    <div class="alert alert-danger">
 		    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -23,12 +23,12 @@
 		<!--НОМЕР НАКЛАДНОЙ BEGIN-->
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">
-				<span class="input-group-text">Приходная накладная</span>
+				<span class="input-group-text">Номер приходной накладной</span>
 			</div>
-			{{Form::text('vin',isset($car)?$car->vin:'',['placeholder'=>'Приходная накладная','class'=>'form-control' ])}}
+			{{Form::text('receipt_number',isset($car)?'':'',['placeholder'=>'Приходная накладная','class'=>'form-control' ])}}
 		</div>
 
-		@error('year')						
+		@error('receipt_number')						
 		    <div class="alert alert-danger">
 		    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -54,12 +54,12 @@
 		<!--ПРЕДПРОДАЖКА BEGIN-->
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">
-				<span class="input-group-text">Предпродажка</span>
+				<span class="input-group-text">Дата предпродажной подготовки</span>
 			</div>
-			{{Form::date('vin',isset($car)?$car->vin:'',['placeholder'=>'VIN','class'=>'form-control' ])}}
+			{{Form::date('pre_sale_date',isset($car)?'':'',['placeholder'=>'','class'=>'form-control' ])}}
 		</div>
 
-		@error('year')						
+		@error('pre_sale_date')						
 		    <div class="alert alert-danger">
 		    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -72,12 +72,12 @@
 		<!--ДАТА НАКЛАДНОЙ BEGIN-->
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">
-				<span class="input-group-text">Дата накладной</span>
+				<span class="input-group-text">Дата приходной накладной</span>
 			</div>
-			{{Form::date('vin',isset($car)?$car->vin:'',['placeholder'=>'VIN','class'=>'form-control' ])}}
+			{{Form::date('receipt_date',isset($car)?'':'',['placeholder'=>'','class'=>'form-control' ])}}
 		</div>
 
-		@error('year')						
+		@error('receipt_date')						
 		    <div class="alert alert-danger">
 		    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -102,10 +102,10 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text">Приёмщик</span>
 			</div>
-			{{Form::date('vin',isset($car)?$car->vin:'',['placeholder'=>'VIN','class'=>'form-control' ])}}
+			{{Form::select('receiver_id',[],'',['placeholder'=>'Приемщик','class'=>'form-control' ])}}
 		</div>
 
-		@error('year')						
+		@error('receiver_id')						
 		    <div class="alert alert-danger">
 		    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -120,10 +120,10 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text">Радиокод</span>
 			</div>
-			{{Form::text('vin',isset($car)?$car->vin:'',['placeholder'=>'Радиокод','class'=>'form-control' ])}}
+			{{Form::text('radiocode',isset($car)?'':'',['placeholder'=>'Радиокод','class'=>'form-control' ])}}
 		</div>
 
-		@error('year')						
+		@error('radiocode')						
 		    <div class="alert alert-danger">
 		    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
@@ -135,4 +135,141 @@
 	</div>
 
 
+</div>
+
+<div class="row">
+	<div class="col-4">
+		<!--УСЛОВИЯ ОТГРУЗКИ BEGIN-->
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<span class="input-group-text">Условия отгрузки</span>
+			</div>
+			{{Form::select('provision_id',[],isset($car)?'':'',['placeholder'=>'Обеспечение','class'=>'form-control' ])}}
+		</div>
+
+		@error('provision_id')						
+		    <div class="alert alert-danger">
+		    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				{{ $message }}
+			</div>
+		@enderror
+		<!--УСЛОВИЯ ОТГРУЗКИ END-->
+	</div>
+
+	<div class="col-2">
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<span class="input-group-text">&nbsp</span>
+			</div>
+			<button class="btn btn-dark btn-block add-provision">Добавить условие</button>
+		</div>		
+	</div>
+
+	<div class="col provision-details">
+		<div class="row default">
+			<div class="col-4">
+				<!--РАДИОКОД BEGIN-->
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Дни</span>
+					</div>
+					{{Form::number('provision[][day]',isset($car)?$car->vin:'',['placeholder'=>'Дни','class'=>'form-control provision_day' ])}}
+				</div>
+
+				@error('year')						
+				    <div class="alert alert-danger">
+				    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						{{ $message }}
+					</div>
+				@enderror
+				<!--РАДИОКОД END-->
+			</div>
+
+			<div class="col-8">
+				<!--РАДИОКОД BEGIN-->
+				<div class="input-group mb-3">
+					<div class="input-group-prepend">
+						<span class="input-group-text">Дата</span>
+					</div>
+					{{Form::date('provision[][date]',isset($car)?$car->vin:'',['placeholder'=>'Дата','class'=>'form-control provision_date' ])}}
+				</div>
+
+				@error('year')						
+				    <div class="alert alert-danger">
+				    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						{{ $message }}
+					</div>
+				@enderror
+				<!--РАДИОКОД END-->
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col">
+		<!--РАДИОКОД BEGIN-->
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<span class="input-group-text">Дата оплаты ПТС</span>
+			</div>
+			{{Form::date('pts_pay_date',isset($car)?'':'',['placeholder'=>'Фактический закуп','class'=>'form-control' ])}}
+		</div>
+
+		@error('pts_pay_date')						
+		    <div class="alert alert-danger">
+		    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				{{ $message }}
+			</div>
+		@enderror
+		<!--РАДИОКОД END-->
+	</div>
+
+	<div class="col">
+		<!--РАДИОКОД BEGIN-->
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<span class="input-group-text">Дата получения ПТС</span>
+			</div>
+			{{Form::date('pts_receipt_date',isset($car)?'':'',['placeholder'=>'Фактический закуп','class'=>'form-control' ])}}
+		</div>
+
+		@error('pts_receipt_date')						
+		    <div class="alert alert-danger">
+		    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				{{ $message }}
+			</div>
+		@enderror
+		<!--РАДИОКОД END-->
+	</div>
+
+	<div class="col">
+		<!--РАДИОКОД BEGIN-->
+		<div class="input-group mb-3">
+			<div class="input-group-prepend">
+				<span class="input-group-text">Дата списания со счёта</span>
+			</div>
+			{{Form::date('pts_debiting_date',isset($car)?'':'',['placeholder'=>'Фактический закуп','class'=>'form-control' ])}}
+		</div>
+
+		@error('pts_debiting_date')						
+		    <div class="alert alert-danger">
+		    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				{{ $message }}
+			</div>
+		@enderror
+		<!--РАДИОКОД END-->
+	</div>
 </div>

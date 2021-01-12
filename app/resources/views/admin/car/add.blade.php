@@ -37,7 +37,7 @@
 			@include('admin.car.car_logistic')
 		</div>
 		<div class="tab-pane fade" id="car-receiving" role="tabpanel" aria-labelledby="car-receiving-tab">
-			
+			@include('admin.car.receiving_car')
 		</div>
 		<div class="tab-pane fade" id="car-option" role="tabpanel" aria-labelledby="car-option-tab">
 			@include('admin.car.option_car',['data'=>isset($car->options) ? $car->options : [] ])

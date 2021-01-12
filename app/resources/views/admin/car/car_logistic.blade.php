@@ -25,13 +25,13 @@
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
 					<span class="input-group-text">Планируемая сборка
-						@isset($car->prodaction->plandates)
+						@if(isset($car->prodaction->plandates) && $car->prodaction->plandates->count() > 1)
 							<a style="color:#00f;padding-left: 10px;" data-toggle="tooltip" data-html="true" title="
 								@foreach($car->prodaction->plandates as $itemDate)
 									{{$itemDate->format_date}}<br/>
 								@endforeach
 							">(до этого)</a>
-						@endisset
+						@endif
 					</span>
 				</div>
 				{{Form::date('plan_date',isset($car)? $car->prodaction->lastplandate->plan_date :'',['placeholder'=>'Планируемая сборка','class'=>'form-control' ])}}
@@ -61,13 +61,13 @@
 		<div class="input-group mb-3">
 			<div class="input-group-prepend">
 				<span class="input-group-text">Уведомление о сборке
-					@isset($car->prodaction->noticedates)
+					@if( isset($car->prodaction->noticedates) && $car->prodaction->noticedates->count() > 1)
 						<a style="color:#00f;padding-left: 10px;" data-toggle="tooltip" data-html="true" title="
 							@foreach($car->prodaction->noticedates as $itemDate)
 								{{$itemDate->format_date}}<br/>
 							@endforeach
 						">(до этого)</a>
-					@endisset
+					@endif
 				</span>
 			</div>
 			{{Form::date('notice_date',isset($car)?$car->prodaction->lastnoticedate->notice_date:'',['placeholder'=>'Уведомление о сборке','class'=>'form-control' ])}}

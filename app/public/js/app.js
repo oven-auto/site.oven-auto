@@ -37332,6 +37332,29 @@ $(document).on('change', '#car-tab-add [name="pack_ids[]"]', function () {
   priceBlock.attr('data-price', carPrice);
   priceBlock.html(number_format(carPrice, 0, '', ' ', 'р.'));
 });
+$(document).on('click', '.add-provision', function () {
+  var newDetail = $('.provision-details .default').clone();
+  newDetail.find('input').val('');
+  newDetail.removeClass('default');
+  newDetail.find('.input-group-prepend').remove();
+  $('.provision-details').append(newDetail);
+});
+$(document).on('change', '.provision_day, .provision_date', function () {
+  var pBlock = $(this).closest('.row');
+  var pDay = pBlock.find('.provision_day');
+  var pDate = pBlock.find('.provision_date');
+  var receiptDate = new Date($('[name="receipt_date"]').val());
+
+  if ($(this).hasClass('provision_day')) {
+    receiptDate.setDate(receiptDate.getDate() + parseInt(pDay.val()));
+    pDate.val(date_format(receiptDate, 'yyyy-mm-dd'));
+  } else if ($(this).hasClass('provision_date')) {
+    var currentInputDate = new Date(pDate.val());
+    var dif = currentInputDate - receiptDate;
+    dif = dif / 1000 / 60 / 60 / 24;
+    pDay.val(dif);
+  }
+});
 $(document).ready(function () {
   FillColorDiv('.car-color');
   FillAlpha($('.car-color.active').attr('data-color'));
@@ -37633,6 +37656,8 @@ __webpack_require__(/*! ./axios_query */ "./resources/js/axios_query.js");
 
 __webpack_require__(/*! ./number_format */ "./resources/js/number_format.js");
 
+__webpack_require__(/*! ./date_format */ "./resources/js/date_format.js");
+
 __webpack_require__(/*! ./inittooltips */ "./resources/js/inittooltips.js");
 
 __webpack_require__(/*! ./admin/mark.ajax */ "./resources/js/admin/mark.ajax.js");
@@ -37726,6 +37751,38 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/date_format.js":
+/*!*************************************!*\
+  !*** ./resources/js/date_format.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+window.date_format = function (date, format) {
+  var day = String(date.getDate());
+  var month = String(date.getMonth() + 1);
+  var year = String(date.getFullYear());
+  if (month.length < 2) month = '0' + month;
+  format = format.replace('dd', day);
+  format = format.replace('mm', month);
+  format = format.replace('yyyy', year);
+  return format; // format = format.replace(/[^a-zA-z0-9]/g,'-')
+  // format = format.split('-')
+  // var formatDate = []
+  // format.forEach(function(item,i){
+  // 	if(item=='yyyy')
+  // 		formatDate.push(year)
+  // 	if(item=='mm')
+  // 		formatDate.push(month)
+  // 	if(item=='dd')
+  // 		formatDate.push(day)
+  // })
+  // formatDate = formatDate.join('-')
+  // console.log(formatDate)
+};
 
 /***/ }),
 

@@ -7,6 +7,7 @@
 require('./bootstrap');
 require('./axios_query');
 require('./number_format')
+require('./date_format');
 require('./inittooltips');
 require('./admin/mark.ajax');
 require('./admin/color');
