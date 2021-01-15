@@ -12,6 +12,8 @@ use App\Models\CarProdaction;
 use App\Models\CarPlan;
 use App\Models\Option;
 use App\User;
+use App\Models\CarReceiving;
+use App\Models\CarReceivingProvision;
 use DB;
 use App\Repositories\CarRepository;
 
@@ -22,8 +24,17 @@ class CarController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    private $carColumns = ['delivery_id','author_id','marker_id','year','vin','brand_id','mark_id','complect_id','color_id'];
-    private $carProdColumns = ['order_date','ship_date','build_date', 'ready_date', 'order_number'];
+    private $carColumns = [
+        'delivery_id','author_id','marker_id','year','vin','brand_id','mark_id','complect_id','color_id'
+    ];
+    private $carProdColumns = [
+        'order_date','ship_date','build_date', 'ready_date', 'order_number'
+    ];
+    private $carReceivingColumns = [
+        'accept_stock_date','receipt_number','pre_sale_date',
+        'receipt_date','receiver_id','radiocode','provision_id',
+        'pts_pay_date','pts_receipt_date','pts_debiting_date'
+    ];
     
     // private $carRep;
 
@@ -64,12 +75,15 @@ class CarController extends Controller
             $car = DB::transaction(function() use ($request)
             {
                 $car = Car::create($request->only($this->carColumns));
+                
                 if($request->get('pack_ids'))
                     foreach($request->get('pack_ids') as $itemPackId) 
                         $car->packs()->create(['pack_id'=>$itemPackId]);
+                
                 if($request->get('option_ids'))
                     foreach($request->get('option_ids') as $itemOptionId) 
                         $car->options()->create(['option_id'=>$itemOptionId]);
+                
                 $car->prodaction()->create(array_merge(['user_id'=>$car->author_id],$request->only($this->carProdColumns)));
 
                 if($request->has('plan_date') && $car->prodaction->lastplandate->plan_date != $request->get('plan_date'))
@@ -83,6 +97,8 @@ class CarController extends Controller
                         'prodaction_id'=>$car->prodaction->id,
                         'notice_date'=>$request->get('notice_date')
                     ]);
+
+                $car->receiving->fill($request->only($this->carReceivingColumns))->save();
 
                 return $car;
             });          
@@ -155,10 +171,7 @@ class CarController extends Controller
                     foreach($request->get('option_ids') as $itemOptionId) 
                         $car->options()->create(['option_id'=>$itemOptionId]);
 
-                if(isset($car->prodaction->id))
-                    $car->prodaction()->update(array_merge(['user_id'=>$car->author_id],$request->only($this->carProdColumns)));
-                else
-                    $car->prodaction()->create(array_merge(['user_id'=>$car->author_id],$request->only($this->carProdColumns)));
+                $car->prodaction->fill(array_merge(['user_id'=>$car->author_id],$request->only($this->carProdColumns)))->save();
 
                 if($request->has('plan_date') && $car->prodaction->lastplandate->plan_date != $request->get('plan_date'))
                     $car->prodaction->lastplandate()->create([
@@ -171,6 +184,24 @@ class CarController extends Controller
                         'prodaction_id'=>$car->prodaction->id,
                         'notice_date'=>$request->get('notice_date')
                     ]);
+                
+                $car->receiving->fill($request->only($this->carReceivingColumns))->save();
+
+                if($request->has('provision') && is_array($request->provision))
+                {
+                    $date = $request->get('provision')['date'];
+                    $day = $request->get('provision')['day'];
+                    if(count($day) == count($date))
+                    {
+                        CarReceivingProvision::where('receiving_id',$car->receiving->id)->delete();
+                        foreach ($date as $key => $itemDate) 
+                            CarReceivingProvision::create([
+                                'receiving_id'=>$car->receiving->id,
+                                'day'=>$day[$key],
+                                'date'=>$itemDate
+                            ]);
+                    }
+                }
             });          
         }
         catch(Exception $e)

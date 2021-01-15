@@ -32,4 +32,9 @@ class Car extends Model
     {
         return $this->hasOne(\App\Models\CarProdaction::class,'car_id','id')->withdefault();
     }
+
+    public function receiving()
+    {
+    	return $this->hasOne(\App\Models\CarReceiving::class,'car_id','id')->withdefault();
+    }
 }

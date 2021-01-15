@@ -46,6 +46,19 @@ class CarCreateRequest extends FormRequest
             'build_date'=>'date|nullable',
             'ready_date'=>'date|nullable',
             'ship_date'=>'date|nullable',
+
+            'accept_stock_date'=>'date|nullable',
+            'receipt_number'=>'string|nullable',
+            'pre_sale_date'=>'date|nullable',
+            'receipt_date'=>'date|nullable',
+            'receiver_id'=>'integer|nullable',
+            'radiocode'=>'string|nullable',
+            'provision_id'=>'integer|nullable',
+            'pts_pay_date'=>'date|nullable',
+            'pts_receipt_date'=>'date|nullable',
+            'pts_debiting_date'=>'date|nullable',
+
+            'provision'=>'array|nullable',
         ];
     }
 }
