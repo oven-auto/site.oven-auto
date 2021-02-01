@@ -106,7 +106,7 @@
 			<div class="input-group-prepend">
 				<span class="input-group-text">Приёмщик</span>
 			</div>
-			{{Form::select('receiver_id',$authors,$car->receiving->receiver_id,['placeholder'=>'Приемщик','class'=>'form-control' ])}}
+			{{Form::select('receiver_id',$authors,isset($car) ? $car->receiving->receiver_id : '',['placeholder'=>'Приемщик','class'=>'form-control' ])}}
 		</div>
 
 		@error('receiver_id')						
@@ -172,52 +172,15 @@
 	</div>
 
 	<div class="col provision-details">
-		<div class="row default">
-			<div class="col-4">
-				<!--РАДИОКОД BEGIN-->
-				<div class="input-group mb-3">
-					<div class="input-group-prepend">
-						<span class="input-group-text">Дни</span>
-					</div>
-					{{
-						Form::number('provision[day][]',isset($car)?'':'',[
-							'placeholder'=>'Дни',
-							'class'=>'form-control provision_day' 
-						])
-					}}
-				</div>
-
-				@error('year')						
-				    <div class="alert alert-danger">
-				    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						{{ $message }}
-					</div>
-				@enderror
-				<!--РАДИОКОД END-->
-			</div>
-
-			<div class="col-8">
-				<!--РАДИОКОД BEGIN-->
-				<div class="input-group mb-3">
-					<div class="input-group-prepend">
-						<span class="input-group-text">Дата</span>
-					</div>
-					{{Form::date('provision[date][]',isset($car)?$car->vin:'',['placeholder'=>'Дата','class'=>'form-control provision_date' ])}}
-				</div>
-
-				@error('year')						
-				    <div class="alert alert-danger">
-				    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						{{ $message }}
-					</div>
-				@enderror
-				<!--РАДИОКОД END-->
-			</div>
-		</div>
+		@if(isset($car) && $car->receiving->provisions)
+			@foreach($car->receiving->provisions as $itemProvision)
+				@if($loop->first)
+					@include('admin.car.provision_details',['item'=>$itemProvision,'class'=>'default'])
+				@else
+					@include('admin.car.provision_details',['item'=>$itemProvision])
+				@endif
+			@endforeach
+		@endif
 	</div>
 </div>
 

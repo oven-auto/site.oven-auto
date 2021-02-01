@@ -10,6 +10,6 @@ class CarReceiving extends Model
 
     public function provisions()
     {
-    	return $this->hasMany(\App\Models\CarReceivingProvision::class,'receving_id','id');
+    	return $this->hasMany(\App\Models\CarReceivingProvision::class,'receiving_id','id');
     }
 }

@@ -45,7 +45,8 @@ class CarController extends Controller
 
     public function index()
     {
-        //
+        $cars = Car::with(['complect.motor','packs','mark','brand','prodaction','receiving','delivery'])->get();
+        return view('admin.car.index',compact('cars'));
     }
 
     /**

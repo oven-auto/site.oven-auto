@@ -13,6 +13,11 @@ class Car extends Model
     	return $this->hasOne(\App\Models\Complect::class,'id','complect_id')->withdefault();
     }
 
+    public function brand()
+    {
+        return $this->hasOne(\App\Models\Brand::class,'id','brand_id');
+    }
+
     public function packs()
     {
     	return $this->hasMany(\App\Models\CarPack::class,'car_id','id');
@@ -36,5 +41,15 @@ class Car extends Model
     public function receiving()
     {
     	return $this->hasOne(\App\Models\CarReceiving::class,'car_id','id')->withdefault();
+    }
+
+    public function delivery()
+    {
+        return $this->hasOne(\App\Models\DeliveryType::class,'id','delivery_id');
+    }
+
+    public function getStatus()
+    {
+        $nowDate = date('d.m.Y');
     }
 }
