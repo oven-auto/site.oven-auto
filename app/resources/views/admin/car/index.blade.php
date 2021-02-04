@@ -10,8 +10,8 @@
 			</div>
 			<div class="col text-right">
 				<div class="btn-group">
-					<a href="{{route('complects.create')}}" class="btn btn-success"><i class="fa fa-plus"></i>Добавить</a>
-					<a href="{{route('complects.index')}}" class="btn btn-secondary"><i class="fa fa-refresh"></i>Обновить</a>
+					<a href="{{route('cars.create')}}" class="btn btn-success"><i class="fa fa-plus"></i>Добавить</a>
+					<a href="{{route('cars.index')}}" class="btn btn-secondary"><i class="fa fa-refresh"></i>Обновить</a>
 				</div>
 			</div>
 		</div>
@@ -47,6 +47,10 @@
 						</td>
 
 						<td>
+							<div class="color-pic" data-color="{{$itemCar->color->web}}" style="display: inline-block;"></div>
+						</td>
+
+						<td>
 							{{$itemCar->delivery->name}}
 						</td>
 
@@ -55,7 +59,7 @@
 						</td>
 
 						<td>
-							{{}}
+							{{$itemCar->getStatus()}}
 						</td>
 					</tr>
 				@endforeach

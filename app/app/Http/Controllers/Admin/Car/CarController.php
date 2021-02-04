@@ -155,7 +155,7 @@ class CarController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(CarCreateRequest $request, Car $car)
-    {
+    {   
         try
         {
             DB::transaction(function() use ($request, & $car)
@@ -174,13 +174,13 @@ class CarController extends Controller
 
                 $car->prodaction->fill(array_merge(['user_id'=>$car->author_id],$request->only($this->carProdColumns)))->save();
 
-                if($request->has('plan_date') && $car->prodaction->lastplandate->plan_date != $request->get('plan_date'))
+                if($request->missing('plan_date') && $car->prodaction->lastplandate->plan_date != $request->get('plan_date'))
                     $car->prodaction->lastplandate()->create([
                         'prodaction_id'=>$car->prodaction->id,
                         'plan_date'=>$request->get('plan_date')
                     ]);
 
-                if($request->has('notice_date') && $car->prodaction->lastnoticedate->notice_date != $request->get('notice_date'))
+                if($request->missing('notice_date') && $car->prodaction->lastnoticedate->notice_date != $request->get('notice_date'))
                     $car->prodaction->lastnoticedate()->create([
                         'prodaction_id'=>$car->prodaction->id,
                         'notice_date'=>$request->get('notice_date')
@@ -188,7 +188,7 @@ class CarController extends Controller
                 
                 $car->receiving->fill($request->only($this->carReceivingColumns))->save();
 
-                if($request->has('provision') && is_array($request->provision))
+                if($request->missing('provision') && is_array($request->provision))
                 {
                     $date = $request->get('provision')['date'];
                     $day = $request->get('provision')['day'];

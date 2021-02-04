@@ -31,6 +31,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>'auth'],funct
 	Route::resource('packs','Pack\PackController');
 	Route::resource('complects','Complect\ComplectController');
 	Route::resource('cars','Car\CarController');
+	Route::resource('companies','Company\CompanyController');
 
 	Route::group(['prefix'=>'ajax','namespace'=>'Ajax'],function(){
 		Route::group(['prefix'=>'get','namespace'=>'Get'],function(){
