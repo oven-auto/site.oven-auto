@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Motor extends Model
 {
     protected $guarded = [];
+    protected $with = ['transmission','driver'];
 
     public function transmission()
     {

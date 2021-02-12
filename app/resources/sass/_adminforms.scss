@@ -17,3 +17,20 @@ form img{
 	background:#fff;
 	border:0px;
 }
+
+.cars_set .input-group-text{
+	background: transparent;
+}
+.car-set-bg{
+	
+	padding-top: 15px;
+	padding-bottom:15px; 
+}
+
+.cars_set .car-set-bg:last-child{
+	border-bottom:0px;
+}
+
+.cars_set .car-set-bg:nth-child(2n){
+	background: #eee;
+}

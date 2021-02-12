@@ -16,7 +16,7 @@ $(document).on('change','#complect-edit [name="brand_id"]',function(){
 
 })
 
-$(document).on('change','#complect-edit [name="mark_ids[]"]',function(){
+$(document).on('change','#complect-edit [name="mark_id"]',function(){
 	$(this).removeAttr('multiple')
 	var url = $(this).attr('data-url-pack')
 	var parameters = {}

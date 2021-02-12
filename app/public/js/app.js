@@ -37447,6 +37447,69 @@ $('.color-pic').ready(function () {
 
 /***/ }),
 
+/***/ "./resources/js/admin/company.js":
+/*!***************************************!*\
+  !*** ./resources/js/admin/company.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+//Получить и отрисовать форму расчёта взависимости от сценария
+$(document).on('change', '[name="scenario_id"]', function () {
+  var url = $(this).attr('data-url') + '?scenario_id=' + $(this).val();
+  axios.get(url).then(function (response) {
+    $('.callculate-company').html(response.data.view);
+  })["catch"](function (error) {
+    console.log(error);
+  });
+}); //удалить условие
+
+$(document).on('click', '.cars-set-delete', function () {
+  var me = $(this);
+  var mainContainer = me.closest('.cars_set');
+  var deleteContainer = me.closest('.container');
+  if (mainContainer.find('.container').length > 1) deleteContainer.remove();else mainContainer.find('input,select').val('');
+}); //добавить условие
+
+$(document).on('click', '.cars-set-add', function () {
+  var me = $(this);
+  var url = $(this).attr('data-url');
+  axios.get(url).then(function (response) {
+    me.closest('.row').find('.cars_set').append(response.data.view);
+  })["catch"](function (error) {});
+});
+$(document).on('click', '.company-modal-options', function () {
+  var me = $(this);
+  var url = me.attr('data-url');
+  axios.post(url).then(function (response) {
+    var modal = $('#bigModal');
+    modal.find('.modal-body').html(response.data.view);
+    modal.addClass('company-modal');
+    modal.modal('show');
+  })["catch"](function (error) {
+    console.log(error);
+  });
+});
+$(document).on('change', '.company-modal [type="checkbox"]', function () {
+  var options = [];
+  $('.company-modal [type="checkbox"]').each(function () {
+    if ($(this).prop('checked')) {
+      var id = $(this).val();
+      options.push({
+        'id': id
+      });
+    }
+  });
+  $('#nomenklatures').val(JSON.stringify(options));
+  var strArr = [];
+  options.forEach(function (item, i) {
+    strArr.push(item.name);
+  });
+  $('.select-options-view').html(strArr.join(', '));
+});
+
+/***/ }),
+
 /***/ "./resources/js/admin/complect.js":
 /*!****************************************!*\
   !*** ./resources/js/admin/complect.js ***!
@@ -37467,7 +37530,7 @@ $(document).on('change', '#complect-edit [name="brand_id"]', function () {
   var blockMotor = $(document).find('.motor-container');
   getRender(urlMotor, parameters, blockMotor);
 });
-$(document).on('change', '#complect-edit [name="mark_ids[]"]', function () {
+$(document).on('change', '#complect-edit [name="mark_id"]', function () {
   $(this).removeAttr('multiple');
   var url = $(this).attr('data-url-pack');
   var parameters = {};
@@ -37652,6 +37715,8 @@ $(document).on('click', '.unset-checkbox', function () {
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+__webpack_require__(/*! ./range_change */ "./resources/js/range_change.js");
+
 __webpack_require__(/*! ./axios_query */ "./resources/js/axios_query.js");
 
 __webpack_require__(/*! ./number_format */ "./resources/js/number_format.js");
@@ -37668,7 +37733,9 @@ __webpack_require__(/*! ./admin/pack */ "./resources/js/admin/pack.js");
 
 __webpack_require__(/*! ./admin/complect */ "./resources/js/admin/complect.js");
 
-__webpack_require__(/*! ./admin/car */ "./resources/js/admin/car.js"); //window.Vue = require('vue');
+__webpack_require__(/*! ./admin/car */ "./resources/js/admin/car.js");
+
+__webpack_require__(/*! ./admin/company */ "./resources/js/admin/company.js"); //window.Vue = require('vue');
 
 /**
  * The following block of code may be used to automatically register your
@@ -37838,6 +37905,19 @@ window.number_format = function (number, decimals, dec_point, separator) {
   if (valute) return s.join(dec) + valute;
   return s.join(dec);
 };
+
+/***/ }),
+
+/***/ "./resources/js/range_change.js":
+/*!**************************************!*\
+  !*** ./resources/js/range_change.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).on('input change', '[type="range"]', function () {
+  $(this).closest('.range-block').find('.range-value').html($(this).val());
+});
 
 /***/ }),
 

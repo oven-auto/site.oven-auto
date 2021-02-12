@@ -5,6 +5,7 @@
  */
 
 require('./bootstrap');
+require('./range_change');
 require('./axios_query');
 require('./number_format')
 require('./date_format');
@@ -14,6 +15,7 @@ require('./admin/color');
 require('./admin/pack');
 require('./admin/complect');
 require('./admin/car');
+require('./admin/company');
 
 //window.Vue = require('vue');
 

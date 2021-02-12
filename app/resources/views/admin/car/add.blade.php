@@ -15,17 +15,7 @@
 		</div>
 	</div>
 	
-	<div class="">
-		@if ($errors->any())
-		    <div class="alert alert-danger">
-		        <ul>
-		            @foreach ($errors->all() as $error)
-		                <li>{{ $error }}</li>
-		            @endforeach
-		        </ul>
-		    </div>
-		@endif
-	</div>
+
 	@include('admin.car.tabs')
 
 	<div class="tab-content" id="car-tab-add">

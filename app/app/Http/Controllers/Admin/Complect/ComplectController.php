@@ -61,23 +61,26 @@ class ComplectController extends Controller
      */
     public function store(ComplectCreateRequest $request)
     {
-        $dataComplect = $request->only(['name','code','price','brand_id','motor_id']);
-        $dataComplect['mark_id'] = $request->get('mark_ids')[0];
+        $dataComplect = $request->only(['name','code','price','brand_id','motor_id','mark_id']);
+        //$dataComplect['mark_id'] = $request->get('mark_ids')[0];
         $complect = Complect::create($dataComplect);
 
-        foreach($request->get('option_ids') as $itemOptionId) :
-            ComplectOption::create([
-                'complect_id'=>$complect->id,
-                'option_id'=>$itemOptionId
-            ]);
-        endforeach;
+        if($request->has('option_ids'))
+            foreach($request->get('option_ids') as $itemOptionId) :
+                ComplectOption::create([
+                    'complect_id'=>$complect->id,
+                    'option_id'=>$itemOptionId
+                ]);
+            endforeach;
 
-        foreach($request->get('pack_ids') as $itemPackId) :
-            ComplectPack::create([
-                'complect_id'=>$complect->id,
-                'pack_id'=>$itemPackId
-            ]);
-        endforeach;
+        if($request->has('pack_ids'))
+            foreach($request->get('pack_ids') as $itemPackId) :
+                ComplectPack::create([
+                    'complect_id'=>$complect->id,
+                    'pack_id'=>$itemPackId
+                ]);
+            endforeach;
+            
         return redirect()->route('complects.edit',$complect)->with('status','Новая комплектация создана');
     }
 

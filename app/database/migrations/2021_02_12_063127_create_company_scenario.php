@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CompaniesCreate extends Migration
+class CreateCompanyScenario extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CompaniesCreate extends Migration
      */
     public function up()
     {
-        Schema::create('companies', function (Blueprint $table) {
+        Schema::create('company_scenarios', function (Blueprint $table) {
             $table->id();
-            $table->date('begin_date');
-            $table->date('end_date');
-            $table->boolean('status');
-            $table->integer('section_id');
+            $table->string('name',250);
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ class CompaniesCreate extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('companies');
+        Schema::dropIfExists('company_scenarios');
     }
 }

@@ -1,4 +1,4 @@
-<div class="container mb-3">
+<div class="container mb-3 car-set-bg">
 	<div class="row">
 		<div class="col-3">
 			<!--END DATE-->
@@ -6,9 +6,9 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">VIN</span>
 				</div>
-				{{Form::hidden('type[]','0')}}
+				{{Form::hidden('car[type][]','0')}}
 				{{Form::text(
-					'vin[]',
+					'car[vin][]',
 					'',
 					['placeholder'=>'VIN','class'=>'form-control']
 				)}}
@@ -23,8 +23,8 @@
 					<span class="input-group-text">Модель</span>
 				</div>
 				{{Form::select(
-					'mark_id[]',
-					[],
+					'car[mark_id][]',
+					$models,
 					'',
 					['placeholder'=>'Модель','class'=>'form-control']
 				)}}
@@ -39,8 +39,8 @@
 					<span class="input-group-text">Комплектация</span>
 				</div>
 				{{Form::select(
-					'complect_id[]',
-					[],
+					'car[complect_id][]',
+					$complects,
 					'',
 					['placeholder'=>'Комплектация','class'=>'form-control']
 				)}}
@@ -57,8 +57,8 @@
 							<span class="input-group-text">КПП</span>
 						</div>
 						{{Form::select(
-							'transmission_id[]',
-							[],
+							'car[transmission_id][]',
+							$transmissions,
 							'',
 							['placeholder'=>'КПП','class'=>'form-control']
 						)}}
@@ -73,8 +73,8 @@
 							<span class="input-group-text">Привод</span>
 						</div>
 						{{Form::select(
-							'driver_id[]',
-							[],
+							'car[driver_id][]',
+							$drivers,
 							'',
 							['placeholder'=>'Привод','class'=>'form-control']
 						)}}
@@ -91,7 +91,7 @@
 					<span class="input-group-text">Поставка</span>
 				</div>
 				{{Form::select(
-					'delivery_id[]',
+					'car[delivery_id][]',
 					[],
 					'',
 					['placeholder'=>'Поставка','class'=>'form-control']
@@ -107,7 +107,7 @@
 					<span class="input-group-text">Цена: от</span>
 				</div>
 				{{Form::text(
-					'max_price[]',
+					'car[min_price][]',
 					'',
 					['placeholder'=>'Цена: от','class'=>'form-control']
 				)}}
@@ -122,7 +122,7 @@
 					<span class="input-group-text">Цена: до</span>
 				</div>
 				{{Form::text(
-					'max_price[]',
+					'car[max_price][]',
 					'',
 					['placeholder'=>'Цена: до','class'=>'form-control']
 				)}}
@@ -131,19 +131,35 @@
 		</div>
 
 		<div class="col">
-			<!--END DATE-->
-			<div class="input-group ">
-				<div class="input-group-prepend">
-					<span class="input-group-text">Год выпуска</span>
+			<div class="row">
+				<div class="col-6">
+					<!--END DATE-->
+					<div class="input-group ">
+						<div class="input-group-prepend">
+							<span class="input-group-text">Год выпуска</span>
+						</div>
+						{{Form::select(
+							'car[year][]',
+							[],
+							'',
+							['placeholder'=>'Год выпуска','class'=>'form-control']
+						)}}
+					</div>
+					<!--END DATE END-->
 				</div>
-				{{Form::select(
-					'year[]',
-					[],
-					'',
-					['placeholder'=>'Год выпуска','class'=>'form-control']
-				)}}
+
+				<div class="col-6">
+					<div class="input-group ">
+						<div class="input-group-prepend">
+							<span class="input-group-text">&nbsp</span>
+						</div>
+						<button class="btn btn-block btn-outline-danger cars-set-delete" type="button">
+							Удалить
+							<i class="fa fa-close"></i>
+						</button>
+					</div>
+				</div>
 			</div>
-			<!--END DATE END-->
 		</div>
 
 	</div>
