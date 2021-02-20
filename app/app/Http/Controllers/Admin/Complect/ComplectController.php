@@ -122,7 +122,11 @@ class ComplectController extends Controller
             ->groupBy('options.id')
             ->get()
             ->groupBy('type_id');
-        $packs = Pack::with('options.option')->where('brand_id',$complect->brand_id)->get();
+        $packs = Pack::select('packs.*')
+                ->with('options.option')
+                ->leftJoin('pack_marks','pack_marks.pack_id','=','packs.id')
+                ->where('pack_marks.mark_id',$complect->mark_id)
+                ->get();
         return view('admin.complect.add',compact('brands','complect','marks','motors','options','packs'));
     }
 
@@ -135,8 +139,8 @@ class ComplectController extends Controller
      */
     public function update(ComplectCreateRequest $request, Complect $complect)
     {
-        $dataComplect = $request->only(['name','code','price','brand_id','motor_id']);
-        $dataComplect['mark_id'] = $request->get('mark_ids')[0];
+        $dataComplect = $request->only(['name','code','price','brand_id','motor_id','mark_id']);
+        //$dataComplect['mark_id'] = $request->get('mark_ids')[0];
         $complect->update($dataComplect);
 
         ComplectOption::where('complect_id',$complect->id)->delete();

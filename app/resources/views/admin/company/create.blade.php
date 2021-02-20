@@ -6,7 +6,7 @@
 	<div class="row">
 		<div class="col">
 			<div class="h2">
-				{{isset($company) ? 'Редактирование: '.$company->name : 'Новая коммерческая акция'}}
+				{{isset($company) ? 'Редактирование: '.$company->controll->name : 'Новая коммерческая акция'}}
 			</div>
 		</div>
 	</div>
@@ -24,18 +24,9 @@
 				</div>
 				{{Form::date(
 					'begin_date',
-					isset($complect)?$complect->name:'',
-					['placeholder'=>'Название','class'=>'form-control']
+					isset($company)?$company->begin_date:'',
+					['placeholder'=>'','class'=>'form-control']
 				)}}
-
-				@error('name')
-				    <div class="alert alert-danger">
-				    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						{{ $message }}
-					</div>
-				@enderror
 			</div>
 			<!--BEGIN DATE END-->
 		</div>
@@ -48,18 +39,9 @@
 				</div>
 				{{Form::date(
 					'end_date',
-					isset($complect)?$complect->name:'',
+					isset($company)?$company->end_date:'',
 					['placeholder'=>'Название','class'=>'form-control']
 				)}}
-
-				@error('name')
-				    <div class="alert alert-danger">
-				    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						{{ $message }}
-					</div>
-				@enderror
 			</div>
 			<!--END DATE END-->
 		</div>
@@ -73,18 +55,9 @@
 				{{Form::select(
 					'status',
 					['Не активна','Активна'],
-					isset($complect)?$complect->name:'',
+					isset($company)?$company->status:'',
 					['class'=>'form-control']
 				)}}
-
-				@error('name')
-				    <div class="alert alert-danger">
-				    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						{{ $message }}
-					</div>
-				@enderror
 			</div>
 			<!--END STATUS-->
 		</div>
@@ -96,10 +69,12 @@
 		</div>
 
 		<div class="cars_set">
-			@if(isset($company))
-
+			@if(isset($company->conditions) && $company->conditions->where('type',1)->count()>0)
+				@foreach($company->conditions->where('type',1) as $itemCondition)
+					@include('admin.company.cars_condition',['status'=>1,'condition'=>$itemCondition])
+				@endforeach
 			@else
-				@include('admin.company.cars_in')
+				@include('admin.company.cars_condition',['status'=>1])
 			@endif
 		</div>
 
@@ -120,10 +95,12 @@
 		</div>
 
 		<div class="cars_set">
-			@if(isset($company))
-
+			@if(isset($company->conditions) && $company->conditions->where('type',0)->count()>0)
+				@foreach($company->conditions->where('type',0) as $itemCondition)
+					@include('admin.company.cars_condition',['status'=>0,'condition'=>$itemCondition])
+				@endforeach
 			@else
-				@include('admin.company.cars_out')
+				@include('admin.company.cars_condition',['status'=>0])
 			@endif
 		</div>
 		
@@ -151,7 +128,7 @@
 				</div>
 				{{Form::text(
 					'promo',
-					isset($complect)?$complect->name:'',
+					isset($company)?$company->controll->promo:'',
 					['class'=>'form-control']
 				)}}
 			</div>
@@ -167,7 +144,7 @@
 				{{Form::select(
 					'section_id',
 					$sections,
-					isset($complect)?$complect->name:'',
+					isset($company)?$company->section_id:'',
 					['class'=>'form-control','placeholder'=>'Укажите раздел']
 				)}}
 			</div>
@@ -182,7 +159,7 @@
 				</div>
 				{{Form::text(
 					'name',
-					isset($complect)?$complect->name:'',
+					isset($company)?$company->controll->name:'',
 					['class'=>'form-control']
 				)}}
 			</div>
@@ -198,7 +175,7 @@
 				{{Form::select(
 					'scenario_id',
 					$scenarios,
-					'',
+					isset($company)?$company->controll->scenario_id:'',
 					['placeholder'=>'Укажите сценарий', 'class'=>'form-control', 'data-url'=>route('company.get.scenario.list')]
 				)}}
 			</div>
@@ -207,8 +184,8 @@
 	</div>
 
 	<div class="row callculate-company">
-		@isset($company)
-
+		@isset($company->controll->scenario_id)
+			{{$parameters->adminRender()}}
 		@endisset
 	</div>
 
@@ -221,7 +198,7 @@
 				{{Form::checkbox(
 					'main',
 					'1',
-					'',
+					isset($company)?$company->controll->main:'',
 					['class'=>'']
 				)}}
 			</div>
@@ -235,7 +212,7 @@
 				{{Form::checkbox(
 					'immortal',
 					1,
-					'',
+					isset($company)?$company->controll->immortal:'',
 					['class'=>'']
 				)}}
 			</div>
@@ -271,7 +248,7 @@
 				</div>
 				{{Form::text(
 					'title',
-					isset($complect)?$complect->name:'',
+					isset($company)?$company->controll->title:'',
 					['class'=>'form-control']
 				)}}
 			</div>
@@ -284,7 +261,7 @@
 				</div>
 				{{Form::text(
 					'offer',
-					isset($complect)?$complect->name:'',
+					isset($company)?$company->controll->offer:'',
 					['class'=>'form-control']
 				)}}
 			</div>
@@ -297,7 +274,7 @@
 				</div>
 				{{Form::textarea(
 					'text',
-					isset($complect)?$complect->name:'',
+					isset($company)?$company->controll->text:'',
 					['class'=>'form-control']
 				)}}
 			</div>

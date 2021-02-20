@@ -133,8 +133,14 @@ class CarController extends Controller
         $brands = \App\Models\Brand::get()->pluck('name','id');
         $deliveryTypes = \App\Models\DeliveryType::get()->pluck('name','id');
         $logistMarkers= \App\Models\LogistMarker::get()->pluck('name','id');
+        
         $marks = \App\Models\Mark::where('brand_id',$car->brand_id)->get()->pluck('name','id');
-        $complects = \App\Models\Complect::where('mark_id',$car->mark_id)->get()->pluck('name','id');
+        
+        $complects = [];
+        $complectsQuery = $car->complect->with('motor')->where('mark_id',$car->mark_id)->get();
+        foreach ($complectsQuery as $key => $itemComplect) 
+            $complects[$itemComplect->id] = $itemComplect->fullName;
+        
         $options = Option::select('options.*')
             ->leftJoin('option_brands','option_brands.option_id','options.id')
             ->where('option_brands.brand_id',$car->brand_id)
@@ -143,7 +149,9 @@ class CarController extends Controller
             ->groupBy('options.id')
             ->get()
             ->groupBy('type_id');
+
         $authors = User::get()->pluck('name','id');
+        
         return view('admin.car.add',compact('brands','deliveryTypes','logistMarkers','car','marks','complects','options','authors'));
     }
 

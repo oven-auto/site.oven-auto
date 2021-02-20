@@ -4,6 +4,7 @@
 <table class="table">
 		<tr class="thead-dark">
 			<th style="width: 50px;"></th>
+			<th>Модель</th>
 			<th>Название</th>
 			<th>Код</th>
 			<th>Цена</th>
@@ -13,9 +14,20 @@
 		<tr>
 			<td>
 				@php ($checked = (isset($data) && $data->contains('pack_id',$itemPack->id))?'checked':'')
-				{{Form::checkbox('pack_ids[]',$itemPack->id,'',['class'=>'form-control',$checked])}}
-			</td>
+				<!--Form::checkbox('pack_ids[]',$itemPack->id,'',['class'=>'form-control',$checked])-->
 
+				<label class="checkbox">
+					<input type="checkbox" name="pack_ids[]" value="{{$itemPack->id}}" {{$checked}} >
+					<div class="checkbox__text"></div>
+				</label>
+			</td>
+			<td>
+				@isset($itemPack->marks)
+					@foreach($itemPack->marks as $itemMark)							
+						{{$itemMark->mark->name}}
+					@endforeach
+				@endisset
+			</td>
 			<td>{{$itemPack->name}}</td>
 			<td>{{$itemPack->code}}</td>
 			<td>{{$itemPack->price}}</td>

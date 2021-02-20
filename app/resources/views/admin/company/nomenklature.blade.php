@@ -19,6 +19,6 @@
 		</div>
 	</div>
 	<div class="select-options-view"></div>
-	<input id="nomenklatures" type="hidden" value="" name="nomenklatures">
+	<input id="nomenklatures" type="hidden" value="" name="parameters">
 </div>
 

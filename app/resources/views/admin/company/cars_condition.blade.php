@@ -6,10 +6,10 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">VIN</span>
 				</div>
-				{{Form::hidden('car[type][]','1')}}
+				{{Form::hidden('car[type][]',isset($status)?(empty($status)?0:1):0)}}
 				{{Form::text(
 					'car[vin][]',
-					'',
+					isset($condition) ? $condition->vin : '',
 					['placeholder'=>'VIN','class'=>'form-control']
 				)}}
 			</div>
@@ -25,7 +25,7 @@
 				{{Form::select(
 					'car[mark_id][]',
 					$models,
-					'',
+					isset($condition) ? $condition->mark_id : '',
 					['placeholder'=>'Модель','class'=>'form-control']
 				)}}
 			</div>
@@ -41,7 +41,7 @@
 				{{Form::select(
 					'car[complect_id][]',
 					$complects,
-					'',
+					isset($condition) ? $condition->complect_id : '',
 					['placeholder'=>'Комплектация','class'=>'form-control']
 				)}}
 			</div>
@@ -59,7 +59,7 @@
 						{{Form::select(
 							'car[transmission_id][]',
 							$transmissions,
-							'',
+							isset($condition) ? $condition->transmission_id : '',
 							['placeholder'=>'КПП','class'=>'form-control']
 						)}}
 					</div>
@@ -75,7 +75,7 @@
 						{{Form::select(
 							'car[driver_id][]',
 							$drivers,
-							'',
+							isset($condition) ? $condition->driver_id : '',
 							['placeholder'=>'Привод','class'=>'form-control']
 						)}}
 					</div>
@@ -93,7 +93,7 @@
 				{{Form::select(
 					'car[delivery_id][]',
 					[],
-					'',
+					isset($condition) ? $condition->delivery_id : '',
 					['placeholder'=>'Поставка','class'=>'form-control']
 				)}}
 			</div>
@@ -108,7 +108,7 @@
 				</div>
 				{{Form::text(
 					'car[min_price][]',
-					'',
+					isset($condition) ? $condition->min_price : '',
 					['placeholder'=>'Цена: от','class'=>'form-control']
 				)}}
 			</div>
@@ -123,7 +123,7 @@
 				</div>
 				{{Form::text(
 					'car[max_price][]',
-					'',
+					isset($condition) ? $condition->max_price : '',
 					['placeholder'=>'Цена: до','class'=>'form-control']
 				)}}
 			</div>
@@ -141,7 +141,7 @@
 						{{Form::select(
 							'car[year][]',
 							[],
-							'',
+							isset($condition) ? $condition->year : '',
 							['placeholder'=>'Год выпуска','class'=>'form-control']
 						)}}
 					</div>

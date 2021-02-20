@@ -2,7 +2,7 @@
 namespace App\Services\Company;
 use App\Services\Company\CalculationInterface;
 
-Class Description implements CalculationInterface
+Class Description extends AbstractCompanyClass  implements CalculationInterface
 {
 	public function adminRender()
 	{
@@ -17,5 +17,10 @@ Class Description implements CalculationInterface
 	public function setData()
 	{
 
+	}
+
+	public function fill($company)
+	{
+		
 	}
 }

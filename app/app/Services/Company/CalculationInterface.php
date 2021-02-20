@@ -8,4 +8,6 @@ Interface CalculationInterface
 	public function clientRender();
 
 	public function setData();
+
+	public function fill($company);
 }

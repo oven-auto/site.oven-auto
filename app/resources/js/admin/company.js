@@ -28,6 +28,8 @@ $(document).on('click','.cars-set-add',function(){
 	})
 })
 
+
+//вызов модали номенклатуры
 $(document).on('click','.company-modal-options',function(){
 	var me = $(this)
 	var url = me.attr('data-url')
@@ -41,13 +43,15 @@ $(document).on('click','.company-modal-options',function(){
 	})
 })
 
+//выбор номенклатуры
 $(document).on('change','.company-modal [type="checkbox"]',function(){
 	var options = []
 	$('.company-modal [type="checkbox"]').each(function(){
 		if($(this).prop('checked'))
 		{
 			var id = $(this).val()
-			options.push({'id':id})
+			var name = $(this).parent().attr('data-original-title')
+			options.push({'id':id,'name':name})
 		}
 	})
 	$('#nomenklatures').val(JSON.stringify(options))

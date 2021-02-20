@@ -5,10 +5,10 @@
 
 <div class="input-group mb-3">
 	<div class="input-group-prepend">
-		<span class="input-group-text">Модель</span>
+		<span class="input-group-text">Комплектация</span>
 	</div>
 
-	{{Form::select('complect_id',$complects,$needArr,[
+	{{Form::select('complect_id',isset($complects)?$complects:[],$needArr,[
 		'class'=>'form-control' , 
 		'required'=>'required', 
 		'data-url-pack'=>route('ajax.get.complect.pack'),

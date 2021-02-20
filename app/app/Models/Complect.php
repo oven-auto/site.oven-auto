@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Complect extends Model
 {
     protected $guarded = [];
-
+    
     public function mark()
     {
     	return $this->hasOne(\App\Models\Mark::class,'id','mark_id')->withDefault();
@@ -40,6 +40,10 @@ class Complect extends Model
 
     public function getFullNameAttribute()
     {
-        return $this->name.' '.$this->code.' '.$this->motor->adminName;
+        $result = $this->name.' '.$this->code.' '.$this->motor->adminName;
+        $result = trim($result);
+        if($result)
+            return $result;
+        return false;
     }
 }

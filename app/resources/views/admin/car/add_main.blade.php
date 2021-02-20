@@ -77,7 +77,7 @@
 				'author_id',
 				$authors,
 				isset($car)?$car->author_id: Auth::user()->id,
-				['placeholder'=>'Автор заказа','class'=>'form-control','style'=>'pointer-events:none;'
+				['placeholder'=>'Автор заказа','class'=>'form-control',
 			])}}
 		</div>
 		@error('delivery_id')						
@@ -109,21 +109,7 @@
 
 		<!--MARK BEGIN-->
 		<div class="car-mark-add">
-			<div class="input-group mb-3">
-				<div class="input-group-prepend">
-					<span class="input-group-text">Модель</span>
-				</div>
-				{{Form::select('mark_id',isset($marks)?$marks:[],isset($car)?$car->mark_id:'',['placeholder'=>'Модель','class'=>'form-control' , 'required'=>'required'])}}
-			</div>
-
-			@error('mark_id')						
-			    <div class="alert alert-danger">
-			    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					{{ $message }}
-				</div>
-			@enderror
+			@include('admin.getters.mark-select',['data'=>isset($car) ? $car->mark_id : [],'type'=>'single'])
 		</div>
 		<!--MARK END-->
 
@@ -171,28 +157,7 @@
 
 		<!--MARK BEGIN-->
 		<div class="car-complect-add">
-			<div class="input-group mb-3">
-				<div class="input-group-prepend">
-					<span class="input-group-text">Комплектация</span>
-				</div>
-				{{Form::select(
-					'complect_id',
-					isset($complects) ? $complects : [],
-					isset($car) ? $car->complect_id : '',
-					[
-						'placeholder'=>'Комплектация','class'=>'form-control' , 'required'=>'required'
-					]
-				)}}
-			</div>
-
-			@error('complect_id')						
-			    <div class="alert alert-danger">
-			    	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-					{{ $message }}
-				</div>
-			@enderror
+			@include('admin.getters.complect-select',['data'=>isset($car) ? $car->complect_id : [] ])
 		</div>
 		<!--MARK END-->
 

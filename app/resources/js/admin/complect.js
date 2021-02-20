@@ -20,9 +20,8 @@ $(document).on('change','#complect-edit [name="mark_id"]',function(){
 	$(this).removeAttr('multiple')
 	var url = $(this).attr('data-url-pack')
 	var parameters = {}
-	parameters.brand_id = $('#complect-edit [name="brand_id"]').val()
+	parameters.mark_id = $('#complect-edit [name="mark_id"]').val()
 	var block = $('#complect-edit .pack-container')
-	console.log(block)
 	getRender(url,parameters,block)
 })
 

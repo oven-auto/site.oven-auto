@@ -118,7 +118,6 @@
 	</div>
 
 	<div class="row">
-
 		<div class="col option-container">
 			@isset($complect)
 				@include('admin.getters.options',['data'=>isset($complect->options)?$complect->options:''])

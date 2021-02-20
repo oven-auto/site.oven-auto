@@ -37477,7 +37477,8 @@ $(document).on('click', '.cars-set-add', function () {
   axios.get(url).then(function (response) {
     me.closest('.row').find('.cars_set').append(response.data.view);
   })["catch"](function (error) {});
-});
+}); //вызов модали номенклатуры
+
 $(document).on('click', '.company-modal-options', function () {
   var me = $(this);
   var url = me.attr('data-url');
@@ -37489,14 +37490,17 @@ $(document).on('click', '.company-modal-options', function () {
   })["catch"](function (error) {
     console.log(error);
   });
-});
+}); //выбор номенклатуры
+
 $(document).on('change', '.company-modal [type="checkbox"]', function () {
   var options = [];
   $('.company-modal [type="checkbox"]').each(function () {
     if ($(this).prop('checked')) {
       var id = $(this).val();
+      var name = $(this).parent().attr('data-original-title');
       options.push({
-        'id': id
+        'id': id,
+        'name': name
       });
     }
   });
@@ -37534,9 +37538,8 @@ $(document).on('change', '#complect-edit [name="mark_id"]', function () {
   $(this).removeAttr('multiple');
   var url = $(this).attr('data-url-pack');
   var parameters = {};
-  parameters.brand_id = $('#complect-edit [name="brand_id"]').val();
+  parameters.mark_id = $('#complect-edit [name="mark_id"]').val();
   var block = $('#complect-edit .pack-container');
-  console.log(block);
   getRender(url, parameters, block);
 });
 $(document).on('change', '.complect-table [name="complect-status"]', function () {

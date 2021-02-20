@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin\Company;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\Company\CompanyService;
+use DataForSelect;
+
 class AjaxCompanyController extends Controller
 {
 	public $service = null;
@@ -28,21 +30,25 @@ class AjaxCompanyController extends Controller
 
     public function getEmptyCondition($type)
     {
-    	$models = $this->service->getModelsForSelect();
-        $complects = $this->service->getComplectsForSelect();
-        $transmissions = $this->service->getTransmissionsForSelect();
-        $drivers = $this->service->getDriversForselect();
+    	$models = DataForSelect::getModels();
+        $complects = DataForSelect::getComplects();
+        $transmissions = DataForSelect::getTransmissions();
+        $drivers = DataForSelect::getDrivers();
 
         $var = compact('models','complects','transmissions','drivers');
     	
     	if($type == 1)
     		return response()->json([
-    			'view'=>view('admin.company.cars_in',$var)->render(),
+    			'view'=>view('admin.company.cars_condition',$var)
+                    ->with('status',1)
+                    ->render(),
     			'status'=>1
     		]);
     	if($type==0)
     		return response()->json([
-    			'view'=>view('admin.company.cars_out',$var)->render(),
+    			'view'=>view('admin.company.cars_condition',$var)
+                    ->with('status',0)
+                    ->render(),
     			'status'=>1
     		]);
     }

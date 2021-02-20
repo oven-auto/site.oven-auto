@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Services\Company\CompanyService;
 use App\Models\Mark;
 use App\Http\Requests\Admin\CompanyCreateRequest;
+use DataForSelect;
+use App\Models\Company;
 
 class CompanyController extends Controller
 {
@@ -25,8 +27,9 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $service = new CompanyService();
-        dd($service->getCompanyById(1));
+        $sections = DataForSelect::getCompanySections();
+        $companies = $this->service->getCompanies();
+        return view('admin.company.index',compact('companies','sections'));
     }
 
     /**
@@ -36,12 +39,12 @@ class CompanyController extends Controller
      */
     public function create()
     {
-        $models = $this->service->getModelsForSelect();
-        $complects = $this->service->getComplectsForSelect();
-        $transmissions = $this->service->getTransmissionsForSelect();
-        $drivers = $this->service->getDriversForselect();
-        $scenarios = $this->service->getCompanyScenariosList();
-        $sections = $this->service->getCompanySectionsList();
+        $models = DataForSelect::getModels();
+        $complects = DataForSelect::getComplects();
+        $transmissions = DataForSelect::getTransmissions();
+        $drivers = DataForSelect::getDrivers();
+        $scenarios = DataForSelect::getCompanyScenarios();
+        $sections = DataForSelect::getCompanySections();
         return view('admin.company.create', compact('scenarios','models','complects','transmissions','drivers','sections'));
     }
 
@@ -53,7 +56,10 @@ class CompanyController extends Controller
      */
     public function store(CompanyCreateRequest $request)
     {
-        dd($request->input());
+        $company = $this->service->createCompany($request->all());
+        if($company)
+            return redirect()->route('companies.edit',$company)->with('status','Компания не добавлена');
+        return redirect()->route('companies.create')->with('status','Ошибка. Компания не добавлена');
     }
 
     /**
@@ -62,9 +68,16 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Company $company)
     {
-        //
+        $models = DataForSelect::getModels();
+        $complects = DataForSelect::getComplects();
+        $transmissions = DataForSelect::getTransmissions();
+        $drivers = DataForSelect::getDrivers();
+        $scenarios = DataForSelect::getCompanyScenarios();
+        $sections = DataForSelect::getCompanySections();
+        $parameters = $this->service->calculate($company);
+        return view('admin.company.create', compact('scenarios','models','complects','transmissions','drivers','sections','company','parameters'));
     }
 
     /**
@@ -73,9 +86,16 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Company $company)
     {
-        //
+        $models = DataForSelect::getModels();
+        $complects = DataForSelect::getComplects();
+        $transmissions = DataForSelect::getTransmissions();
+        $drivers = DataForSelect::getDrivers();
+        $scenarios = DataForSelect::getCompanyScenarios();
+        $sections = DataForSelect::getCompanySections();
+        $parameters = $this->service->calculate($company);
+        return view('admin.company.create', compact('scenarios','models','complects','transmissions','drivers','sections','company','parameters'));
     }
 
     /**
@@ -85,9 +105,12 @@ class CompanyController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CompanyCreateRequest $request, Company $company)
     {
-        //
+        $company = $this->service->updatecompany($company,$request->all());
+        if($company)
+            return redirect()->route('companies.edit',$company)->with('status','Компания обновлена');
+        return redirect()->route('companies.edit',$company)->with('status','Ошибка. Компания не обновлена');
     }
 
     /**

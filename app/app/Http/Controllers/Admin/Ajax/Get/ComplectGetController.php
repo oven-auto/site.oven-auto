@@ -13,7 +13,7 @@ class ComplectGetController extends Controller
     	if($request->has('mark_id') && $request->get('mark_id'))
 		{
 			$complects = [];
-			$complectsQuery = Complect::with('motor')->get();
+			$complectsQuery = Complect::with('motor')->where('mark_id',$request->get('mark_id'))->get();
 			foreach ($complectsQuery as $key => $itemComplect) {
 				$complects[$itemComplect->id] = $itemComplect->fullName;
 			}
