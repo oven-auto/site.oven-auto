@@ -37,4 +37,19 @@ class Mark extends Model
     {
         return $this->hasMany(\App\Models\MarkColor::class,'mark_id','id')->with('color');
     }
+
+    public function complects()
+    {
+        return $this->hasMany(\App\Models\Complect::class,'mark_id','id')->orderBy('sort');
+    }
+
+    public function lowcomplect()
+    {
+        return $this->hasOne(\App\Models\Complect::class,'mark_id','id')->orderBy('price');
+    }
+
+    public function cars()
+    {
+        return $this->hasMany(\App\Models\Car::class,'mark_id','id');
+    }
 }

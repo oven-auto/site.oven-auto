@@ -14,3 +14,9 @@
 	background:#333;
 	border-color:#888;
 }
+.zone{
+	border-bottom:1px solid #ddd ;
+}
+.zone:last-child{
+	border-bottom:0px solid #ddd !important;
+}

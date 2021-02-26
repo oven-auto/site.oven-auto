@@ -12,7 +12,7 @@
 .checkbox__text:before {
 	content: '';
 	position: absolute;
-	top: -4px;
+	top: 4px;
 	left: 0;
 	width: 44px;
 	height: 18px;
@@ -24,7 +24,7 @@
 .checkbox__text:after {
 	content: '';
 	position: absolute;
-	top: -2px;
+	top: 6px;
 	left: 2px;
 	width: 14px;
 	height: 14px;

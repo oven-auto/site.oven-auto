@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['namespace'=>'Front'],function(){
+	Route::get('/','IndexController@index')->name('front.index');
 });
 
 Auth::routes();
@@ -39,7 +39,18 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>'auth'],funct
 			Route::get('/conditions/{type}','AjaxCompanyController@getEmptyCondition')->name('company.get.condition');
 		});
 	});
-	
+
+	Route::resource('credits','Credit\CreditController');
+
+	//Ресурс банеров
+	Route::resource('banners','Banner\BannerController');
+	//Маршрут для сортировки банеров
+	Route::put('ajax/banners/sort','Banner\AjaxBannerController@sort')->name('ajax.banners.sort');
+
+	//Русурс ярлыков
+	Route::resource('shortcuts','Shortcut\ShortcutController');
+	//Маршрут для сортировки банеров
+	Route::put('ajax/shortcuts/sort','Shortcut\AjaxShortcutController@sort')->name('ajax.shortcuts.sort');
 
 	Route::group(['prefix'=>'ajax','namespace'=>'Ajax'],function(){
 		Route::group(['prefix'=>'get','namespace'=>'Get'],function(){

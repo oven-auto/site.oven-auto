@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         App\Providers\DataForSelectFacadeServiceProvider::class,
+        App\Providers\ComposerServiceProvider::class,
 
     ],
 

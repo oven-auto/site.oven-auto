@@ -16,6 +16,12 @@ require('./admin/pack');
 require('./admin/complect');
 require('./admin/car');
 require('./admin/company');
+require('./admin/banners');
+require( 'jquery-ui/ui/widgets/sortable.js');
+require('./config_sortable.js');
+require('slick-carousel');
+
+require('./config_slick');
 
 //window.Vue = require('vue');
 
