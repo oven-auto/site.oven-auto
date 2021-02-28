@@ -1,0 +1,23 @@
+.model-info .name{
+	font-size: $font-big;
+	font-weight: bold;
+	text-transform: uppercase;
+}
+
+.model-info .slogan{
+	font-size: $font-medium;
+	color: #555;
+	text-transform: uppercase;
+}
+
+.model-info .description{
+	font-size: $font-medium;
+	color: #333;
+	font-weight:100;
+}
+
+@media screen and (min-width:900px){
+	.model-info .description{
+		padding: 0 150px;
+	}
+}

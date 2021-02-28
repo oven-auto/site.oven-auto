@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['namespace'=>'Front'],function(){
 	Route::get('/','IndexController@index')->name('front.index');
+	Route::get('pricelist/{slug}','PriceList\PriceListController@index')->name('front.pricelist');
 });
 
 Auth::routes();

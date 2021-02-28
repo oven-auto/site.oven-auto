@@ -4,6 +4,7 @@ use App\Models\Mark;
 use App\Models\Banner;
 use App\Models\Body;
 use DB;
+use Illuminate\Database\Eloquent\Builder;
 Class FrontDataService
 {
 	public function getModelsForTabs($data = array())
@@ -17,6 +18,20 @@ Class FrontDataService
 			->orderBy('marks.sort')
 			->get();
 		return $models;
+	}
+
+	public function getModelForPriceList($slug)
+	{
+		$model = Mark::select(['marks.*',DB::raw('count(Distinct cars.id) as countCars'),DB::raw('min(complects.price) as minPrice')])
+			->with(['body','properties.property','credits','colors.color','brand'])
+			->with('currentcomplects.motor')
+			->leftJoin('complects','complects.mark_id','=','marks.id')
+			->leftJoin('cars','cars.mark_id','=','marks.id')
+			->groupBy('marks.id')
+			->orderBy('marks.sort')
+			->where('marks.slug',$slug)
+			->first();
+		return $model;
 	}
 
 	public function getBanners()
