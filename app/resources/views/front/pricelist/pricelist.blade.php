@@ -149,7 +149,16 @@
 	<!--End model complects-->
 
 	<!--Begin Credits-->
-
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<div class="">
+					Комплектации
+				</div>
+			</div>
+		</div>
+		
+	</div>
 	<!--End Credits-->
 
 @endsection

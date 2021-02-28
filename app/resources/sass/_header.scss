@@ -13,5 +13,9 @@
 }
 
 .header-info .name, .header-info .phone{
-	font-size:1.3rem;
+	font-size:$font-medium;
+}
+
+.nav-menu .navbar{
+	background: #fff;
 }

@@ -32,9 +32,10 @@
   
 		</div>
 	</div>
+</div>
 
-	<div class="menu">
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	<div class="menu nav-menu">
+		<nav class="navbar navbar-expand-lg navbar-light py-0">
 			<div class="container">
 			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			    <span class="navbar-toggler-icon"></span>
@@ -115,4 +116,3 @@
 			</div>
 		</nav>
 	</div>	
-</div>

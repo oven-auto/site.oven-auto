@@ -43479,7 +43479,9 @@ __webpack_require__(/*! ./config_sortable.js */ "./resources/js/config_sortable.
 
 __webpack_require__(/*! slick-carousel */ "./node_modules/slick-carousel/slick/slick.js");
 
-__webpack_require__(/*! ./config_slick */ "./resources/js/config_slick.js"); //window.Vue = require('vue');
+__webpack_require__(/*! ./config_slick */ "./resources/js/config_slick.js");
+
+__webpack_require__(/*! ./navbar_fixed */ "./resources/js/navbar_fixed.js"); //window.Vue = require('vue');
 
 /**
  * The following block of code may be used to automatically register your
@@ -43652,6 +43654,28 @@ $(document).ready(function () {
   $('body').tooltip({
     trigger: 'hover',
     selector: '[data-toggle="tooltip"]'
+  });
+});
+
+/***/ }),
+
+/***/ "./resources/js/navbar_fixed.js":
+/*!**************************************!*\
+  !*** ./resources/js/navbar_fixed.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  $(window).scroll(function () {
+    var currentScroll = $(this).scrollTop();
+    var nav = $('.nav-menu');
+
+    if (nav.offset().top < currentScroll) {
+      if ($(document).find('.nav-menu-clone').length == 0) $('body').append(nav.clone().addClass('nav-menu-clone').addClass('fixed-top'));
+    } else if (nav.offset().top > currentScroll) {
+      $('.nav-menu-clone').remove();
+    }
   });
 });
 

@@ -22,6 +22,7 @@ require('./config_sortable.js');
 require('slick-carousel');
 
 require('./config_slick');
+require('./navbar_fixed');
 
 //window.Vue = require('vue');
 
