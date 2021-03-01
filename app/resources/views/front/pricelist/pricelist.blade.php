@@ -99,21 +99,27 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<div class="">
+				<div class="block-title py-3">
 					Характеристики
 				</div>
 			</div>
 		</div>
 
-		<div class="row">
+		<div class="row properties">
 			@foreach($model->properties->chunk($model->properties->count()/2) as $chunk)
 				<div class="col">
+					<table class="table">
 					@foreach($chunk as $itemProperty)
-						<div class="">
-							{{$itemProperty->property->name}}
-							{{$itemProperty->value}}
-						</div>
+						<tr>
+							<td> 
+								{{$itemProperty->property->name}}
+							</td>
+							<td> 
+								{{$itemProperty->value}}
+							</td>
+						</tr>
 					@endforeach
+					</table>
 				</div>
 			@endforeach
 		</div>
@@ -124,7 +130,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col">
-				<div class="">
+				<div class="block-title py-3">
 					Комплектации
 				</div>
 			</div>
@@ -132,15 +138,24 @@
 
 		@foreach($model->currentcomplects as $itemComplect)
 		<div class="row">
-			<div class="col-12">
-				{{$itemComplect->frontName}}
-				{{$itemComplect->code}}
+			<div class="col-12 model-complect-control">
+				<div class="row"> 
+					<div class="col-7"> 
+						{{$itemComplect->frontName}}
+						{{$itemComplect->code}}
+					</div>
 
-				{{$itemComplect->cars_count}}
+					<div class="col-1"> 
+						{{$itemComplect->cars_count}}
+					</div>
 
-				{{number_format($itemComplect->price,0,'',' ')}} руб.
+					<div class="col-4 text-right"> 
+						{{number_format($itemComplect->price,0,'',' ')}} руб.
+						<span class="model-complect-open fa fa-angle-down ml-3" data-url="" ></span>
+					</div>
+				</div>
 			</div>
-			<div class="col-12">
+			<div class="col-12 model-complect-content">
 
 			</div>
 		</div>
@@ -148,17 +163,12 @@
 	</div>
 	<!--End model complects-->
 
+	<!--Begin testdrive-->
+		<!--*-->
+	<!--end testdrive-->
+
 	<!--Begin Credits-->
-	<div class="container">
-		<div class="row">
-			<div class="col">
-				<div class="">
-					Комплектации
-				</div>
-			</div>
-		</div>
-		
-	</div>
+		<!--*-->
 	<!--End Credits-->
 
 @endsection

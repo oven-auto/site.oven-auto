@@ -1,0 +1,10 @@
+.properties td{
+	padding: 0.3rem 0;
+}
+.properties tr:first-child td{
+	border: 0px;
+}
+
+.properties tr td:last-child{
+	text-align: right;
+}

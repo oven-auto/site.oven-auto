@@ -36,7 +36,7 @@ class Motor extends Model
 
     public function getAdminNameAttribute()
     {
-        return ($this->size/1000).' '.$this->power.' '.$this->transmission->name.' '.$this->driver->name;
+        return ($this->size/1000).' '.'('.$this->power.'л.с.)'.' '.$this->transmission->name.' '.$this->driver->name;
     }
 
     

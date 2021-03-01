@@ -13832,3 +13832,23 @@ form img {
   }
 }
 
+.block-title {
+  font-size: 1.2rem;
+}
+
+.model-complect-control {
+  font-size: 1.2rem;
+}
+
+.properties td {
+  padding: 0.3rem 0;
+}
+
+.properties tr:first-child td {
+  border: 0px;
+}
+
+.properties tr td:last-child {
+  text-align: right;
+}
+
