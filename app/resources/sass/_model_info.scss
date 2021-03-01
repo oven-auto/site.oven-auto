@@ -1,13 +1,14 @@
 .model-info .name{
 	font-size: $font-big;
-	font-weight: bold;
 	text-transform: uppercase;
+	font-family: $rn_bold;
 }
 
 .model-info .slogan{
 	font-size: $font-medium;
 	color: #555;
 	text-transform: uppercase;
+	font-family: $rn_bold;
 }
 
 .model-info .description{

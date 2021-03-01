@@ -43318,11 +43318,9 @@ $(document).on('change', '.status-control', function () {
 });
 
 window.setCheckedColor = function () {
-  var input = $('.palette [name="colors_ids"]');
-  var str = input.val();
-  var masIds = str.split(',');
-  masIds.forEach(function (val, key) {
-    $('.modal [data-color-id="' + val + '"]').addClass('checked-color');
+  var block = $('.color-content');
+  block.find('.color-check').each(function () {
+    $('.modal [data-color-id="' + $(this).attr('data-color-id') + '"]').addClass('checked-color');
   });
 }; //Получение палитры цветов по бренду
 
@@ -43342,27 +43340,41 @@ $(document).on('click', '#get-color', function () {
   });
 });
 $(document).on('click', '.modal .color-check', function () {
-  console.log('click');
-  var input = $('.palette [name="colors_ids"]');
-  var str = input.val();
-  var masIds = str.split(',');
-  var pressedId = $(this).attr('data-color-id');
+  var me = $(this);
+  var colorId = me.attr('data-color-id');
+  var block = $('.color-content');
+  var isSet = block.find('[data-color-id=' + colorId + ']').length;
 
-  if (masIds.includes(pressedId)) {
-    masIds.splice(masIds.indexOf(pressedId), 1);
-    $(this).removeClass('checked-color');
-    $('.palette [data-color-id="' + pressedId + '"]').remove();
-    console.log('delete');
+  if (!isSet) {
+    $('.modal [data-color-id="' + me.attr('data-color-id') + '"]').addClass('checked-color');
+    var clone = me.clone().addClass('col-3').removeClass('border');
+    clone.find('.color-pic').css({
+      width: '20px',
+      height: '20px'
+    });
+    clone.append('<img>' + '<div class="custom-file mt-2">' + '<input type="file" class="custom-file-input model-img" name="colors_ids[' + colorId + ']">' + '<label class="custom-file-label" for="validatedCustomFile">Укажите фаил</label>' + //'<input type="hidden" name="hidden_ids['+colorId+']" value="'+colorId+'">'+
+    '</div>');
+    block.append(clone);
   } else {
-    masIds.push(pressedId);
-    $(this).addClass('checked-color');
-    console.log('add');
+    $('.modal [data-color-id="' + me.attr('data-color-id') + '"]').removeClass('checked-color');
+    block.find('[data-color-id=' + colorId + ']').remove();
   }
+});
+$(document).on('change', '.model-img', function () {
+  me = $(this);
+  var input = $(this)[0];
 
-  var checkedColors = $(document).find('.modal .checked-color').clone().addClass('col-2').removeClass('border');
-  var colorContent = $('.palette .color-content');
-  colorContent.html(checkedColors);
-  input.val(masIds.join());
+  if (input.files && input.files[0]) {
+    if (input.files[0].type.match('image.*')) {
+      var reader = new FileReader();
+
+      reader.onload = function (e) {
+        me.closest('.color-check').find('img').attr('src', e.target.result);
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    } else console.log('is not image mime type');
+  } else console.log('not isset files data or files API not supordet');
 });
 
 /***/ }),
@@ -43671,10 +43683,12 @@ $(document).ready(function () {
     var currentScroll = $(this).scrollTop();
     var nav = $('.nav-menu');
 
-    if (nav.offset().top < currentScroll) {
-      if ($(document).find('.nav-menu-clone').length == 0) $('body').append(nav.clone().addClass('nav-menu-clone').addClass('fixed-top'));
-    } else if (nav.offset().top > currentScroll) {
-      $('.nav-menu-clone').remove();
+    if (nav.length) {
+      if (nav.offset().top < currentScroll) {
+        if ($(document).find('.nav-menu-clone').length == 0) $('body').append(nav.clone().addClass('nav-menu-clone').addClass('fixed-top'));
+      } else if (nav.offset().top > currentScroll) {
+        $('.nav-menu-clone').remove();
+      }
     }
   });
 });

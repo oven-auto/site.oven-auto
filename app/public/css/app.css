@@ -2637,7 +2637,14 @@
     opacity: .75;
     color: black;
 }
-@charset "UTF-8";
+@font-face{
+	font-family: 'Renault';
+	src: url(/fonts/RenaultLifeCyWeb-Bold.ttf?18a3b02186eeb79b20b7e07d286dd44d);
+}
+@font-face{
+	font-family: 'Renault-regular';
+	src: url(/fonts/RenaultLifeCyWeb-Light.ttf?d3236854ca9eca5db1d6817fdd2a9189);
+}@charset "UTF-8";
 
 /*!
  * Bootstrap v4.5.3 (https://getbootstrap.com/)
@@ -13786,6 +13793,10 @@ form img {
   margin: 0 10px;
 }
 
+.header-info {
+  font-family: Renault;
+}
+
 .header-info .name,
 .header-info .phone {
   font-size: 1.2rem;
@@ -13793,6 +13804,10 @@ form img {
 
 .nav-menu .navbar {
   background: #fff;
+}
+
+body {
+  font-family: Renault-regular;
 }
 
 .model-header {
@@ -13805,19 +13820,20 @@ form img {
 
 .model-header-value {
   font-size: 2rem;
-  font-weight: bold;
+  font-family: Renault;
 }
 
 .model-info .name {
   font-size: 2rem;
-  font-weight: bold;
   text-transform: uppercase;
+  font-family: Renault;
 }
 
 .model-info .slogan {
   font-size: 1.2rem;
   color: #555;
   text-transform: uppercase;
+  font-family: Renault;
 }
 
 .model-info .description {
@@ -13850,5 +13866,9 @@ form img {
 
 .properties tr td:last-child {
   text-align: right;
+}
+
+.model-viewer img {
+  width: 70%;
 }
 

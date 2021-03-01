@@ -156,7 +156,7 @@
 						@endisset
 					</div>
 
-					<div class="col">
+					<!-- <div class="col">
 						<div class="input-group mb-3">
 							<div class="input-group-prepend">
 								<span class="input-group-text">Альфа</span>
@@ -180,7 +180,7 @@
 								<img src="{{asset('storage/'.$mark->alpha)}}">
 							</div>
 						@endisset
-					</div>
+					</div> -->
 
 					<div class="col">
 						<div class="input-group mb-3">
@@ -426,15 +426,21 @@
 			</div>
 		</div>
 		<div class="palette">
-			{{Form::hidden('colors_ids',(isset($mark->colors) && $mark->colors->count()) ? $mark->colors->implode('id',','):'')}}
+			
 			<div class="row color-content text-center">
 				@if(isset($mark->colors) && $mark->colors->count())
 					@foreach($mark->colors as $itemInstallColor)
 						
-							<div class="p-2 my-2 pb-3 rounded color-check col-2 checked-color" data-color-id="{{$itemInstallColor->color->id}}">
-								{{$itemInstallColor->color->code}}
-								<div class="color-pic" data-color="{{$itemInstallColor->color->web}}"></div>
+						<div class="p-2 my-2 pb-3 rounded color-check col-3 checked-color" data-color-id="{{$itemInstallColor->color->id}}">
+							{{$itemInstallColor->color->code}}
+							<div class="color-pic" data-color="{{$itemInstallColor->color->web}}" style="width: 20px;height: 20px;"></div>
+							<img src="{{asset('storage/'.$itemInstallColor->img)}}">
+							<div class="custom-file mt-2">
+							    <input type="file" class="custom-file-input model-img" name="colors_ids[{{$itemInstallColor->color_id}}]">
+							    <label class="custom-file-label" for="validatedCustomFile">Укажите фаил</label>
 							</div>
+							<input type="hidden" name="hidden_ids[{{$itemInstallColor->color_id}}]" value="{{$itemInstallColor->color_id}}">
+						</div>
 
 					@endforeach
 				@endif

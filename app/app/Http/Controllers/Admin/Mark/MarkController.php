@@ -82,11 +82,11 @@ class MarkController extends Controller
     }
 
     public function update(MarkUpdateRequest $request,Mark $mark)
-    {
-    	$mark->update($request->except(['icon','alpha','banner','brochure','manual','price','toy','properties','colors_ids']));
+    {   
+    	$mark->update($request->except(['icon','alpha','banner','brochure','manual','price','toy','properties','colors_ids','hidden_ids']));
 
     	/*PICTURES*/
-    	$mark->update($this->UploadService->store($request->only(['icon','alpha','banner']), $mark));
+    	$mark->update($this->UploadService->store($request->only(['icon','banner']), $mark));
 
         /*DOCUMENTS*/
     	$mark->documents->save(['mark_id'=>$mark->id]);
@@ -105,16 +105,20 @@ class MarkController extends Controller
     			]);
     	}
 
-        MarkColor::where('mark_id',$mark->id)->delete();
-        foreach (explode(',', $request->get('colors_ids')) as $key => $color) 
+       
+        $imgs = $request->file('colors_ids');
+        foreach ($imgs as $color_id => $img) 
         {
-            if($color)
-                MarkColor::create([
-                    'mark_id'=>$mark->id,
-                    'color_id'=>$color
+            if($mark->colors->contains('color_id',$color_id))
+                $mark->colors()->where('color_id',$color_id)->first()->update([
+                    'img'=>$this->UploadService->store([$img],$mark)[0]
+                ]);
+            else
+                $mark->colors()->create([
+                    'color_id'=>$color_id,
+                    'img'=>$this->UploadService->store([$img],$mark)[0]
                 ]);
         }
-
     	return redirect()->route('marks.edit',$mark)->with('status','Модель обновлена');
     }
 

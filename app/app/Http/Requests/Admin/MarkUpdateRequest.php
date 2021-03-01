@@ -29,7 +29,7 @@ class MarkUpdateRequest extends FormRequest
             'prefix'=>'max:100',
             'banner'=>'image',
             'icon'=>'image',
-            'alpha'=>'image',
+            
             'slogan'=>'required|min:30|max:600',
             'description'=>'required|min:100|max:5000',
             'body_id'=>'required|integer',
@@ -44,7 +44,7 @@ class MarkUpdateRequest extends FormRequest
             'properties'=>'array|required',
             'properties.*'=>'required|min:2|max:200',
 
-            'colors_ids'=>'required',
+            //'colors_ids'=>'required',
         ];
     }
 }

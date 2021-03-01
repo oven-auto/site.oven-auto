@@ -72,7 +72,7 @@
 	<!--end model infos-->
 
 	<!--Begin model colors-->
-	<div class="container">
+	<div class="container model-viewer">
 		<div class="row">
 			<div class="col text-center">
 				<div class="">
@@ -106,7 +106,7 @@
 		</div>
 
 		<div class="row properties">
-			@foreach($model->properties->chunk($model->properties->count()/2) as $chunk)
+			@foreach($model->properties->where('name','!=','--')->chunk(ceil($model->properties->count()/2)) as $chunk)
 				<div class="col">
 					<table class="table">
 					@foreach($chunk as $itemProperty)
@@ -138,7 +138,7 @@
 
 		@foreach($model->currentcomplects as $itemComplect)
 		<div class="row">
-			<div class="col-12 model-complect-control">
+			<div class="col-12 model-complect-control py-2">
 				<div class="row"> 
 					<div class="col-7"> 
 						{{$itemComplect->frontName}}

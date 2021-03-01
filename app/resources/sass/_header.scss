@@ -11,11 +11,16 @@
 	color: #555;
 	margin: 0 10px;
 }
-
+.header-info{
+	font-family: $rn_bold;
+}
 .header-info .name, .header-info .phone{
 	font-size:$font-medium;
 }
 
 .nav-menu .navbar{
 	background: #fff;
+}
+body{
+	font-family: $rn_light;
 }
