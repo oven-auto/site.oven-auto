@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class MarkColor extends Model
 {
     protected $guarded = [];
+    protected $with = ['color'];
 
     public function color()
     {

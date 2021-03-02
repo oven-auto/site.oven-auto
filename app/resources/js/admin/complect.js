@@ -23,6 +23,8 @@ $(document).on('change','#complect-edit [name="mark_id"]',function(){
 	parameters.mark_id = $('#complect-edit [name="mark_id"]').val()
 	var block = $('#complect-edit .pack-container')
 	getRender(url,parameters,block)
+	var url = $(this).attr('data-url-complect')
+	getRender(url,parameters, $('.color-container'))
 })
 
 $(document).on('change','.complect-table [name="complect-status"]',function(){
@@ -35,4 +37,8 @@ $(document).on('change','.complect-table [name="complect-status"]',function(){
 	}).catch(function(error){
 		console.log(error)
 	})
+})
+
+$(document).on('click','.color-container img',function(){
+	$(this).parent().find('[type="checkbox"]').click()
 })

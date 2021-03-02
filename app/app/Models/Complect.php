@@ -40,6 +40,15 @@ class Complect extends Model
         return $this->hasMany(\App\Models\Car::class,'complect_id','id');
     }
 
+    public function modelcolors()
+    {
+        return $this->hasMany(\App\Models\MarkColor::class,'mark_id','mark_id');
+    }
+    public function complectcolors()
+    {
+        return $this->hasMany(\App\Models\ComplectColor::class,'complect_id','id');
+    }
+
     public function getFormatPriceAttribute()
     {
         return number_format($this->price,0,'',' ').'р.';

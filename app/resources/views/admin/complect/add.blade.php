@@ -134,6 +134,14 @@
 		</div>
 	</div>
 
+	<div class="row pt-5">
+		<div class="col color-container">
+			@isset($complect)
+				@include('admin.complect.colors')
+			@endisset
+		</div>
+	</div>
+
 	@include('admin.form.create.control')
 
 	{{Form::close()}}

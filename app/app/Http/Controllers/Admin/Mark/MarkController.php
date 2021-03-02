@@ -60,14 +60,17 @@ class MarkController extends Controller
     			'value'=>$value
     		]);
     	}
-        foreach (explode(',', $request->get('colors_ids')) as $key => $color) 
+
+        $imgs = $this->UploadService->store($request->file('color_id'),$mark);
+        if(!empty($imgs))
         {
-            if($color)
-                MarkColor::create([
-                    'mark_id'=>$mark->id,
-                    'color_id'=>$color
+            foreach ($imgs as $key => $itemImg)
+                $mark->colors()->create([
+                    'color_id'=>$key,
+                    'img'=>$itemImg
                 ]);
         }
+        
     	return redirect()->route('marks.edit',$mark)->with('status','Новая модель добавлена');
     }
 
@@ -106,19 +109,26 @@ class MarkController extends Controller
     	}
 
        
-        $imgs = $request->file('colors_ids');
-        foreach ($imgs as $color_id => $img) 
+        $imgs = $this->UploadService->store($request->file('colors_ids'),$mark);
+
+        if(is_array($imgs))
         {
-            if($mark->colors->contains('color_id',$color_id))
-                $mark->colors()->where('color_id',$color_id)->first()->update([
-                    'img'=>$this->UploadService->store([$img],$mark)[0]
-                ]);
-            else
-                $mark->colors()->create([
-                    'color_id'=>$color_id,
-                    'img'=>$this->UploadService->store([$img],$mark)[0]
-                ]);
+            foreach ($imgs as $color_id => $img) 
+                if($mark->colors->contains('color_id',$color_id))
+                    $mark->colors()->where('color_id',$color_id)->first()->update([
+                        'img'=>$img
+                    ]);
+                else
+                    $mark->colors()->create([
+                        'color_id'=>$color_id,
+                        'img'=>$img
+                    ]);
+            $hidden = $request->get('hidden_ids');
+            $hidden = $mark->colors->whereNotIn('color_id',$hidden);
+            foreach ($hidden as $key => $item) 
+                $item->delete();
         }
+        
     	return redirect()->route('marks.edit',$mark)->with('status','Модель обновлена');
     }
 

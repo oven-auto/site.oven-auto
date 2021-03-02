@@ -34,3 +34,10 @@ form img{
 .cars_set .car-set-bg:nth-child(2n){
 	background: #eee;
 }
+
+#complect-edit .color-container  img{
+	cursor:pointer;
+}
+#complect-edit .color-container input[type="checkbox"]{
+	position:absolute;bottom:5px;right:5px;display:block;width:25px;height:25px;
+}

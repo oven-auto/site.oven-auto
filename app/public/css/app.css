@@ -13668,6 +13668,19 @@ form img {
   background: #eee;
 }
 
+#complect-edit .color-container img {
+  cursor: pointer;
+}
+
+#complect-edit .color-container input[type=checkbox] {
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  display: block;
+  width: 25px;
+  height: 25px;
+}
+
 .color-pic {
   width: 40px;
   height: 40px;
