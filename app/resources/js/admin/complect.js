@@ -25,6 +25,7 @@ $(document).on('change','#complect-edit [name="mark_id"]',function(){
 	getRender(url,parameters,block)
 	var url = $(this).attr('data-url-complect')
 	getRender(url,parameters, $('.color-container'))
+	console.log('complect')
 })
 
 $(document).on('change','.complect-table [name="complect-status"]',function(){

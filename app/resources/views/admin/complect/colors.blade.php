@@ -50,12 +50,13 @@
 						['style'=>'']
 					)}}
 
-					{{Form::select(
+					
+				</div>
+				{{Form::select(
 						'pack_id['.$itemModelColor->color_id.'][]', 
 						isset($packs) ? $packs : [], 
 						[],
 						['multiple'=>'multiple','class'=>'form-control'])}}
-				</div>
 			</div>
 		@endforeach
 	@endif

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\Ajax\Get;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Complect;
-
+use App\Models\ComplectColorPack;
 class ComplectGetController extends Controller
 {
     public function getComplectByMark(Request $request)
@@ -29,5 +29,16 @@ class ComplectGetController extends Controller
 				'view'=>'',
 				'status'=>0
 			]);
+    }
+
+    public function getColorPack(Request $request)
+    {
+    	$pack = [];
+    	if($request->has('complect_color_id') && $request->get('complect_color_id'))
+    		$packs = ComplectColorPack::where('complect_color_id',$request->get('complect_color_id'))->pluck('pack_id');
+    	return response()->json([
+    		'status'=>(count($packs)) ? 1 : 0,
+    		'packs_ids'=>$packs
+    	]);
     }
 }

@@ -12,7 +12,7 @@ class CarGetController extends Controller
     {
     	if($request->has('complect_id') && $request->get('complect_id'))
     	{
-    		$complect = Complect::with(['mark.colors.color','mark.country','brand','motor','packs.pack.options'])->find($request->get('complect_id'));
+    		$complect = Complect::with(['mark.country','brand','motor','packs.pack.options','complectcolors.colorpacks','modelcolors.color'])->find($request->get('complect_id'));
     		return response()->json([
     			'view'=>view('admin.car.view',compact('complect'))->render(),
     			'status'=>1,

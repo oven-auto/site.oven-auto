@@ -23,6 +23,7 @@ require('slick-carousel');
 
 require('./config_slick');
 require('./navbar_fixed');
+require('./front/model_image');
 
 //window.Vue = require('vue');
 

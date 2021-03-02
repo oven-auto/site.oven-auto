@@ -43003,12 +43003,31 @@ module.exports = function(module) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-window.FillAlpha = function (color) {
-  var back = $('.alpha-back');
-  back.css({
-    'background': color
-  });
+window.FillAlpha = function (data_id) {
+  $('.alpha-back img').addClass('d-none');
+  $('.alpha-back [data-color-id="' + data_id + '"]').removeClass('d-none');
 };
+
+function changePrice() {
+  var priceBlock = $('.car-price');
+  var carPrice = Number.parseInt(priceBlock.attr('data-price')); // var itemPackPrice = Number.parseInt(obj.attr('data-price'))
+  // console.log(carPrice)
+  // console.log(itemPackPrice)
+  // console.log('---')
+  // if(obj.prop('checked'))
+  // 	carPrice+=itemPackPrice
+  // else
+  // 	carPrice-=itemPackPrice
+
+  var selectPack = 0;
+  $(document).find('.car-pack').each(function () {
+    if ($(this).prop('checked')) selectPack += Number.parseInt($(this).attr('data-price'));
+  });
+  var totalPrice = carPrice + selectPack; //priceBlock.attr('data-price',carPrice)
+
+  priceBlock.html(number_format(totalPrice, 0, '', ' ', 'р.'));
+} //Клик по селекту бренда
+
 
 $(document).on('change', '#car-tab-add [name="brand_id"]', function () {
   var url = $(this).attr('data-url');
@@ -43021,7 +43040,8 @@ $(document).on('change', '#car-tab-add [name="brand_id"]', function () {
   var block = $('#car-option');
   var url = $(this).attr('data-url-option');
   getRender(url, parameters, block);
-});
+}); //Клик по селекту модели
+
 $(document).on('change', '#car-tab-add [name="mark_id"]', function () {
   var url = $(this).attr('data-url-complect');
   parameters = {};
@@ -43030,7 +43050,9 @@ $(document).on('change', '#car-tab-add [name="mark_id"]', function () {
   block.find('select').html('');
   $('[name="complect_id"]').html('');
   getRender(url, parameters, block);
-});
+  console.log('car');
+}); //клик по селекту комплектации
+
 $(document).on('change', '#car-tab-add [name="complect_id"]', function () {
   var url = $(this).attr('data-url-carview');
   var parameters = {};
@@ -43046,22 +43068,33 @@ $(document).on('change', '#car-tab-add [name="complect_id"]', function () {
   })["catch"](function (error) {
     console.log(error);
   });
-});
+}); //click по иконке цвета
+
 $(document).on('click', '.car-color', function () {
   var text = $('.color-name');
   text.html($(this).attr('data-code'));
-  FillAlpha($(this).attr('data-color'));
+  FillAlpha($(this).attr('data-id'));
   $('.car-color').removeClass('active');
   $(this).addClass('active');
   $('#car-tab-add [name="color_id"]').val($(this).attr('data-id'));
-});
+  var url = $(this).attr('data-url');
+  var parameters = {
+    complect_color_id: $(this).attr('data-complect-color')
+  };
+  axios.post(url, parameters).then(function (response) {
+    $(document).find('.colored-pack').prop('checked', false);
+    if (response.data.status == 1) response.data.packs_ids.forEach(function (item, i) {
+      var obj = $(document).find('.car-pack[data-pack-id="' + item + '"]');
+      obj.prop('checked', true);
+    });
+    changePrice();
+  })["catch"](function (error) {});
+}); //включение выключение опции
+
 $(document).on('change', '#car-tab-add [name="pack_ids[]"]', function () {
   var priceBlock = $('.car-price');
   var carPrice = Number.parseInt(priceBlock.attr('data-price'));
-  var itemPackPrice = Number.parseInt($(this).attr('data-price'));
-  if ($(this).prop('checked')) carPrice += itemPackPrice;else carPrice -= itemPackPrice;
-  priceBlock.attr('data-price', carPrice);
-  priceBlock.html(number_format(carPrice, 0, '', ' ', 'р.'));
+  changePrice();
 });
 $(document).on('click', '.add-provision', function () {
   var newDetail = $('.provision-details .default').clone();
@@ -43087,10 +43120,14 @@ $(document).on('change', '.provision_day, .provision_date', function () {
   }
 });
 $(document).ready(function () {
+  console.log('job');
   FillColorDiv('.car-color');
-  FillAlpha($('.car-color.active').attr('data-color'));
+  FillAlpha($('.car-color.active').attr('data-id'));
   $('#car-tab-add [name="pack_ids[]"]').each(function () {
-    if ($(this).hasClass('checked')) $(this).click();
+    if ($(this).hasClass('checked')) {
+      $(this).prop('checked', true);
+      changePrice();
+    }
   });
 });
 
@@ -43134,7 +43171,8 @@ window.FillColorDiv = function (selector) {
     }
 
     $(this).css({
-      'background': str
+      'background': str,
+      'transform': 'rotate(180deg)'
     });
   });
 };
@@ -43274,6 +43312,7 @@ $(document).on('change', '#complect-edit [name="mark_id"]', function () {
   getRender(url, parameters, block);
   var url = $(this).attr('data-url-complect');
   getRender(url, parameters, $('.color-container'));
+  console.log('complect');
 });
 $(document).on('change', '.complect-table [name="complect-status"]', function () {
   var url = $(this).attr('data-url');
@@ -43498,7 +43537,9 @@ __webpack_require__(/*! slick-carousel */ "./node_modules/slick-carousel/slick/s
 
 __webpack_require__(/*! ./config_slick */ "./resources/js/config_slick.js");
 
-__webpack_require__(/*! ./navbar_fixed */ "./resources/js/navbar_fixed.js"); //window.Vue = require('vue');
+__webpack_require__(/*! ./navbar_fixed */ "./resources/js/navbar_fixed.js");
+
+__webpack_require__(/*! ./front/model_image */ "./resources/js/front/model_image.js"); //window.Vue = require('vue');
 
 /**
  * The following block of code may be used to automatically register your
@@ -43657,6 +43698,32 @@ window.date_format = function (date, format) {
   // formatDate = formatDate.join('-')
   // console.log(formatDate)
 };
+
+/***/ }),
+
+/***/ "./resources/js/front/model_image.js":
+/*!*******************************************!*\
+  !*** ./resources/js/front/model_image.js ***!
+  \*******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  FillColorDiv('.color-btn');
+  $(document).on('click', '.color-control span', function () {
+    var url = $(this).parent().attr('data-url');
+    url += $(this).attr('data-color-id');
+    axios.get(url).then(function (response) {
+      if (response.data.status == 1) {
+        $('.color-img img').attr('src', response.data.img);
+        $('.color-name').html(response.data.name);
+      } else alert('Изображение отсутствует');
+    })["catch"](function (error) {
+      console.log(error);
+      alert('Изображение отсутствует');
+    });
+  });
+});
 
 /***/ }),
 

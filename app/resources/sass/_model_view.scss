@@ -1,3 +1,13 @@
 .model-viewer img{
 	width: 70%;
 }
+
+.color-btn{
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	box-shadow: 0 0 1px #000;
+	border-radius: 10px;
+	margin: 0 2px;
+	cursor: pointer;
+}

@@ -16,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::group(['namespace'=>'Front'],function(){
 	Route::get('/','IndexController@index')->name('front.index');
 	Route::get('pricelist/{slug}','PriceList\PriceListController@index')->name('front.pricelist');
+
+	Route::group(['namespace'=>'Ajax','prefix'=>'ajax'],function(){
+		Route::get('get/modelimage/model_id={id}/color_id={color_id?}','AjaxModelController@getModelImage')->name('front.ajax.get.modelimage');
+	});
 });
 
 Auth::routes();
@@ -63,6 +67,8 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>'auth'],funct
 			Route::post('mark/complects','ComplectGetController@getComplectByMark')->name('ajax.get.complect');
 			Route::post('complect/colors','ColorGetController@getColorByComplect')->name('ajax.get.complect.color');
 			Route::post('complect/packs','PackGetController@getPackByComplect')->name('ajax.get.complect.pack');
+			//Возвращает список пакетов опций закреплёных за цветом в комплектации
+			Route::post('complect/color/packs','ComplectGetController@getColorPack')->name('ajax.get.complect.color.pack');
 
 			Route::post('brand/packs','PackGetController@getPackByBrand')->name('ajax.get.pack');
 			Route::post('brand/motors','MotorGetController@getMotorByBrand')->name('ajax.get.motor');

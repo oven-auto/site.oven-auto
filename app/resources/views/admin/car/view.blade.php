@@ -1,27 +1,43 @@
 <div class="container">
 	<div class="row">
 
+
 		<div class="col-4">
+			@if(isset($complect) && $complect->modelcolors->count() && $complect->complectcolors->count())
 			<div class="alpha-back">
-				<img src="{{asset('storage/'.$complect->mark->alpha)}}">
+			
+				@foreach($complect->modelcolors as $itemModelColor)
+					@if($complect->complectcolors->contains('color_id',$itemModelColor->color_id))
+						<img class="d-none" src="{{asset('storage/'.$itemModelColor->img)}}" data-color-id="{{$itemModelColor->color_id}}">
+					@endif
+				@endforeach
+			
 			</div>
 			<div class="text-center color-name mb-3">
 				Код цвета				
 			</div>
 			<input type="hidden" name="color_id" value="{{isset($car)?$car->color_id:''}}">
 			<div class="text-center">
-				@isset($complect->mark->colors)
-					@foreach($complect->mark->colors as $itemColor)
+				@foreach($complect->modelcolors as $itemModelColor)
+					@if($complect->complectcolors->contains('color_id',$itemModelColor->color_id))
+
 						<span 
-							class="car-color {{(isset($car) && $car->color_id==$itemColor->color->id) ? 'active' : ''}}" 
-							data-color="{{$itemColor->color->web}}"
-							data-id="{{$itemColor->color->id}}"
-							data-code="{{$itemColor->color->code}}"
+							class="car-color {{(isset($car) && $car->color_id==$itemModelColor->color->id) ? 'active' : ''}}" 
+							data-color="{{$itemModelColor->color->web}}"
+							data-id="{{$itemModelColor->color->id}}"
+							data-code="{{$itemModelColor->color->code}}"
+							data-url = "{{route('ajax.get.complect.color.pack')}}"
+							data-complect-color = "{{$complect->complectcolors->where('color_id',$itemModelColor->color_id)->first()->id}}"
 						>
 						</span>
-					@endforeach
-				@endisset
+					@endif
+				@endforeach
 			</div>
+			@else
+				<div>
+					У данной комплектации не указаны используемые цвета
+				</div>
+			@endif
 		</div>
 
 		<div class="col">
@@ -81,11 +97,12 @@
 									<div class="col">
 										<label class="checkbox">
 											<input
-												class="{{(isset($car) && $car->packs->contains('pack_id',$itemPack->pack->id))?'checked':''}}"
+												class="{{($itemPack->pack->colored)? 'colored-pack' : ''}} car-pack {{(isset($car) && $car->packs->contains('pack_id',$itemPack->pack->id))?'checked':''}}"
 												type="checkbox" 
 												name="pack_ids[]" 
 												value="{{$itemPack->pack->id}}" 
 												data-price="{{$itemPack->pack->price}}"
+												data-pack-id="{{$itemPack->pack->id}}"
 											>
 											<div class="checkbox__text"></div>
 										</label>

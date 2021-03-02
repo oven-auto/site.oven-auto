@@ -75,17 +75,25 @@
 	<div class="container model-viewer">
 		<div class="row">
 			<div class="col text-center">
-				<div class="">
-					<img src="{{asset('storage/'.$model->alpha)}}">
+				<div class="color-img">
+					@if(isset($model))
+						<img src="{{asset('storage/'.$model->colors->first()->img )}}">						
+					@endif				
 				</div>
-				<div class="">
+				<div class="color-control" data-url="{{route('front.ajax.get.modelimage',$model)}}">
 					@if($model->has('colors'))
 						@foreach($model->colors as $itemColor)
-							<span class="{{($loop->first) ? 'active' : ''}}" style="display: inline-block;width: 30px;height: 30px;background: {{$itemColor->color->web}}"></span>
+							<span 
+								class="color-btn {{($loop->first) ? 'active' : ''}}" 
+								data-color="{{$itemColor->color->web}}"
+								data-color-id="{{$itemColor->color_id}}"
+							>
+									
+							</span>
 						@endforeach
 					@endif
 				</div>
-				<div class="">
+				<div class="color-name">
 					@if($model->has('colors'))
 						{{$model->colors->first()->color->name}}
 					@endif

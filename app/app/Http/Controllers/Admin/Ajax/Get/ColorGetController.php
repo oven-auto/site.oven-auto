@@ -24,7 +24,7 @@ class ColorGetController extends Controller
     {   
         if($request->has('mark_id') && $request->get('mark_id'))
         {
-            $markColors = MarkColor::with('color')->get();
+            $markColors = MarkColor::with('color')->where('mark_id',$request->mark_id)->get();
             $packs = Pack::where('colored',1)->pluck('code','id');
 
             return response()->json([
