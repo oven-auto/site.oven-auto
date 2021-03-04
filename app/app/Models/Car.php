@@ -53,6 +53,19 @@ class Car extends Model
         return $this->hasOne(\App\Models\Color::class,'id','color_id')->withdefault();
     }
 
+    public function markcolor()
+    {
+        return $this->hasOneThrough(
+            \App\Models\MarkColor::class,
+            \App\Models\Color::class,
+            'id',
+            'color_id',
+            'mark_id', //where
+            'id',
+            'mark_id'
+        );
+    }
+
     public function getStatus()
     {
         $nowDate = date('d.m.Y');
@@ -74,5 +87,25 @@ class Car extends Model
             return "Заказана в производство";
         else
             return "Нет даты заказа в производство";  
+    }
+
+    public function getIconStatusCss()
+    {
+        if($this->receiving->accept_stock_date)
+            return "fa fa-car";
+        elseif($this->prodaction->ready_date)
+            return "fa fa-truck";
+        else
+            return "fa fa-steam";
+    }
+
+    public function getFrontStatus()
+    {
+        if($this->receiving->accept_stock_date)
+            return "А/м в наличии";
+        elseif($this->prodaction->ready_date)
+            return "Готов к отгрузке";
+        else
+            return "В производстве";
     }
 }

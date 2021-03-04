@@ -51,7 +51,7 @@
 	<!--end model count and min price-->
 
 	<!--begin model infos-->
-	<div class="container model-info pt-4">
+	<div class="container model-info py-3">
 		<div class="row">
 			<div class="col text-center">
 				<div class="name">
@@ -72,11 +72,11 @@
 	<!--end model infos-->
 
 	<!--Begin model colors-->
-	<div class="container model-viewer">
+	<div class="container model-viewer py-3">
 		<div class="row">
 			<div class="col text-center">
 				<div class="color-img">
-					@if(isset($model))
+					@if(isset($model) && $model->colors->count())
 						<img src="{{asset('storage/'.$model->colors->first()->img )}}">						
 					@endif				
 				</div>
@@ -93,8 +93,8 @@
 						@endforeach
 					@endif
 				</div>
-				<div class="color-name">
-					@if($model->has('colors'))
+				<div class="color-name py-3">
+					@if($model->has('colors') && $model->colors->count() )
 						{{$model->colors->first()->color->name}}
 					@endif
 				</div>
@@ -104,10 +104,10 @@
 	<!--end model colors-->
 
 	<!--Begin model properties-->
-	<div class="container">
+	<div class="container py-3">
 		<div class="row">
 			<div class="col">
-				<div class="block-title py-3">
+				<div class="block-title ">
 					Характеристики
 				</div>
 			</div>
@@ -135,40 +135,36 @@
 	<!--End model properties-->
 
 	<!--Begin model complects-->
-	<div class="container">
+	@if(isset($complects) && $complects->where('status',1)->count())
+	<div class="container py-3">
 		<div class="row">
 			<div class="col">
-				<div class="block-title py-3">
+				<div class="block-title ">
 					Комплектации
 				</div>
 			</div>
 		</div>
 
-		@foreach($model->currentcomplects as $itemComplect)
-		<div class="row">
-			<div class="col-12 model-complect-control py-2">
-				<div class="row"> 
-					<div class="col-7"> 
-						{{$itemComplect->frontName}}
-						{{$itemComplect->code}}
-					</div>
-
-					<div class="col-1"> 
-						{{$itemComplect->cars_count}}
-					</div>
-
-					<div class="col-4 text-right"> 
-						{{number_format($itemComplect->price,0,'',' ')}} руб.
-						<span class="model-complect-open fa fa-angle-down ml-3" data-url="" ></span>
-					</div>
-				</div>
-			</div>
-			<div class="col-12 model-complect-content">
-
-			</div>
-		</div>
+		@foreach($complects->where('status',1) as $itemComplect)
+			@include('front.pricelist.complect-row',['complect'=>$itemComplect])
 		@endforeach
 	</div>
+	@endif
+
+	@if(isset($complects) && $complects->where('status',0)->count())
+	<div class="container py-3">
+		<div class="row">
+			<div class="col">
+				<div class="block-title ">
+					Прошлые комплектации
+				</div>
+			</div>
+		</div>
+		@foreach($complects->where('status',0) as $itemComplect)
+			@include('front.pricelist.complect-row',['complect'=>$itemComplect])
+		@endforeach
+	</div>
+	@endif
 	<!--End model complects-->
 
 	<!--Begin testdrive-->
@@ -176,7 +172,7 @@
 	<!--end testdrive-->
 
 	<!--Begin Credits-->
-		<!--*-->
+	@include('front.banner.credit',['credits'=>$model->credits,'model'=>$model])
 	<!--End Credits-->
 
 @endsection

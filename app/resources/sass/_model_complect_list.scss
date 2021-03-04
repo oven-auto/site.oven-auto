@@ -1,0 +1,35 @@
+.model-complect-control{
+	cursor: pointer;
+	transition: background 0.1s linear;
+	font-size: $font-medium;
+}
+.model-complect-control:hover{
+	color:#000;
+	background: #f5f5f5;
+}
+
+.fill-grey{
+	background: #f5f5f5;
+	border-bottom-color: #f5f5f5 !important;
+}
+
+.model-complect-code{
+	font-size: $font-size-base;
+	color: #555;
+}
+.model-complect-car-count{
+	font-size: $font-size-base;
+	background: $rn_yellow;
+	color: #555;
+}
+
+.pack-line{
+	border-bottom: 1px dashed #ddd;
+}
+.pack-price{
+	font-size: $font-medium;
+}
+.btn-renault{
+	background: $rn_yellow;
+	border-color: $rn_yellow;
+}

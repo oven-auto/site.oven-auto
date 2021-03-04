@@ -1,0 +1,26 @@
+.cars-list img{
+	width: 100%;
+}
+
+.cars-list .star{
+	font-size: $font-big;
+	display: inline-block;
+	padding-bottom: 20px;
+	border-radius: 100%;
+	width: 70px;
+	height: 70px;
+	transition: background .3s linear;
+	line-height: 70px;
+}
+
+.cars-list .star:hover{
+	background: $rn_yellow;
+}
+
+.cars-list .star-block{
+	width: 100%;
+}
+.cars-list .car-price{
+	font-size: $font-medium;
+}
+

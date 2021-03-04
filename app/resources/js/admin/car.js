@@ -132,7 +132,6 @@ $(document).on('change','.provision_day, .provision_date',function(){
 
 
 $(document).ready(function(){
-	console.log('job')
 	FillColorDiv('.car-color')
 	FillAlpha($('.car-color.active').attr('data-id'))
 	$('#car-tab-add [name="pack_ids[]"]').each(function(){

@@ -43120,7 +43120,6 @@ $(document).on('change', '.provision_day, .provision_date', function () {
   }
 });
 $(document).ready(function () {
-  console.log('job');
   FillColorDiv('.car-color');
   FillAlpha($('.car-color.active').attr('data-id'));
   $('#car-tab-add [name="pack_ids[]"]').each(function () {
@@ -43539,7 +43538,9 @@ __webpack_require__(/*! ./config_slick */ "./resources/js/config_slick.js");
 
 __webpack_require__(/*! ./navbar_fixed */ "./resources/js/navbar_fixed.js");
 
-__webpack_require__(/*! ./front/model_image */ "./resources/js/front/model_image.js"); //window.Vue = require('vue');
+__webpack_require__(/*! ./front/model_image */ "./resources/js/front/model_image.js");
+
+__webpack_require__(/*! ./front/model_complect_list */ "./resources/js/front/model_complect_list.js"); //window.Vue = require('vue');
 
 /**
  * The following block of code may be used to automatically register your
@@ -43571,11 +43572,22 @@ __webpack_require__(/*! ./front/model_image */ "./resources/js/front/model_image
 /***/ (function(module, exports) {
 
 window.getRender = function (url, parameters, pastInto) {
-  axios.post(url, parameters).then(function (response) {
-    if (response.data.status == 1) pastInto.html(response.data.view);else console.log('Ничего не нашлось');
-  })["catch"](function (error) {
-    console.log(error);
-  });
+  var method = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : "post";
+  pastInto.html('<div class="text-center py-5"><i class="fa fa-spinner wait-ajax"></i></div>');
+
+  if (method == "post") {
+    axios.post(url, parameters).then(function (response) {
+      if (response.data.status == 1) pastInto.html(response.data.view);else console.log('Ничего не нашлось');
+    })["catch"](function (error) {
+      console.log(error);
+    });
+  } else if (method == 'get') {
+    axios.get(url, parameters).then(function (response) {
+      if (response.data.status == 1) pastInto.html(response.data.view);else console.log('Ничего не нашлось');
+    })["catch"](function (error) {
+      console.log(error);
+    });
+  }
 };
 
 /***/ }),
@@ -43698,6 +43710,41 @@ window.date_format = function (date, format) {
   // formatDate = formatDate.join('-')
   // console.log(formatDate)
 };
+
+/***/ }),
+
+/***/ "./resources/js/front/model_complect_list.js":
+/*!***************************************************!*\
+  !*** ./resources/js/front/model_complect_list.js ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  $(document).on('click', '.model-complect-control', function () {
+    var me = $(this);
+    var url_complect = me.attr('data-url-complect');
+    var url_cars = me.attr('data-url-cars');
+    var block = me.parent().find('.model-complect-content');
+    var block_desc = me.parent().find('.model-complect-description');
+    var block_cars = me.parent().find('.model-complect-cars');
+    var condition = me.attr('data-condition');
+
+    if (condition == "0") {
+      block.removeClass('d-none');
+      getRender(url_cars, '', block_cars, 'get');
+      getRender(url_complect, '', block_desc, 'get');
+      me.attr('data-condition', 1);
+      me.find('.model-complect-open').removeClass('fa-angle-down').addClass('fa-angle-up');
+      me.addClass('fill-grey');
+    } else {
+      block.addClass('d-none');
+      me.attr('data-condition', 0);
+      me.find('.model-complect-open').removeClass('fa-angle-up').addClass('fa-angle-down');
+      me.removeClass('fill-grey');
+    }
+  });
+});
 
 /***/ }),
 

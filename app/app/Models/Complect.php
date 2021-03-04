@@ -51,7 +51,7 @@ class Complect extends Model
 
     public function getFormatPriceAttribute()
     {
-        return number_format($this->price,0,'',' ').'р.';
+        return number_format($this->price,0,'',' ').' руб.';
     }
 
     public function getFullNameAttribute()

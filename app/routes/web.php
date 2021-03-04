@@ -19,6 +19,8 @@ Route::group(['namespace'=>'Front'],function(){
 
 	Route::group(['namespace'=>'Ajax','prefix'=>'ajax'],function(){
 		Route::get('get/modelimage/model_id={id}/color_id={color_id?}','AjaxModelController@getModelImage')->name('front.ajax.get.modelimage');
+		Route::get('get/complect/complect_id={complect_id}','AjaxComplectController@getcomplect')->name('front.ajax.get.complect');
+		Route::get('get/cars','AjaxCarController@getcars')->name('front.ajax.get.cars');
 	});
 });
 

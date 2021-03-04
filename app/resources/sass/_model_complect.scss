@@ -1,6 +1,18 @@
 .block-title{
 	font-size: $font-medium;
 }
-.model-complect-control{
-	font-size: $font-medium;	
+.rn-bold{
+	font-family:$rn_bold;
+}
+.wait-ajax{
+	font-size: $font-big;
+	animation: wait-ajax .5s infinite ease-in-out;
+}
+@keyframes wait-ajax{
+	0%{
+		transform: rotate(0deg);
+	}
+	100%{
+		transform: rotate(360deg);
+	}
 }

@@ -18,6 +18,7 @@ class PriceListController extends Controller
     public function index($slug)
     {
     	$model = $this->service->getModelForPriceList($slug);
-    	return view('front.pricelist.pricelist',compact('model'));
+    	$complects = $this->service->getComplectsByModel($model);
+    	return view('front.pricelist.pricelist',compact('model','complects'));
     }
 }
