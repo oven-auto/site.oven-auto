@@ -24,3 +24,19 @@ $(document).ready(function(){
 		}
 	})
 })
+
+$(document).on('click','.credit-description-control',function(){
+	var me = $(this)
+	var condition = me.attr('data-condition')
+	var content = me.parent().find('.credit-description-content')
+	if(condition=="0")
+	{
+		content.removeClass('d-none')
+		me.attr('data-condition',1)
+	}
+	else
+	{
+		content.addClass('d-none')
+		me.attr('data-condition',0)
+	}
+})

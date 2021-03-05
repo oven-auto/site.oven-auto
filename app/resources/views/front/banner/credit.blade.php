@@ -52,7 +52,12 @@
 			  	</div>
 			  	<div class="row">
 			  		<div class="col">
-			  			Юридическая информация
+			  			<div class="border py-2 mt-2 text-center credit-description-control" data-condition="0">			  				
+			  				Юридическая информация<span class="fa fa-angle-down"></span>
+			  			</div>	
+			  			<div class="credit-description-content py-2 d-none">
+			  				{{$itemCredit->disclaimer}}
+			  			</div>
 			  		</div>
 			  	</div>
 			</div>

@@ -14000,3 +14000,13 @@ body {
   font-size: 1.2rem;
 }
 
+.credit-description-control {
+  cursor: pointer;
+}
+
+.credit-description-control .fa {
+  float: right;
+  padding-right: 15px;
+  padding-top: 5px;
+}
+

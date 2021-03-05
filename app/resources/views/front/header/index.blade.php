@@ -56,7 +56,7 @@
 			          		<a class="dropdown-item" href="{{route('front.pricelist',$slug)}}">{{$itemModel}}</a>
 			          	@endforeach
 			          <div class="dropdown-divider"></div>
-			          <a class="dropdown-item" href="#">Автомобили в продаже</a>
+			          <a class="dropdown-item" href="{{route('front.stock')}}">Автомобили в продаже</a>
 			        </div>
 			      </li>
 
@@ -110,7 +110,7 @@
 			    </ul>
 
 			    <ul class="navbar-nav my-2 my-lg-0">
-			    	<a class="nav-link" href="#">Авто в продаже</a>
+			    	<a class="nav-link" href="{{route('front.stock')}}">Авто в продаже</a>
 			    </ul>
 			  </div>
 			</div>

@@ -9,3 +9,12 @@
 .credit-info{
 	font-size: $font-medium;
 }
+
+.credit-description-control{
+	cursor:pointer;
+}
+.credit-description-control .fa{
+	float:right;
+	padding-right:15px;
+	padding-top:5px;
+}
