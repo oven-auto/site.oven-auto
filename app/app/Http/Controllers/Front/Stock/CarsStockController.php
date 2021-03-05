@@ -16,8 +16,18 @@ class CarsStockController extends Controller
     }
 
     public function index(Request $request)
-    {
+    {   
+        $models = $this->service->pluck('Mark',['name','id'],['status'=>1]);
+        $transmissions = $this->service->transmissionType();
+        $drivers = $this->service->driverType();
+        $deliveries = $this->service->deliveryStage();
+
+        $optionFilters = collect($this->service->pluck('OptionFilter',['name','id']));
+        $chunkFilters = $optionFilters->chunk(ceil($optionFilters->count()/3));
+        
+        $carCount = $this->service->getCarCount();
     	$cars = $this->service->getCars($request->input());
-    	return view('front.stock.stockindex',compact('cars'));
+
+    	return view('front.stock.stockindex',compact('cars','carCount','models','transmissions','drivers','deliveries','chunkFilters'));
     }
 }

@@ -7,6 +7,8 @@ use DB;
 use App\Models\Car;
 use App\Models\Complect;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+
 Class FrontDataService
 {	
 	//для того что бы вернуть модели для табов на главной
@@ -68,15 +70,53 @@ Class FrontDataService
 
 	public function getCars($data = array())
 	{
+		$dataCount = 0;
+		foreach ($data as $key => $value) {
+			if(is_string($value) && !empty($value))
+				$dataCount+=1;
+			if(is_array($value) && !empty($value))
+				$dataCount+=count($value);
+		}
 		$query = Car::select('cars.*', DB::raw('mark_colors.img as img'))
     		->with(['prodaction','receiving','color','brand','mark','complect.motor'])
     		->leftJoin('mark_colors',function($join){
     			$join->on('mark_colors.color_id','=','cars.color_id')
     				->on('mark_colors.mark_id','=','cars.mark_id');
     		});
+    	$query->leftJoin('complects','complects.id','=','cars.complect_id');
+    	$query->leftJoin('motors','motors.id','=','complects.motor_id');
+
     	if(isset($data['complect_id']) && is_numeric($data['complect_id']))
-    		$query->where('complect_id',$data['complect_id']);
-    	$cars = $query->get();
+    		$query->where('cars.complect_id',$data['complect_id']);
+    	if(isset($data['mark_id']) && is_numeric($data['mark_id']))
+    		$query->where('cars.mark_id',$data['mark_id']);
+
+    	if(isset($data['transmission_type']) && is_numeric($data['transmission_type']))
+    	{
+    		$query->leftJoin('transmissions','transmissions.id','=','motors.transmission_id');
+    		$query->where('transmissions.type',$data['transmission_type']);
+    	}
+    	if(isset($data['driver_type']) && is_numeric($data['driver_type']))
+    	{
+    		$query->leftJoin('drivers','drivers.id','=','motors.driver_id');
+    		$query->where('drivers.type',$data['driver_type']);
+    	}
+    	if(isset($data['option_ids']) && is_array($data['option_ids']))
+    	{
+    		// $query->leftJoin('complect_options','complect_options.complect_id','=','complects.id');
+    		// $query->leftJoin('car_packs','car_packs.car_id','=','cars.id');
+    		// $query->leftJoin('pack_options','pack_options.pack_id','=','car_packs.pack_id');
+    		// $query->leftJoin('options',function($join){
+    		// 	$join->on('options.id','=','pack_options.option_id')
+    		// 		->orOn('options.id','=','complect_options.option_id');
+    		// });
+    		$query->leftJoin('view_car_options','view_car_options.car_id','=','cars.id');
+    		$query->groupBy('cars.id');
+    		$query->having(DB::Raw('count(cars.id)'),'>=',$dataCount);
+    		$query->whereIn('view_car_options.filter_id',$data['option_ids']);
+    	}
+    	$query->orderBy('cars.mark_id');
+    	$cars = $query->simplePaginate(15);
     	return $cars;
 	}
 
@@ -90,5 +130,51 @@ Class FrontDataService
 	{
 		$bodies = Body::get();
 		return $bodies;
+	}
+
+	public function getCarCount()
+	{
+		$count = Car::select(DB::Raw('count(id) as count'))
+			->where('delivery_id',1)
+			->pluck('count');
+		return $count[0];
+	}
+
+	public function pluck($model,$params = array('id'),$where = array())
+	{
+		$result = [];
+		$paramCount = count($params);
+		if($paramCount>2)
+			return [];
+		$className = "\App\Models\\".$model;
+		$classStatus = class_exists($className);
+
+		if($classStatus)
+		{
+			$class = app($className);
+			if($where)
+				foreach ($where as $key => $value) {
+					$class = $class->where($key,$value);
+				}
+			if($paramCount==1)
+				$result = $class->pluck($params[0]);
+			if($paramCount==2)
+				$result = $class->pluck($params[0],$params[1]);
+			return $result;
+		}
+		return $result;
+	}
+
+	public function transmissionType()
+	{
+		return [1=>'Механическая',2=>'Автоматическая'];
+	}
+	public function driverType()
+	{
+		return [1=>'Передний',2=>'Полный'];
+	}
+	public function deliveryStage()
+	{
+		return [1=>'На складе',2=>'Готов к отгрузке',3=>'В производстве'];
 	}
 }

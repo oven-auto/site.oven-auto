@@ -19,7 +19,7 @@ class AjaxCarController extends Controller
 
     public function getcars(Request $request)
     {
-    	$cars = $this->service->getCars($request->get('complect_id'));
+    	$cars = $this->service->getCars($request->input());
     	return response()->json([
     		'status'=>1,
     		'view'=>view('front.cars.cars',compact('cars'))->render()
