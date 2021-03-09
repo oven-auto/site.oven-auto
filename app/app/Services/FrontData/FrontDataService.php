@@ -53,7 +53,13 @@ Class FrontDataService
 			->get();
 			return $complects;
 	}
-
+	public function getComplectById($complect_id)
+	{
+		$complect = Complect::with(['brand','mark.credits','mark.colors.color','packs.pack.options','complectcolors.colorpacks','complectcolors.color','options.option','motor'])
+			->find($complect_id);
+		return $complect;
+	}
+	//Вернёт тестдрайв машину по модели
 	public function getTestCarByModel($model)
 	{
 		$query = Car::select('cars.*', DB::raw('mark_colors.img as img'))
@@ -68,21 +74,16 @@ Class FrontDataService
     	return $cars;
 	}
 
+	//вернёт пагинатор с машинами, в зависимости от того что в параметрах
 	public function getCars($data = array())
 	{
-		$dataCount = 0;
-		foreach ($data as $key => $value) {
-			if(is_string($value) && !empty($value))
-				$dataCount+=1;
-			if(is_array($value) && !empty($value))
-				$dataCount+=count($value);
-		}
-		$query = Car::select('cars.*', DB::raw('mark_colors.img as img'))
+		$query = Car::select('cars.*', DB::raw('mark_colors.img as img, view_car_prices.total_price as total_price'))
     		->with(['prodaction','receiving','color','brand','mark','complect.motor'])
     		->leftJoin('mark_colors',function($join){
     			$join->on('mark_colors.color_id','=','cars.color_id')
     				->on('mark_colors.mark_id','=','cars.mark_id');
     		});
+    	$query->leftJoin('view_car_prices','view_car_prices.car_id','=','cars.id');
     	$query->leftJoin('complects','complects.id','=','cars.complect_id');
     	$query->leftJoin('motors','motors.id','=','complects.motor_id');
 
@@ -103,21 +104,32 @@ Class FrontDataService
     	}
     	if(isset($data['option_ids']) && is_array($data['option_ids']))
     	{
-    		// $query->leftJoin('complect_options','complect_options.complect_id','=','complects.id');
-    		// $query->leftJoin('car_packs','car_packs.car_id','=','cars.id');
-    		// $query->leftJoin('pack_options','pack_options.pack_id','=','car_packs.pack_id');
-    		// $query->leftJoin('options',function($join){
-    		// 	$join->on('options.id','=','pack_options.option_id')
-    		// 		->orOn('options.id','=','complect_options.option_id');
-    		// });
-    		$query->leftJoin('view_car_options','view_car_options.car_id','=','cars.id');
+    		$dataCount = count($data['option_ids']);
+    		$query->leftJoin('view_car_filters','view_car_filters.car_id','=','cars.id');
     		$query->groupBy('cars.id');
+    		$query->groupBy('mark_colors.img');
     		$query->having(DB::Raw('count(cars.id)'),'>=',$dataCount);
-    		$query->whereIn('view_car_options.filter_id',$data['option_ids']);
+    		$query->whereIn('view_car_filters.filter_id',$data['option_ids']);
     	}
-    	$query->orderBy('cars.mark_id');
-    	$cars = $query->simplePaginate(15);
+    	if(isset($data['status_delivery']) && !empty($data['status_delivery']))
+    		$query->where('cars.status_delivery',$data['status_delivery']);
+    	//$query->where('cars.delivery_id',1);
+    	$query->orderBy('cars.id');
+    	$cars = $query->simplePaginate(10);
     	return $cars;
+	}
+
+	public function getCarById($id)
+	{
+		$car = Car::select('cars.*',DB::raw('mark_colors.img as img, view_car_prices.total_price as total_price'))
+			->with(['mark.credits','brand','complect.motor','complect.options.option','prodaction','receiving','color','packs.pack.options'])
+			->leftJoin('mark_colors',function($join){
+    			$join->on('mark_colors.color_id','=','cars.color_id')
+    				->on('mark_colors.mark_id','=','cars.mark_id');
+    		})
+    		->leftJoin('view_car_prices','view_car_prices.car_id','=','cars.id')
+    		->find($id);
+    	return $car;
 	}
 
 	public function getBanners()

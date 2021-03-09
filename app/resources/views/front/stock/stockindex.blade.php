@@ -26,45 +26,47 @@
 </div>
 
 {{Form::open([
-	'url'=>route('front.stock'),
+	'url'=>route('front.ajax.get.cars'),
 	'method'=>'GET',
+	'class'=>'stock-filter-form'
 ])}}
+
 <div class="container py-3" style="background: #f5f5f5;">
 	<div class="row pb-4">
 		<div class="col">
-			{{ Form::select('mark_id',$models,'',['class'=>'form-control','placeholder'=>'Любая модель']) }}
+			{{ Form::select('mark_id',$models,request('mark_id'),['class'=>'form-control','placeholder'=>'Любая модель']) }}
 		</div>
 		<div class="col">
-			{{ Form::select('transmission_type',$transmissions,'',['class'=>'form-control','placeholder'=>'Любая трансмиссия']) }}
+			{{ Form::select('transmission_type',$transmissions,request('transmission_type'),['class'=>'form-control','placeholder'=>'Любая трансмиссия']) }}
 		</div>
 		<div class="col">
-			{{ Form::select('driver_type',$drivers,'',['class'=>'form-control','placeholder'=>'Любой привод']) }}
+			{{ Form::select('driver_type',$drivers,request('driver_type'),['class'=>'form-control','placeholder'=>'Любой привод']) }}
 		</div>
 	</div>
 
 	<div class="row pb-3">
 		<div class="col">
-			{{ Form::select('status',$deliveries,'',['class'=>'form-control','placeholder'=>'Любой этап поставки']) }}
+			{{ Form::select('status_delivery',$deliveries,request('status'),['class'=>'form-control','placeholder'=>'Любой этап поставки']) }}
 		</div>
 		<div class="col">
 				<div class="input-group">
-					{{ Form::text('min_price','',['class'=>'form-control','placeholder'=>'Минимальная цена']) }}
-					{{ Form::text('max_price','',['class'=>'form-control','placeholder'=>'Максимальная цена']) }}
+					{{ Form::text('min_price',request('min_price'),['class'=>'form-control','placeholder'=>'Минимальная цена']) }}
+					{{ Form::text('max_price',request('max_price'),['class'=>'form-control','placeholder'=>'Максимальная цена']) }}
 				</div>
 		</div>
 		<div class="col">
-			{{ Form::text('vin','',['class'=>'form-control','placeholder'=>'VIN автомобиля']) }}
+			{{ Form::text('vin',request('vin'),['class'=>'form-control','placeholder'=>'VIN автомобиля']) }}
 		</div>
 	</div>
 
 	<div class="row">
-
 		@foreach($chunkFilters as $chankPart)
 		<div class="col">
 			@foreach($chankPart as $id => $name)
 			<div>
 				<label class="checkbox">
 					<input
+						{{ (request()->has('option_ids') && in_array($id,request('option_ids'))) ? 'checked' : ''}}
 						type="checkbox" 
 						name="option_ids[]" 
 						value="{{$id}}" 
@@ -80,17 +82,17 @@
 
 	<div class="row pt-3">
 		<div class="col">
-			<a href="{{route('front.stock')}}" class="btn btn-block btn-dark">Очистить</a>
+			<button type="button" class="btn btn-block btn-dark clear">Очистить</a>
 		</div>
 		<div class="col"></div>
 		<div class="col">
-			<button type="submit" class="btn btn-renault btn-block">Найти</button>
+			<button type="button" class="btn btn-renault btn-block search">Найти</button>
 		</div>
 	</div>
 </div>
 {{Form::close()}}
 
-<div class="container cars-list pt-3 pb-3">
+<div class="container cars-list stock pt-3 pb-3">
 	@if(isset($cars) && $cars->count())
 		@foreach($cars as $itemCar)
 			@include('front.cars.itemcarrow',['car'=>$itemCar])

@@ -6,22 +6,26 @@ window.FillAlpha = function(data_id){
 function changePrice(){
 	var priceBlock = $('.car-price')
 	var carPrice = Number.parseInt(priceBlock.attr('data-price'))
-	// var itemPackPrice = Number.parseInt(obj.attr('data-price'))
-	// console.log(carPrice)
-	// console.log(itemPackPrice)
-	// console.log('---')
-	// if(obj.prop('checked'))
-	// 	carPrice+=itemPackPrice
-	// else
-	// 	carPrice-=itemPackPrice
 	var selectPack = 0
 	$(document).find('.car-pack').each(function(){
 		if($(this).prop('checked'))
 			selectPack+=Number.parseInt($(this).attr('data-price'))
 	})
-	var totalPrice = carPrice+selectPack
-	//priceBlock.attr('data-price',carPrice)
+
+	var totalPrice = carPrice+selectPack+changePriceWithOption()
 	priceBlock.html(number_format(totalPrice,0,'',' ','р.'))
+}
+
+function changePriceWithOption()
+{
+	var priceBlock = $('.car-price')
+	var carPrice = Number.parseInt(priceBlock.attr('data-price'))
+	var optionPrice = parseInt($('[name="option_price"]').val())
+	if(optionPrice=='')
+		optionPrice=0
+	if(Number.isInteger(optionPrice))
+		return optionPrice
+	else return 0
 }
 
 //Клик по селекту бренда
@@ -34,7 +38,7 @@ $(document).on('change','#car-tab-add [name="brand_id"]',function(){
 	$('[name="complect_id"]').html('')
 	getRender(url,parameters,block)
 
-	var block = $('#car-option')
+	var block = $('#additional')
 	var url = $(this).attr('data-url-option')
 	getRender(url,parameters,block)
 })
@@ -127,6 +131,10 @@ $(document).on('change','.provision_day, .provision_date',function(){
 		dif = dif/1000/60/60/24
 		pDay.val(dif)
 	}
+})
+
+$(document).on('input','[name="option_price"]',function(){
+	changePrice()
 })
 
 

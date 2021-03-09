@@ -25,7 +25,7 @@ class CarController extends Controller
      * @return \Illuminate\Http\Response
      */
     private $carColumns = [
-        'delivery_id','author_id','marker_id','year','vin','brand_id','mark_id','complect_id','color_id'
+        'delivery_id','author_id','marker_id','year','vin','brand_id','mark_id','complect_id','color_id','option_price'
     ];
     private $carProdColumns = [
         'order_date','ship_date','build_date', 'ready_date', 'order_number'
@@ -100,7 +100,7 @@ class CarController extends Controller
                     ]);
 
                 $car->receiving->fill($request->only($this->carReceivingColumns))->save();
-
+                $car->update(['status_delivery'=>$car->getStatusByDate()]);
                 return $car;
             });          
         }
@@ -211,6 +211,7 @@ class CarController extends Controller
                             ]);
                     }
                 }
+                $car->update(['status_delivery'=>$car->getStatusByDate()]);
             });          
         }
         catch(Exception $e)

@@ -108,4 +108,29 @@ class Car extends Model
         else
             return "В производстве";
     }
+
+    public function getStatusByDate()
+    {
+    	if($this->receiving->accept_stock_date)
+            return "1";
+        elseif($this->prodaction->ready_date)
+            return "2";
+        else
+            return "3";
+    }
+
+    public static function getStatusDelivery()
+    {
+    	return [1=>'На складе',2=>'Готов к отгрузке',3=>'В производстве'];
+    }
+
+    public function getLocationStatus()
+    {
+        if($this->receiving->accept_stock_date)
+            return "Склад Овен-Авто";
+        elseif($this->prodaction->ready_date)
+            return "Склад ".$this->mark->country->city;
+        else
+            return "Сборка ".$this->prodaction->build_date;
+    }
 }

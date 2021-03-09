@@ -12,4 +12,9 @@ class ComplectColor extends Model
     {
     	return $this->hasMany(\App\Models\ComplectColorPack::class,'complect_color_id','id');
     }
+
+    public function color()
+    {
+    	return $this->hasOne(\App\Models\Color::class,'id','color_id');
+    }
 }

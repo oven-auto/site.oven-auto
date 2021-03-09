@@ -4,11 +4,7 @@
 			<div class="row">
 				<div class="col">
 				@if(isset($complect) && $complect->has('motor'))
-					<div class="rn-bold">Исполнение {{$complect->code}}</div>
-					<div>Двигатель {{$complect->motor->type->name}} {{$complect->motor->valve}} клапанный</div>
-					<div>Рабочий объем {{$complect->motor->size/1000}}л. ({{$complect->motor->power}} л.с.)</div>
-					<div>КПП {{$complect->motor->transmission->full_name}}</div>
-					<div>Привод {{$complect->motor->driver->full_name}}</div>
+					@include('front.pricelist.complect_motor',['complect'=>$complect])
 				@endif
 
 				@if(isset($complect->options))
@@ -48,7 +44,7 @@
 										<div>{{$itemOption->option->name}}</div>
 									@endforeach
 									</div>
-									<div class="row">
+									<div class="row mb-2">
 										<div class="col-6">{{$itemPack->pack->code}}</div>
 										<div class="col-6 pack-price text-right">{{$itemPack->pack->format_price}}</div>
 									</div>
@@ -64,10 +60,10 @@
 					<button class="btn btn-renault btn-block" type="button">Задать вопрос</button>
 				</div>
 				<div class="col">
-					<button class="btn btn-renault btn-block" type="button">Пройти тест драйв</button>
+					@include('front.buttons.modal_test_btn')
 				</div>
 				<div class="col">
-					<a class="btn btn-dark btn-block">Перейти в конфигуратор</a>
+					@include('front.buttons.conf_btn',['link'=>$complect->id])
 				</div>
 			</div>
 		</div>

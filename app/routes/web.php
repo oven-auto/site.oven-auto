@@ -15,8 +15,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['namespace'=>'Front'],function(){
 	Route::get('/','IndexController@index')->name('front.index');
-	Route::get('pricelist/{slug}','PriceList\PriceListController@index')->name('front.pricelist');
+	Route::get('/pricelist/{slug}','PriceList\PriceListController@index')->name('front.pricelist');
 	Route::get('/stock','Stock\CarsStockController@index')->name('front.stock');
+	Route::get('/car/{id}','Car\CarController@show')->name('front.car');
+	Route::get('/configure/{id}','Configurator\ConfiguratorController@show')->name('front.configurator');
 
 	Route::group(['namespace'=>'Ajax','prefix'=>'ajax'],function(){
 		Route::get('get/modelimage/model_id={id}/color_id={color_id?}','AjaxModelController@getModelImage')->name('front.ajax.get.modelimage');

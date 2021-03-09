@@ -13735,7 +13735,7 @@ form img {
 }
 
 .model-tabs .nav-link {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   color: #777;
   justify-content: center;
   width: 100%;
@@ -13774,7 +13774,7 @@ form img {
 }
 
 .tab-model-title {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   color: #333;
   text-align: center;
   text-transform: uppercase;
@@ -13812,7 +13812,7 @@ form img {
 
 .header-info .name,
 .header-info .phone {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 }
 
 .nav-menu .navbar {
@@ -13828,7 +13828,7 @@ body {
 }
 
 .model-header-title {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 }
 
 .model-header-value {
@@ -13843,16 +13843,24 @@ body {
 }
 
 .model-info .slogan {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   color: #555;
   text-transform: uppercase;
   font-family: Renault;
 }
 
 .model-info .description {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
   color: #333;
   font-weight: 100;
+}
+
+.model-info .text {
+  font-size: 1.4rem;
+}
+
+.model-info .bold {
+  font-family: Renault;
 }
 
 @media screen and (min-width: 900px) {
@@ -13861,8 +13869,12 @@ body {
   }
 }
 
+html {
+  font-size: 15px;
+}
+
 .block-title {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 }
 
 .rn-bold {
@@ -13924,7 +13936,7 @@ body {
 .model-complect-control {
   cursor: pointer;
   transition: background 0.1s linear;
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 }
 
 .model-complect-control:hover {
@@ -13953,7 +13965,7 @@ body {
 }
 
 .pack-price {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 }
 
 .btn-renault {
@@ -13965,8 +13977,8 @@ body {
   width: 100%;
 }
 
-.cars-list .star {
-  font-size: 2rem;
+.star {
+  font-size: 3.5rem;
   display: inline-block;
   padding-bottom: 20px;
   border-radius: 100%;
@@ -13976,7 +13988,7 @@ body {
   line-height: 70px;
 }
 
-.cars-list .star:hover {
+.star:hover {
   background: #fc3;
 }
 
@@ -13985,11 +13997,16 @@ body {
 }
 
 .cars-list .car-price {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
+}
+
+.cars-list a {
+  text-decoration: none;
+  color: inherit;
 }
 
 .credit-model {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 }
 
 .credit-name {
@@ -13997,7 +14014,7 @@ body {
 }
 
 .credit-info {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
 }
 
 .credit-description-control {

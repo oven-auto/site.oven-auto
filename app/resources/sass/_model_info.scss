@@ -17,6 +17,14 @@
 	font-weight:100;
 }
 
+.model-info .text{
+	font-size: $font-medium;
+}
+
+.model-info .bold{
+	font-family: $rn_bold;
+}
+
 @media screen and (min-width:900px){
 	.model-info .description{
 		padding: 0 150px;

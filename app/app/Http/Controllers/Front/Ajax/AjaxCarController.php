@@ -17,12 +17,22 @@ class AjaxCarController extends Controller
         $this->service = $service;
     }
 
-    public function getcars(Request $request)
+    public function getcars(Request $request, $view = '')
     {
     	$cars = $this->service->getCars($request->input());
+        if($cars->count())
+            $view = view('front.cars.cars',compact('cars'))->render();
+        else
+        {
+            if($request->has('complect_id') && $request->get('complect_id'))
+                $view = view('front.cars.empty_complect',compact('cars'))->render();
+            elseif ($request->has('page')) 
+                $view = view('front.cars.empty_search',compact('cars'))->render();
+        }
     	return response()->json([
-    		'status'=>1,
-    		'view'=>view('front.cars.cars',compact('cars'))->render()
+    		'status'=>($cars->count()) ? 1 : 0,
+    		'view'=>$view,
+            'page'=>$cars->currentPage()+1
     	]);
     }
 }

@@ -26,7 +26,7 @@
 		</div>
 	</div>
 	<div class="col-12 model-complect-content d-none ">
-		<div class="model-complect-cars">
+		<div class="model-complect-cars cars-list pt-3 pb-3">
 
 		</div>
 

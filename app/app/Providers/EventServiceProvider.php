@@ -8,6 +8,8 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use Illuminate\Support\Facades\Event;
 use App\Models\Mark;
 use App\Observers\MarkObserver;
+use App\Models\Car;
+use App\Observers\CarObserver;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -32,5 +34,6 @@ class EventServiceProvider extends ServiceProvider
         parent::boot();
 
         Mark::observe(MarkObserver::class);
+        Car::observe(CarObserver::class);
     }
 }

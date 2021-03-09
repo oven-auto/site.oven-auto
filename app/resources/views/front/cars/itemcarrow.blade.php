@@ -9,34 +9,38 @@
 	</div>
 
 	<div class="col-3 ">
-		@if(isset($car->img))
-			<img src="{{asset('storage/'.$car	->img)}}">
-		@else
-			<div>Эскиз автомобиля отсутствует</div>
-			<!--img src="{{asset('storage/'.$car->mark->alpha)}}"-->
-		@endif
+		<a href="{{route('front.car',['id'=>$car->id])}}">
+			@if(isset($car->img))
+				<img src="{{asset('storage/'.$car	->img)}}">
+			@else
+				<div>Эскиз автомобиля отсутствует</div>
+				<!--img src="{{asset('storage/'.$car->mark->alpha)}}"-->
+			@endif
+		</a>	
 	</div>
 
 	<div class="col-5">
-		<div class="car-price">Price</div>
-		<div class="car-vin">{{$car->vin}}</div>
-		<div class="car-name">
-			{{$car->brand->name}}
-			{{$car->mark->name}}
+		<a href="{{route('front.car',['id'=>$car->id])}}">
+			<div class="car-price">{{isset($car->total_price) ? number_format($car->total_price,0,'',' ') : ''}} руб.</div>
+			<div class="car-vin">{{$car->vin}}</div>
+			<div class="car-name">
+				{{$car->brand->name}}
+				{{$car->mark->name}}
 
-			@if(!empty($car->color))
-				{{$car->color->name}}
-				({{$car->color->code}})
-			@endif
+				@if(!empty($car->color))
+					{{$car->color->name}}
+					({{$car->color->code}})
+				@endif
 
 
-		</div>
-		<div class="car-complect">
-			{{$car->year}}
-			@if(isset($car->complect))
-				{{$car->complect->fullName}}
-			@endif
-		</div>
+			</div>
+			<div class="car-complect">
+				{{$car->year}}
+				@if(isset($car->complect))
+					{{$car->complect->fullName}}
+				@endif
+			</div>
+		</a>
 	</div>
 
 	<div class="col-2 text-center">
