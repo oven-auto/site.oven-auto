@@ -15,10 +15,11 @@ class CarController extends Controller
         $this->service = $service;
     }
 
-    public function show($id)
+    public function show(\App\Services\Company\CompanyService $companyService, $id)
     {
     	$car = $this->service->getCarById($id);
+        $companies = $companyService->getCompanyByCar($car);
     	$test = $this->service->getTestCarByModel($car->mark);
-    	return view('front.cars.car_page',compact('car','test'));
+    	return view('front.cars.car_page',compact('car','test','companies'));
     }
 }

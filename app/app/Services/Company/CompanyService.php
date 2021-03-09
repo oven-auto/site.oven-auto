@@ -6,6 +6,7 @@ use App\Models\Mark;
 use App\Models\Complect;
 use App\Models\Transmission;
 use App\Models\Driver;
+use App\Models\Car;
 
 /**
 *Сервис класс для работы с моделью Company
@@ -155,5 +156,68 @@ Class CompanyService
 		$result = $this->setCompany($company->controll->scenario_id);
 		$result->fill($company->calculation->parameters);
 		return $result;
+	}
+
+	public function getCompanyByCar(Car $car)
+	{
+		$companies = \App\Models\Company::select('companies.*')->with(['controll','conditions','calculation','section','scenario'])
+			->leftJoin('company_cars','company_cars.company_id','=','companies.id')
+			->where('company_cars.mark_id',$car->mark_id)
+			->orWhere('company_cars.complect_id',$car->complect_id)
+			->orWhere('company_cars.vin',$car->vin)
+			->orWhere('company_cars.transmission_id',$car->complect->motor->transmission_id)
+			->orWhere('company_cars.driver_id',$car->complect->motor->driver_id)
+			->orWhere('company_cars.delivery_id',$car->status_delivery)
+			->orWhere('company_cars.min_price','<',$car->total_price)
+			->orWhere('company_cars.max_price','>',$car->total_price)
+			->orWhere('company_cars.year','>',$car->year)
+			->groupBy('companies.id')
+			->get();
+		
+		foreach ($companies as $index=>$itemCompany) 
+		{
+			foreach($itemCompany->conditions as $key => $condition)
+			{
+				$res = $condition->only([
+						'mark_id','complect_id','vin','transmission_id','driver_id','delivery_id','min_price','max_price','year'
+				]);
+				$i = 0;
+				$countParam = (count(array_filter($res)));
+				
+				if($condition->mark_id == $car->mark_id)
+					$i++;
+				
+				if($condition->complect_id == $car->complect_id)
+					$i++;
+				
+				if($condition->vin == $car->vin)
+					$i++;
+				
+				if($condition->transmission_id == $car->complect->motor->transmission_id)
+					$i++;
+				
+				if($condition->driver_id == $car->complect->motor->driver_id)
+					$i++;
+				
+				if($condition->delivery_id == $car->complect->motor->status_delivery && $condition->delivery_id)
+					$i++;
+				
+				if($condition->min_price <= $car->total_price && $condition->min_price)
+					$i++;
+				
+				if($condition->max_price >= $car->total_price && $condition->max_price)
+					$i++;
+				
+				if($condition->year <= $car->year && $condition->year)
+					$i++;
+
+				if($i == $countParam && $condition->type==0)
+					unset($companies[$index]);
+				elseif($i != $countParam)
+					unset($itemCompany->conditions[$key]);
+			}
+			$itemCompany->parameters = $this->calculate($itemCompany);
+		}
+		return $companies;
 	}
 }
