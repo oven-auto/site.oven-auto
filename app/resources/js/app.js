@@ -20,12 +20,14 @@ require('./admin/banners');
 require( 'jquery-ui/ui/widgets/sortable.js');
 require('./config_sortable.js');
 require('slick-carousel');
+require('./one_height');
 
 require('./config_slick');
 require('./navbar_fixed');
 require('./front/model_image');
 require('./front/model_complect_list');
 require('./front/stock');
+require('./front/company');
 
 //window.Vue = require('vue');
 

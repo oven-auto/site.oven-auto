@@ -1,0 +1,25 @@
+.company-block{
+	position:relative;
+}
+.company-block:hover{
+	border-color: #fc3 !important;
+}
+.company-title{
+	font-size: $font-medium;
+}
+.comany-text{
+	
+}
+.company-offer{
+	font-family: $rn-bold;
+}
+.company-section{
+	
+}
+
+.company-footer{
+	position:absolute;
+	bottom:0px;
+	left:0px;
+	width:100%;
+}

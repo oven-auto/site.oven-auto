@@ -14027,3 +14027,26 @@ html {
   padding-top: 5px;
 }
 
+.company-block {
+  position: relative;
+}
+
+.company-block:hover {
+  border-color: #fc3 !important;
+}
+
+.company-title {
+  font-size: 1.4rem;
+}
+
+.company-offer {
+  font-family: Renault;
+}
+
+.company-footer {
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+}
+

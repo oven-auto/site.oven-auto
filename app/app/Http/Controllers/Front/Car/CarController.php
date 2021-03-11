@@ -18,7 +18,7 @@ class CarController extends Controller
     public function show(\App\Services\Company\CompanyService $companyService, $id)
     {
     	$car = $this->service->getCarById($id);
-        $companies = $companyService->getCompanyByCar($car);
+        $companies = $companyService->getCompanyByCar($car)->sortBy('section_id')->groupBy('section_id');
     	$test = $this->service->getTestCarByModel($car->mark);
     	return view('front.cars.car_page',compact('car','test','companies'));
     }

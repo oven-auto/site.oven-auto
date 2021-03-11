@@ -10,6 +10,8 @@ Class Calculate extends AbstractCompanyClass  implements CalculationInterface
 	public $procent = null;
 	public $limit = null;
 
+	public $company = null;
+
 	public function adminRender()
 	{
 		return view('admin.company.calculate')->with('self',$this);
@@ -17,7 +19,7 @@ Class Calculate extends AbstractCompanyClass  implements CalculationInterface
 
 	public function clientRender()
 	{
-
+		return view('front.company.calculate')->with('self',$this);
 	}
 
 	public function setData()
@@ -27,7 +29,10 @@ Class Calculate extends AbstractCompanyClass  implements CalculationInterface
 
 	public function fill($company)
 	{
-		$data = json_decode($company);
+
+		$this->company = $company;
+
+		$data = json_decode($company->calculation->parameters);
 
 		if(isset($data->base))
 			$this->base = $data->base;

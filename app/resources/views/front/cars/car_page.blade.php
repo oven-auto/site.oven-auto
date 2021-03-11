@@ -203,11 +203,57 @@
 <!--END COMPLECT-->
 
 <!--BEGIN COMPANY-->
-<div class="container">
+<div class="container py-3">
 	<div class="row">
-		<div class="col">
-			<div class="block-title ">
-				
+		<div class="col-8">
+			@foreach($companies as $itemSection)
+			<div class="row"> 
+				@foreach($itemSection as $itemCompany)
+					
+					@if($loop->first)
+					<div class="col-12 pb-4">
+						<div class="block-title">
+							{{$itemCompany->section->name}}
+						</div> 
+					</div>
+					@endif
+
+					@if($itemCompany->parameters)
+					<div class="col-6 mb-4"> 
+						<div 
+							class="border p-3 company-block {{($itemCompany->controll->immortal) ? 'company-immortal' : ''}} {{($itemCompany->controll->main) ? 'company-main' : ''}}" 
+							data-company-section="{{$itemCompany->section_id}}" 
+							data-company-id="{{$itemCompany->id}}"
+
+						>
+							<div class="company-title rn-bold">
+								{!!$itemCompany->controll->title!!}
+							</div>
+
+							<div class="company-text">
+								{!!$itemCompany->controll->text!!}
+							</div>
+
+							<div class="company-footer p-3">
+								<div class="company-section pt-3">
+									{{$itemCompany->section->name}}
+								</div>
+
+								<div class="company-offer">
+									{!!$itemCompany->controll->offer!!}
+								</div>
+							</div>
+						</div>
+					</div>
+					@endif
+				@endforeach
+			</div>
+			@endforeach
+		</div>
+
+		<div class="col-4">
+			<div class="block-title">
+				Калькулятор выгод
 			</div>
 		</div>
 	</div>

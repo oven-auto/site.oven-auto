@@ -4,6 +4,8 @@ use App\Services\Company\CalculationInterface;
 
 Class Description extends AbstractCompanyClass  implements CalculationInterface
 {
+	public $company = null;
+
 	public function adminRender()
 	{
 		return view('admin.company.description');
@@ -11,7 +13,7 @@ Class Description extends AbstractCompanyClass  implements CalculationInterface
 
 	public function clientRender()
 	{
-
+		return view('front.company.description')->with('self',$this);
 	}
 
 	public function setData()
@@ -21,6 +23,6 @@ Class Description extends AbstractCompanyClass  implements CalculationInterface
 
 	public function fill($company)
 	{
-		
+		$this->company = $company;
 	}
 }

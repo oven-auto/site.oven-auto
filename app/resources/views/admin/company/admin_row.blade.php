@@ -37,14 +37,42 @@
 				@if(isset($itemCompany->conditions) && $itemCompany->conditions->count())
 					@foreach($itemCompany->conditions->SortByDesc('type') as $itemCondition)
 					<div style="white-space: nowrap; color: {{ ($itemCondition->type) ? 'green' : 'red' }}">
-						{{$itemCondition->model->name}}
-						{{$itemCondition->complect->fullName }}
-						{{$itemCondition->vin}}
-						{{$itemCondition->transmission->name}}
-						{{$itemCondition->delivery_id}}
-						{{$itemCondition->min_price}}
-						{{$itemCondition->max_price}}
-						{{$itemCondition->year}}
+						
+						@if(!empty($itemCondition->mark_id))
+							{{$itemCondition->model->name}}
+						@endif
+
+						@if(!empty($itemCondition->complect_id))
+							{{$itemCondition->complect->fullName }}
+						@endif
+
+						@if($itemCondition->vin)
+							{{$itemCondition->vin}}
+						@endif
+
+						@if($itemCondition->transmission_id)
+							{{$itemCondition->transmission->name}}
+						@endif
+
+						@if($itemCondition->driver_id)
+							{{$itemCondition->driver->name}}
+						@endif
+
+						@if($itemCondition->delivery_id)
+							{{$itemCondition->delivery_id}}
+						@endif
+
+						@if($itemCondition->min_price)
+							{{$itemCondition->min_price}}
+						@endif
+
+						@if($itemCondition->max_price)
+							{{$itemCondition->max_price}}
+						@endif
+
+						@if($itemCondition->year)
+							{{$itemCondition->year}}
+						@endif
 					</div>
 					@endforeach
 				@endif

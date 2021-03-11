@@ -5,6 +5,7 @@ use App\Services\Company\CalculationInterface;
 Class Nomenklature extends AbstractCompanyClass implements CalculationInterface
 {
 	public $nomenklatures = [];
+	public $company = null;
 	public function adminRender()
 	{
 		return view('admin.company.nomenklature');
@@ -12,7 +13,7 @@ Class Nomenklature extends AbstractCompanyClass implements CalculationInterface
 
 	public function clientRender()
 	{
-
+		return view('front.company.nomenklature')->with('self',$this);
 	}
 
 	public function setData()
@@ -22,7 +23,10 @@ Class Nomenklature extends AbstractCompanyClass implements CalculationInterface
 
 	public function fill($company)
 	{
-		$data = json_decode($company);
+		$this->company = $company;
+		
+		$data = json_decode($company->calculation->parameters);
+		
 		$data = json_decode($data);
 		if(is_array($data))
 			foreach ($data as $key => $obj) 

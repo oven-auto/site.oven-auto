@@ -5,7 +5,8 @@ use App\Services\Company\CalculationInterface;
 Class Budget extends AbstractCompanyClass implements CalculationInterface
 {
 	public $budget = null;
-
+	public  $company = null;
+	
 	public function adminRender()
 	{
 		return view('admin.company.budget')->with('self',$this);
@@ -13,7 +14,7 @@ Class Budget extends AbstractCompanyClass implements CalculationInterface
 
 	public function clientRender()
 	{
-
+		return view('front.company.budget')->with('self',$this);
 	}
 
 	public function setData()
@@ -23,7 +24,9 @@ Class Budget extends AbstractCompanyClass implements CalculationInterface
 
 	public function fill($company)
 	{
-		$data = json_decode($company);
+		$this->company = $company;
+		
+		$data = json_decode($company->calculation->parameters);
 		
 		if(isset($data->budget))
 			$this->budget = $data->budget;

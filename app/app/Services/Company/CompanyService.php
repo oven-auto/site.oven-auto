@@ -154,28 +154,63 @@ Class CompanyService
 	public function calculate($company)
 	{
 		$result = $this->setCompany($company->controll->scenario_id);
-		$result->fill($company->calculation->parameters);
+		$result->fill($company);
 		return $result;
 	}
 
 	public function getCompanyByCar(Car $car)
 	{
+		$now = date('Y-m-d');
 		$companies = \App\Models\Company::select('companies.*')->with(['controll','conditions','calculation','section','scenario'])
 			->leftJoin('company_cars','company_cars.company_id','=','companies.id')
-			->where('company_cars.mark_id',$car->mark_id)
-			->orWhere('company_cars.complect_id',$car->complect_id)
-			->orWhere('company_cars.vin',$car->vin)
-			->orWhere('company_cars.transmission_id',$car->complect->motor->transmission_id)
-			->orWhere('company_cars.driver_id',$car->complect->motor->driver_id)
-			->orWhere('company_cars.delivery_id',$car->status_delivery)
-			->orWhere('company_cars.min_price','<',$car->total_price)
-			->orWhere('company_cars.max_price','>',$car->total_price)
-			->orWhere('company_cars.year','>',$car->year)
+			
+			->where(function($query) use ($car){
+				$query->where(function($query_mark) use ($car){
+					$query_mark->where('company_cars.mark_id',$car->mark_id)
+						->where('company_cars.mark_id','<>',0);
+					})
+				->orWhere(function($query_complect) use ($car) {
+					$query_complect->where('company_cars.complect_id',$car->complect_id)
+						->where('company_cars.complect_id','<>',0);
+					})
+				->orWhere(function($query_vin) use ($car){
+					$query_vin->where('company_cars.vin',$car->vin)
+						->where('company_cars.vin','<>',0);
+					})
+				->orWhere(function($query_transmission) use ($car){
+					$query_transmission->where('company_cars.transmission_id',$car->complect->motor->transmission_id)
+						->where('company_cars.transmission_id','<>',0);
+					})
+				->orWhere(function($query_driver) use ($car){
+					$query_driver->where('company_cars.driver_id',$car->complect->motor->driver_id)
+						->where('company_cars.driver_id','<>',0);
+					})
+				->orWhere(function($query_delivery) use ($car){
+					$query_delivery->where('company_cars.delivery_id',$car->status_delivery)
+						->where('company_cars.delivery_id','<>',0);
+					})
+				->orWhere(function($query_min) use ($car){
+					$query_min->where('company_cars.min_price','<',$car->total_price)
+						->where('company_cars.min_price','<>',0);
+					})
+				->orWhere(function($query_max) use ($car){
+					$query_max->where('company_cars.max_price','>',$car->total_price)
+						->where('company_cars.min_price','<>',0);
+					})
+				->orWhere(function($query_year) use ($car){
+					$query_year->where('company_cars.year','>',$car->year)
+						->where('company_cars.year','<>',0);
+					});
+			})
+			->where('companies.status',1)
+			->where('companies.begin_date','<',$now)
+			->where('companies.end_date','>',$now)
+			//->where('companies.section_id',5)
 			->groupBy('companies.id')
 			->get();
 		
 		foreach ($companies as $index=>$itemCompany) 
-		{
+		{	
 			foreach($itemCompany->conditions as $key => $condition)
 			{
 				$res = $condition->only([
@@ -185,31 +220,58 @@ Class CompanyService
 				$countParam = (count(array_filter($res)));
 				
 				if($condition->mark_id == $car->mark_id)
+				{
+					//dump('Совпала модель '.$car->mark_id.'='.$condition->mark_id);
 					$i++;
+				}
 				
 				if($condition->complect_id == $car->complect_id)
+				{
+					//dump('Совпала комплектация '.$car->complect_id.'='.$condition->complect_id);
 					$i++;
+				}
 				
 				if($condition->vin == $car->vin)
+				{
+					//dump('Совпала vin '.$car->vin.'='.$condition->vin);
 					$i++;
+				}
 				
 				if($condition->transmission_id == $car->complect->motor->transmission_id)
+				{
+					//dump('Совпала KPP '.$car->complect->motor->transmission_id.'='.$condition->transmission_id);
 					$i++;
+				}
 				
 				if($condition->driver_id == $car->complect->motor->driver_id)
+				{
+					//dump('Совпала PRIVOD '.$car->complect->motor->driver_id.'='.$condition->driver_id);
 					$i++;
+				}
 				
-				if($condition->delivery_id == $car->complect->motor->status_delivery && $condition->delivery_id)
+				if($condition->delivery_id == $car->status_delivery && $condition->delivery_id)
+				{
+					//dump('Совпала DELIVERY '.$car->status_delivery.'='.$condition->delivery_id);
 					$i++;
+				}
 				
 				if($condition->min_price <= $car->total_price && $condition->min_price)
+				{
+					//dump('Совпала min_price '.$car->total_price.'='.$condition->min_price);
 					$i++;
+				}
 				
 				if($condition->max_price >= $car->total_price && $condition->max_price)
+				{
+					//dump('Совпала max_price '.$car->total_price.'='.$condition->max_price);
 					$i++;
+				}
 				
 				if($condition->year <= $car->year && $condition->year)
+				{
+					//dump('Совпала YEAR '.$car->year.'='.$condition->year);
 					$i++;
+				}
 
 				if($i == $countParam && $condition->type==0)
 					unset($companies[$index]);

@@ -43536,6 +43536,8 @@ __webpack_require__(/*! ./config_sortable.js */ "./resources/js/config_sortable.
 
 __webpack_require__(/*! slick-carousel */ "./node_modules/slick-carousel/slick/slick.js");
 
+__webpack_require__(/*! ./one_height */ "./resources/js/one_height.js");
+
 __webpack_require__(/*! ./config_slick */ "./resources/js/config_slick.js");
 
 __webpack_require__(/*! ./navbar_fixed */ "./resources/js/navbar_fixed.js");
@@ -43544,7 +43546,9 @@ __webpack_require__(/*! ./front/model_image */ "./resources/js/front/model_image
 
 __webpack_require__(/*! ./front/model_complect_list */ "./resources/js/front/model_complect_list.js");
 
-__webpack_require__(/*! ./front/stock */ "./resources/js/front/stock.js"); //window.Vue = require('vue');
+__webpack_require__(/*! ./front/stock */ "./resources/js/front/stock.js");
+
+__webpack_require__(/*! ./front/company */ "./resources/js/front/company.js"); //window.Vue = require('vue');
 
 /**
  * The following block of code may be used to automatically register your
@@ -43748,6 +43752,17 @@ window.date_format = function (date, format) {
   // formatDate = formatDate.join('-')
   // console.log(formatDate)
 };
+
+/***/ }),
+
+/***/ "./resources/js/front/company.js":
+/*!***************************************!*\
+  !*** ./resources/js/front/company.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+toOneHeight('.company-block', 60);
 
 /***/ }),
 
@@ -43970,6 +43985,25 @@ window.number_format = function (number, decimals, dec_point, separator) {
 
   if (valute) return s.join(dec) + valute;
   return s.join(dec);
+};
+
+/***/ }),
+
+/***/ "./resources/js/one_height.js":
+/*!************************************!*\
+  !*** ./resources/js/one_height.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+window.toOneHeight = function (separator) {
+  var subHeight = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+  var max = 0;
+  $(document).find(separator).each(function () {
+    if ($(this).height() > max) max = $(this).height();
+  });
+  if (subHeight) max += subHeight;
+  $(document).find(separator).height(max);
 };
 
 /***/ }),
