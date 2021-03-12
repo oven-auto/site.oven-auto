@@ -13823,6 +13823,10 @@ body {
   font-family: Renault-regular;
 }
 
+.navbar-dark .navbar-nav .nav-link {
+  color: #fff !important;
+}
+
 .model-header {
   background: #f2f2f2;
 }
@@ -14029,6 +14033,7 @@ html {
 
 .company-block {
   position: relative;
+  cursor: pointer;
 }
 
 .company-block:hover {
@@ -14048,5 +14053,36 @@ html {
   bottom: 0px;
   left: 0px;
   width: 100%;
+}
+
+.company-checkbox {
+  background: #fff;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.company-block input {
+  display: none;
+}
+
+.company-disabled {
+  pointer-events: none;
+  color: #bbb !important;
+  border-color: #eee !important;
+}
+
+.border-bottom-dotted {
+  border-bottom: 1px dashed #ddd;
+}
+
+.fixed-calc {
+  position: fixed;
+  top: 55px;
 }
 

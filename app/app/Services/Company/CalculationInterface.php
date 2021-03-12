@@ -1,5 +1,6 @@
 <?php
 namespace App\Services\Company;
+use App\Models\Car;
 
 Interface CalculationInterface
 {
@@ -7,7 +8,7 @@ Interface CalculationInterface
 
 	public function clientRender();
 
-	public function setData();
+	public function setData(Car $car);
 
 	public function fill($company);
 }

@@ -1,6 +1,7 @@
 <?php
 namespace App\Services\Company;
 use App\Services\Company\CalculationInterface;
+use App\Models\Car;
 
 Class Nomenklature extends AbstractCompanyClass implements CalculationInterface
 {
@@ -16,9 +17,9 @@ Class Nomenklature extends AbstractCompanyClass implements CalculationInterface
 		return view('front.company.nomenklature')->with('self',$this);
 	}
 
-	public function setData()
+	public function setData(Car $car)
 	{
-
+		return 'data-value="0"';
 	}
 
 	public function fill($company)
@@ -37,5 +38,10 @@ Class Nomenklature extends AbstractCompanyClass implements CalculationInterface
 	private function push($obj)
 	{
 		$this->nomenklatures[$obj->id] = $obj->name;
+	}
+
+	public function nomenklature()
+	{
+		return join(', ',$this->nomenklatures);
 	}
 }

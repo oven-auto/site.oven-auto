@@ -121,16 +121,16 @@ Class CompanyService
 	}
 
 	public function updatecompany($company,$data)
-	{
+	{	
 		try
 		{
 			$result = DB::transaction(function() use ($company,$data)
 			{
 				$company->update($this->extractValue($data,$this->companyFillColl));
 				$company->controll()->update($this->extractValue($data,$this->companyControllFillColl));
-				$company->calculation()->update([
-					'parameters'=>isset($data['parameters']) ? json_encode($data['parameters']) : ''
-				]);
+				$company->calculation->fill([
+						'parameters'=>isset($data['parameters']) ? json_encode($data['parameters']) : ''
+					])->save();
 				$company->conditions()->delete();
 				$conditions = $this->makeConditionArray($data);
 				foreach ($conditions as $key => $value) 
@@ -206,11 +206,15 @@ Class CompanyService
 			->where('companies.begin_date','<',$now)
 			->where('companies.end_date','>',$now)
 			//->where('companies.section_id',5)
+
 			->groupBy('companies.id')
 			->get();
-		
+		// $companies = $companies->sort(function($val){
+		// 	$val->section->sort;
+		// });
 		foreach ($companies as $index=>$itemCompany) 
 		{	
+			
 			foreach($itemCompany->conditions as $key => $condition)
 			{
 				$res = $condition->only([
@@ -279,6 +283,51 @@ Class CompanyService
 					unset($itemCompany->conditions[$key]);
 			}
 			$itemCompany->parameters = $this->calculate($itemCompany);
+
+			$itemCompany->controll->title = str_replace('<model>', $car->mark->brand->name.' '.$car->mark->name, $itemCompany->controll->title);
+			$itemCompany->controll->title = str_replace(
+				'<budget>', 
+				@number_format($itemCompany->parameters->budget,0,'',' ').' руб.', 
+				$itemCompany->controll->title
+			);
+			$itemCompany->controll->title = str_replace('<procent>', @$itemCompany->parameters->procent.'%', $itemCompany->controll->title);
+			$itemCompany->controll->title = str_replace('<vin>', $car->vin, $itemCompany->controll->title);
+			$itemCompany->controll->title = str_replace(
+				'<nomen>', 
+				isset($itemCompany->parameters->nomenklatures) ? $itemCompany->parameters->nomenklature() : '', 
+				$itemCompany->controll->title
+			);
+			$itemCompany->controll->title = str_replace('<promo>', $itemCompany->controll->promo, $itemCompany->controll->title);
+			/**/
+			$itemCompany->controll->offer = str_replace('<model>', $car->mark->brand->name.' '.$car->mark->name, $itemCompany->controll->offer);
+			$itemCompany->controll->offer = str_replace(
+				'<budget>', 
+				@number_format($itemCompany->parameters->budget,0,'',' ').' руб.', 
+				$itemCompany->controll->offer
+			);
+			$itemCompany->controll->offer = str_replace('<procent>', @$itemCompany->parameters->procent.'%', $itemCompany->controll->offer);
+			$itemCompany->controll->offer = str_replace('<vin>', $car->vin, $itemCompany->controll->offer);
+			$itemCompany->controll->offer = str_replace(
+				'<nomen>', 
+				isset($itemCompany->parameters->nomenklatures) ? $itemCompany->parameters->nomenklature() : '', 
+				$itemCompany->controll->offer
+			);
+			$itemCompany->controll->offer = str_replace('<promo>', $itemCompany->controll->promo, $itemCompany->controll->offer);
+			/**/
+			$itemCompany->controll->text = str_replace('<model>', $car->mark->brand->name.' '.$car->mark->name, $itemCompany->controll->text);
+			$itemCompany->controll->text = str_replace(
+				'<budget>', 
+				@number_format($itemCompany->parameters->budget,0,'',' ').' руб.', 
+				$itemCompany->controll->text
+			);
+			$itemCompany->controll->text = str_replace('<procent>', @$itemCompany->parameters->procent.'%', $itemCompany->controll->text);
+			$itemCompany->controll->text = str_replace('<vin>', $car->vin, $itemCompany->controll->text);
+			$itemCompany->controll->text = str_replace(
+				'<nomen>', 
+				isset($itemCompany->parameters->nomenklatures) ? $itemCompany->parameters->nomenklature() : '', 
+				$itemCompany->controll->text
+			);
+			$itemCompany->controll->text = str_replace('<promo>', $itemCompany->controll->promo, $itemCompany->controll->text);
 		}
 		return $companies;
 	}

@@ -1,6 +1,7 @@
 <?php
 namespace App\Services\Company;
 use App\Services\Company\CalculationInterface;
+use App\Models\Car;
 
 Class Description extends AbstractCompanyClass  implements CalculationInterface
 {
@@ -16,9 +17,9 @@ Class Description extends AbstractCompanyClass  implements CalculationInterface
 		return view('front.company.description')->with('self',$this);
 	}
 
-	public function setData()
+	public function setData(Car $car)
 	{
-
+		return 'data-value="0"';
 	}
 
 	public function fill($company)

@@ -205,7 +205,7 @@
 <!--BEGIN COMPANY-->
 <div class="container py-3">
 	<div class="row">
-		<div class="col-8">
+		<div class="col-8 company-content">
 			@foreach($companies as $itemSection)
 			<div class="row"> 
 				@foreach($itemSection as $itemCompany)
@@ -221,13 +221,13 @@
 					@if($itemCompany->parameters)
 					<div class="col-6 mb-4"> 
 						<div 
-							class="border p-3 company-block {{($itemCompany->controll->immortal) ? 'company-immortal' : ''}} {{($itemCompany->controll->main) ? 'company-main' : ''}}" 
+							class="border p-3 company-block {{($itemCompany->controll->immortal) ? 'company-immortal' : 'company-mortal'}} {{($itemCompany->controll->main) ? 'company-main' : ''}}" 
 							data-company-section="{{$itemCompany->section_id}}" 
 							data-company-id="{{$itemCompany->id}}"
-
+							{{$itemCompany->parameters->setData($car)}}
 						>
 							<div class="company-title rn-bold">
-								{!!$itemCompany->controll->title!!}
+								{{$itemCompany->controll->title}}
 							</div>
 
 							<div class="company-text">
@@ -242,6 +242,12 @@
 								<div class="company-offer">
 									{!!$itemCompany->controll->offer!!}
 								</div>
+
+								<div class="company-checkbox border m-3">
+									
+								</div>
+
+								<input type="checkbox" value="{{$itemCompany->id}}" name="company_ids[]">
 							</div>
 						</div>
 					</div>
@@ -251,9 +257,61 @@
 			@endforeach
 		</div>
 
-		<div class="col-4">
-			<div class="block-title">
+		<div class="col-4" style="position: relative;">
+			<div class="block-title pb-4">
 				Калькулятор выгод
+			</div>
+			<div class=" company-calculator">
+				<div class="border p-3">
+					<div class="block-title text-center">
+						Ваш чек*
+					</div>
+
+					<div class="px-3">
+						<div class="row border-bottom-dotted">
+							<div class="col-6 px-0">Комплектация:</div>
+							<div class="col-6 px-0 text-right base-price" data-base="{{$car->complect->price}}">{{number_format($car->complect->price,0,'',' ').' руб.'}}</div>
+						</div>
+
+						<div class="row border-bottom-dotted">
+							<div class="col-6 px-0">Опции:</div>
+							<div class="col-6 px-0 text-right packs-price" 
+									data-packs="{{
+										$car->packs->sum(function($pack){
+											return $pack->pack->price;
+										})
+									}}"
+							>
+								{{
+									number_format($car->packs->sum(function($pack){
+										return $pack->pack->price;
+									}),0,'',' ').' руб.'
+								}}
+							</div>
+						</div>
+
+						<div class="row border-bottom-dotted">
+							<div class="col-6 px-0">Аксессуары:</div>
+							<div class="col-6 px-0 text-right option-price" data-option="{{$car->option_price}}">{{number_format($car->option_price,0,'',' ').' руб.'}}</div>
+						</div>
+					</div>
+
+					<div class="company-description px-3">
+						<div class="row">
+							<div class="col px-0 pt-3 text-right block-title">
+								{{number_format($car->total_price,0,'',' ')}} руб.
+							</div>
+						</div>
+					</div>
+
+					<div class="pt-3">
+						<button type="button" class="btn btn-renault btn-block">Обсудить покупку</button>
+					</div>
+				</div>
+
+				<div>
+					* - не является публичной офертой
+				</div>
 			</div>
 		</div>
 	</div>
