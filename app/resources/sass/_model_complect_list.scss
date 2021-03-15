@@ -29,6 +29,10 @@
 .pack-price{
 	font-size: $font-medium;
 }
+.color-pack-checkbox{
+	pointer-events:none;	
+}
+
 .btn-renault{
 	background: $rn_yellow;
 	border-color: $rn_yellow;

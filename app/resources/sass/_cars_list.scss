@@ -2,20 +2,41 @@
 	width: 100%;
 }
 
- .star{
-	font-size: 3.5rem;
+.star{
+	font-size: 3rem;
 	display: inline-block;
 	padding-bottom: 20px;
 	border-radius: 100%;
-	width: 70px;
-	height: 70px;
-	transition: background .3s linear;
-	line-height: 70px;
+	width: 80px;
+	height: 80px;
+	line-height: 80px;
+	cursor: pointer;
+	transition: background .2s linear;
+	background: #eee;
+}
+.star:hover{
+	background: #fc3;
+}
+.car-actions .star{
+	color: #555;
+}
+.car-actions .favorite-count, .action-count{
+	position: absolute;top: 0px;right: 10px;border-radius: 10px;background: #ff6666; color:#ddd;min-width: 20px;
 }
 
-.star:hover{
-	background: $rn_yellow;
+
+@media screen and (max-width: 899px){
+	.car-actions .star{
+		font-size: 2rem;
+		width: 40px;
+		height: 40px;
+		line-height: 40px;
+	}
 }
+
+
+	
+
 
 .cars-list .star-block{
 	width: 100%;
@@ -26,4 +47,37 @@
 .cars-list a{
 	text-decoration: none;
 	color: inherit;
+}
+
+.favorites{
+	color: #333;
+	
+}
+.favorites:hover{
+	
+}
+
+.favorite-checked{
+	color:#ff6666 !important;
+}
+
+.stock-control-fixed{
+	position:fixed;
+	background: #343a40;
+	z-index:100;
+	border-radius: 0 0 5px 5px;
+}
+.stock-control-fixed .btn{
+	border: 1px solid #555;
+	color: #ddd !important;
+	background: #343a40 !important;
+}
+.fixed-car-header-info{
+	background: #343a40;
+	font-family: $rn-bold;
+	font-size: $font-medium;
+	color: #ddd;
+	border-radius: 0 0 5px 5px;
+	text-align: center;
+	border-top: solid 1px #353535;
 }

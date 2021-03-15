@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['namespace'=>'Front'],function(){
+Route::group(['namespace'=>'Front','middleware'=>'favorites'],function(){
 	Route::get('/','IndexController@index')->name('front.index');
 	Route::get('/pricelist/{slug}','PriceList\PriceListController@index')->name('front.pricelist');
 	Route::get('/stock','Stock\CarsStockController@index')->name('front.stock');
@@ -24,7 +24,11 @@ Route::group(['namespace'=>'Front'],function(){
 		Route::get('get/modelimage/model_id={id}/color_id={color_id?}','AjaxModelController@getModelImage')->name('front.ajax.get.modelimage');
 		Route::get('get/complect/complect_id={complect_id}','AjaxComplectController@getcomplect')->name('front.ajax.get.complect');
 		Route::get('get/cars','AjaxCarController@getcars')->name('front.ajax.get.cars');
-		
+	});
+
+	Route::group(['namespace'=>'Favorite','prefix'=>'favorites'],function(){
+		Route::get('/push/{car}','FavoriteController@push')->name('front.favorites.push');
+		Route::get('/favoritecars','FavoriteController@show')->name('front.favorites.show');
 	});
 });
 

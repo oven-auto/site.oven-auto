@@ -6,8 +6,24 @@
 	<div class="row">
 		<div class="col text-center">
 			<div class="color-img">
+				@php($color_id = '')
 				@if(isset($complect->mark) && $complect->mark->colors->count())
-					<img src="{{asset('storage/'.$complect->mark->colors->first()->img )}}">						
+
+					@foreach($complect->mark->colors as $itemMarkColor)
+						@if($complect->complectcolors->contains('color_id',$itemMarkColor->color_id) && 
+							$complect->complectcolors->where('color_id',$itemMarkColor->color_id)->first()->colorpacks->count()==0
+						)
+							<img src="{{asset('storage/'.$itemMarkColor->img )}}">
+							@php($color_id = $itemMarkColor->color_id)
+							@break
+						@else
+							@if($loop->last)
+								<img src="{{asset('storage/'.$itemMarkColor->img )}}">
+								@php($color_id = $itemMarkColor->color_id)
+							@endif
+						@endif
+					@endforeach
+											
 				@endif				
 			</div>
 			<div class="color-control" data-url="{{route('front.ajax.get.modelimage',$complect->mark)}}">
@@ -16,7 +32,7 @@
 					@foreach($complect->complectcolors as $itemComplectColor)
 						@if($complect->mark->colors->contains('color_id',$itemComplectColor->color_id))
 							<span 
-								class="color-btn {{($loop->first) ? 'active' : ''}}" 
+								class="color-btn {{($itemComplectColor->color_id == $color_id) ? 'active' : ''}}" 
 								data-color="{{$itemComplectColor->color->web}}"
 								data-color-id="{{$itemComplectColor->color_id}}"
 								data-pack="{{($itemComplectColor->colorpacks->count()) ? $itemComplectColor->colorpacks->implode('pack_id','-') : ''}}"
@@ -29,10 +45,16 @@
 					
 				@endif
 			</div>
+
 			<div class="color-name py-3">
-				@if($complect->mark->has('colors') && $complect->mark->colors->count() )
-					{{$complect->mark->colors->first()->color->name}}
-				@endif
+			@if(
+				$complect->mark->has('colors') && 
+				$complect->mark->colors->count() && 
+				$complect->mark->colors->where('color_id',$color_id)->first()
+			)
+				{{$complect->mark->colors->where('color_id',$color_id)->first()->color->name}}
+				<div>(Автомобиль на эскизе может отличаться от реального)</div>
+			@endif
 			</div>
 		</div>
 	</div>
@@ -65,8 +87,8 @@
 			Подготовка заказа			
 		</div>
 
-		<div class="col text bold">
-			{{'1 254 000 руб.'}}			
+		<div class="col text bold config-price" data-price="{{$complect->price}}">
+			{{number_format($complect->price,0,'',' ')}} руб.		
 		</div>
 	</div>
 
@@ -130,10 +152,10 @@
 							<div>{{$itemOption->option->name}}</div>
 						@endforeach
 						</div>
-						<div class="row mb-2">
+						<div class="row mb-2 d-flex align-items-center">
 							<div class="col-6">
-								<label class="checkbox">
-									<input type="checkbox" name="pack_ids[]" value="{{$itemPack->pack_id}}">
+								<label class="checkbox {{ ($itemPack->pack->colored) ? 'color-pack-checkbox' : '' }}">
+									<input type="checkbox" name="pack_ids[]" value="{{$itemPack->pack_id}}" class="config-pack {{ ($itemPack->pack->colored) ? 'color-pack' : '' }}" data-pack-price="{{$itemPack->pack->price}}">
 									<div class="checkbox__text">{{$itemPack->pack->code}}</div>
 								</label>
 							</div>

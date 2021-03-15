@@ -87,8 +87,14 @@ Class FrontDataService
     	$query->leftJoin('complects','complects.id','=','cars.complect_id');
     	$query->leftJoin('motors','motors.id','=','complects.motor_id');
 
+    	if(isset($data['favorites']) && ($data['favorites']))
+    	{
+    		$query->whereIn('cars.id',session()->get('favorites'));
+    	}
+    	
     	if(isset($data['complect_id']) && is_numeric($data['complect_id']))
     		$query->where('cars.complect_id',$data['complect_id']);
+    	
     	if(isset($data['mark_id']) && is_numeric($data['mark_id']))
     		$query->where('cars.mark_id',$data['mark_id']);
 
@@ -113,6 +119,16 @@ Class FrontDataService
     	}
     	if(isset($data['status_delivery']) && !empty($data['status_delivery']))
     		$query->where('cars.status_delivery',$data['status_delivery']);
+
+    	if(isset($data['order']))
+    	{
+    		if($data['order'] == 'minmax')
+    			$query->orderBy('view_car_prices.total_price','asc');
+    		elseif($data['order'] == 'maxmin')
+    			$query->orderBy('view_car_prices.total_price','desc');
+    	}
+
+
     	//$query->where('cars.delivery_id',1);
     	$query->orderBy('cars.id');
     	$cars = $query->simplePaginate(10);
@@ -122,7 +138,7 @@ Class FrontDataService
 	public function getCarById($id)
 	{
 		$car = Car::select('cars.*',DB::raw('mark_colors.img as img, view_car_prices.total_price as total_price'))
-			->with(['mark.credits','brand','complect.motor','complect.options.option','prodaction','receiving','color','packs.pack.options'])
+			->with(['mark.credits','brand','complect.motor','complect.options.option','prodaction','receiving','color','packs.pack.options','options.option'])
 			->leftJoin('mark_colors',function($join){
     			$join->on('mark_colors.color_id','=','cars.color_id')
     				->on('mark_colors.mark_id','=','cars.mark_id');

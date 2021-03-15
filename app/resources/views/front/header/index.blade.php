@@ -110,7 +110,7 @@
 			    </ul>
 
 			    <ul class="navbar-nav my-2 my-lg-0">
-			    	<a class="nav-link" href="{{route('front.stock')}}">Авто в продаже</a>
+			    	<a class="nav-link" href="{{route('front.stock')}}">Автомобили в продаже</a>
 			    </ul>
 			  </div>
 			</div>

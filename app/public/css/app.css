@@ -13558,7 +13558,7 @@ a.text-dark:focus {
 
 .checkbox__text {
   position: relative;
-  padding: 0 0 0 60px;
+  padding: 3px 0 0 60px;
   cursor: pointer;
 }
 
@@ -13911,6 +13911,15 @@ html {
   }
 }
 
+.btn-grey {
+  background: #f5f5f5;
+  border: 1px solid #ccc;
+}
+
+.big-text {
+  font-size: 2rem;
+}
+
 .properties td {
   padding: 0.3rem 0;
 }
@@ -13935,6 +13944,15 @@ html {
   border-radius: 10px;
   margin: 0 2px;
   cursor: pointer;
+}
+
+.color-btn.active {
+  border: 3px solid #333;
+  transform: scale(0.5, 0.5);
+}
+
+.lowercase {
+  text-transform: lowercase;
 }
 
 .model-complect-control {
@@ -13972,6 +13990,10 @@ html {
   font-size: 1.4rem;
 }
 
+.color-pack-checkbox {
+  pointer-events: none;
+}
+
 .btn-renault {
   background: #fc3;
   border-color: #fc3;
@@ -13982,18 +14004,44 @@ html {
 }
 
 .star {
-  font-size: 3.5rem;
+  font-size: 3rem;
   display: inline-block;
   padding-bottom: 20px;
   border-radius: 100%;
-  width: 70px;
-  height: 70px;
-  transition: background 0.3s linear;
-  line-height: 70px;
+  width: 80px;
+  height: 80px;
+  line-height: 80px;
+  cursor: pointer;
+  transition: background 0.2s linear;
+  background: #eee;
 }
 
 .star:hover {
   background: #fc3;
+}
+
+.car-actions .star {
+  color: #555;
+}
+
+.car-actions .favorite-count,
+.action-count {
+  position: absolute;
+  top: 0px;
+  right: 10px;
+  border-radius: 10px;
+  background: #ff6666;
+  color: #ddd;
+  min-width: 20px;
+}
+
+@media screen and (max-width: 899px) {
+  .car-actions .star {
+    font-size: 2rem;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+  }
 }
 
 .cars-list .star-block {
@@ -14007,6 +14055,37 @@ html {
 .cars-list a {
   text-decoration: none;
   color: inherit;
+}
+
+.favorites {
+  color: #333;
+}
+
+.favorite-checked {
+  color: #ff6666 !important;
+}
+
+.stock-control-fixed {
+  position: fixed;
+  background: #343a40;
+  z-index: 100;
+  border-radius: 0 0 5px 5px;
+}
+
+.stock-control-fixed .btn {
+  border: 1px solid #555;
+  color: #ddd !important;
+  background: #343a40 !important;
+}
+
+.fixed-car-header-info {
+  background: #343a40;
+  font-family: Renault;
+  font-size: 1.4rem;
+  color: #ddd;
+  border-radius: 0 0 5px 5px;
+  text-align: center;
+  border-top: solid 1px #353535;
 }
 
 .credit-model {
