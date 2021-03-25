@@ -24,5 +24,7 @@
     @include('front.header.index')
 
     @yield('content')
+
+    <div class="footer" style="height: 400px; background: #333;color: #ddd;"></div>
 </body>
 </html>

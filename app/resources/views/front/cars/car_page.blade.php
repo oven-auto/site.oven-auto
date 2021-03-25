@@ -367,7 +367,10 @@
 <!--End Credits-->
 
 <!--Begin footer form-->
-@include('forms.pagefooter')
+@include('forms.pagefooter',[
+	'name'=>$car->brand->name.' '.$car->mark->name,
+	'image'=>$car->mark->banner
+])
 <!--End footer form-->
 
 @endsection

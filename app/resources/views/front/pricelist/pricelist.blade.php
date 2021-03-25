@@ -183,7 +183,10 @@
 	<!--End Credits-->
 
 	<!--Begin footer form-->
-	@include('forms.pagefooter')
+	@include('forms.pagefooter',[
+		'name'=>$model->brand->name.' '.$model->name,
+		'image'=>$model->banner
+	])
 	<!--End footer form-->
 
 @endsection

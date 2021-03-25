@@ -188,4 +188,12 @@
 <!--Begin Credits-->
 @include('front.banner.credit',['credits'=>$complect->mark->credits,'model'=>$complect->mark])
 <!--End Credits-->
+
+<!--Begin footer form-->
+@include('forms.pagefooter',[
+	'name'=>$complect->brand->name.' '.$complect->mark->name,
+	'image'=>$complect->mark->banner
+])
+<!--End footer form-->
+
 @endsection
