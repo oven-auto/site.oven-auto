@@ -43172,8 +43172,7 @@ window.FillColorDiv = function (selector) {
     }
 
     $(this).css({
-      'background': str,
-      'transform': 'rotate(180deg)'
+      'background': str
     });
   });
 };
@@ -43548,7 +43547,13 @@ __webpack_require__(/*! ./front/model_complect_list */ "./resources/js/front/mod
 
 __webpack_require__(/*! ./front/stock */ "./resources/js/front/stock.js");
 
-__webpack_require__(/*! ./front/company */ "./resources/js/front/company.js"); //window.Vue = require('vue');
+__webpack_require__(/*! ./front/company */ "./resources/js/front/company.js");
+
+__webpack_require__(/*! ./front/favorites */ "./resources/js/front/favorites.js");
+
+__webpack_require__(/*! ./front/configurator */ "./resources/js/front/configurator.js");
+
+__webpack_require__(/*! ./front/car */ "./resources/js/front/car.js"); //window.Vue = require('vue');
 
 /**
  * The following block of code may be used to automatically register your
@@ -43755,6 +43760,40 @@ window.date_format = function (date, format) {
 
 /***/ }),
 
+/***/ "./resources/js/front/car.js":
+/*!***********************************!*\
+  !*** ./resources/js/front/car.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  $(window).scroll(function () {
+    var currentScroll = $(this).scrollTop();
+    var nav = $('.nav-menu');
+    var block = $('.car-header-info');
+
+    if (block.length) {
+      var blockTopPoint = block.offset().top;
+
+      if (currentScroll > blockTopPoint) {
+        if ($('.fixed-car-header-info').length == 0) {
+          $('body').append(block.clone().css({
+            'position': 'fixed',
+            'top': nav.height() + 'px',
+            'left': block.parent().offset().left + 30 + 'px',
+            'width': block.parent().width() + 'px'
+          }).addClass('fixed-car-header-info').removeClass('car-header-info').removeClass('py-1'));
+        }
+      } else {
+        $('.fixed-car-header-info').remove();
+      }
+    }
+  });
+});
+
+/***/ }),
+
 /***/ "./resources/js/front/company.js":
 /*!***************************************!*\
   !*** ./resources/js/front/company.js ***!
@@ -43850,6 +43889,7 @@ $(document).ready(function () {
       $('.company-description').append(appended);
     });
     $('.company-description').append('<div class="row"><div class="col text-right px-0 block-title pt-3">' + number_format(total + sectionSum(mas), 0, '', ' ') + ' руб.</div></div>');
+    $('.car-price').text(number_format(total + sectionSum(mas), 0, '', ' ') + ' руб.');
   } //получить сумму выбраных акций, если поиск есть то считает сумму только в такой секции
 
 
@@ -43873,15 +43913,92 @@ $(document).ready(function () {
     var block = $('.company-calculator');
     var width = block.parent().width();
     var area = $('.company-content');
-    var offsetTop = area.offset().top;
-    var offsetLeft = area.offset().left;
-    var maxDownPoint = offsetTop + area.height() - block.height() - 30;
-    block.css({
-      'width': width + 'px'
+
+    if (area.length) {
+      var offsetTop = area.offset().top;
+      var offsetLeft = area.offset().left;
+      var maxDownPoint = offsetTop + area.height() - block.height() - 30;
+      block.css({
+        'width': width + 'px'
+      });
+      if (currentTop > offsetTop) block.addClass('fixed-calc');
+      if (currentTop < offsetTop) block.removeClass('fixed-calc');
+      if (currentTop > maxDownPoint) block.removeClass('fixed-calc');
+    }
+  });
+});
+
+/***/ }),
+
+/***/ "./resources/js/front/configurator.js":
+/*!********************************************!*\
+  !*** ./resources/js/front/configurator.js ***!
+  \********************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  var basePrice = parseInt($('.config-price').attr('data-price'));
+  $(document).on('click', '.color-btn', function () {
+    var me = $(this);
+    var packIds = me.attr('data-pack');
+    var idArray = packIds.split('-');
+    $('.color-pack').prop('checked', false);
+    idArray.forEach(function (item, i) {
+      if ($('.color-pack').val() == item) $('.color-pack[value="' + item + '"]').prop('checked', true);
     });
-    if (currentTop > offsetTop) block.addClass('fixed-calc');
-    if (currentTop < offsetTop) block.removeClass('fixed-calc');
-    if (currentTop > maxDownPoint) block.removeClass('fixed-calc');
+    addPrice();
+  });
+  $(document).on('click', '.config-pack', function () {
+    addPrice();
+  });
+
+  function addPrice() {
+    var sum = 0;
+    $('.config-pack').each(function () {
+      if ($(this).prop('checked') == true) sum += parseInt($(this).attr('data-pack-price'));
+    });
+    sum += basePrice;
+    $('.config-price').html(number_format(sum, 0, '', ' ') + ' руб.');
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/front/favorites.js":
+/*!*****************************************!*\
+  !*** ./resources/js/front/favorites.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  $(document).on('click', '.favorites', function () {
+    var me = $(this);
+    var url = me.attr('data-url');
+    axios.get(url).then(function (response) {
+      if (response.data.status == 1) me.addClass('favorite-checked');
+      if (response.data.status == 0) me.removeClass('favorite-checked');
+      if (response.data.count) $('.favorite-count').html(response.data.count);else $('.favorite-count').html('');
+    })["catch"](function (error) {});
+  });
+  $(window).scroll(function () {
+    var currentScroll = $(this).scrollTop();
+    var block = $(document).find('.stock-control');
+    var form = $('.stock-filter-form');
+    var nav = $('.nav-menu');
+
+    if (block.length) {
+      if (currentScroll > block.offset().top) {
+        if (form.find('.stock-control-fixed').length == 0) form.append(block.clone().addClass('stock-control-fixed').css({
+          'width': '100%',
+          'top': nav.height() + 'px',
+          'left': form.find('.container').offset().left + 'px'
+        }).removeClass('pt-3').addClass('p-1'));
+      } else {
+        form.find('.stock-control-fixed').remove();
+      }
+    }
   });
 });
 
@@ -43944,13 +44061,15 @@ $(document).on('click', '.credit-description-control', function () {
 
 $(document).ready(function () {
   FillColorDiv('.color-btn');
-  $(document).on('click', '.color-control span', function () {
+  $(document).on('click', '.color-btn', function () {
     var url = $(this).parent().attr('data-url');
     url += $(this).attr('data-color-id');
+    $('.color-btn').removeClass('active');
+    $(this).addClass('active');
     axios.get(url).then(function (response) {
       if (response.data.status == 1) {
         $('.color-img img').attr('src', response.data.img);
-        $('.color-name').html(response.data.name);
+        $('.color-name').html(response.data.name + '<div>(Автомобиль на эскизе может отличаться от реального)</div>');
       } else alert('Изображение отсутствует');
     })["catch"](function (error) {
       console.log(error);
@@ -43979,6 +44098,8 @@ $(document).ready(function () {
 
     if (stock instanceof Object && stock.length) {
       if (parseInt(currentScroll) > document.body.clientHeight - bottomOffset && status != 0) {
+        console.log(currentScroll);
+
         for (i = 1; i <= 10; i++) {
           stock.append('<div class="text-center spiner py-5"><i class="fa fa-spinner wait-ajax"></i></div>');
         }
@@ -44022,10 +44143,43 @@ $(document).ready(function () {
     var me = $(this);
     var form = me.closest('form');
     form[0].reset();
+    form.find("[name='favorites']").val('');
+    form.find('.show-favorite').attr('data-status', 0);
     var url = form.attr('action');
     page = 1;
     getRender(url, '', stock, 'get', 10);
+    page = 2;
     status = 1;
+  });
+  $(document).on('click', '.order', function () {
+    var me = $(this);
+    var form = me.closest('form');
+    var submit = form.find('.search');
+    var hidden = form.find('[name="order"]');
+    hidden.val(me.attr('data-order'));
+    submit.click();
+  });
+  $(document).on('click', '.show-favorite', function () {
+    var me = $(this);
+
+    if (me.attr('data-status') == 0) {
+      me.attr('data-status', 1);
+      var form = me.closest('form');
+      form[0].reset();
+      var favorites = form.find('[name="favorites"]');
+      favorites.val(1);
+      var url = form.attr('action');
+      var block = $(document).find('.stock');
+      page = 1;
+      var parameters = '?' + form.serialize() + '&page=' + page;
+      url += parameters;
+      getRender(url, parameters, block, 'get', 10);
+      page = 2;
+      status = 1;
+    } else {
+      me.attr('data-status', 0);
+      $('.clear').click();
+    }
   });
 });
 

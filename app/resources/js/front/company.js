@@ -98,6 +98,7 @@ $(document).ready(function(){
 			$('.company-description').append(appended)
 		})
 		$('.company-description').append('<div class="row"><div class="col text-right px-0 block-title pt-3">'+number_format(total+sectionSum(mas),0,'',' ')+' руб.</div></div>')
+		$('.car-price').text(number_format(total+sectionSum(mas),0,'',' ')+' руб.')
 	}
 
 	//получить сумму выбраных акций, если поиск есть то считает сумму только в такой секции
@@ -129,16 +130,19 @@ $(document).ready(function(){
 		var block = $('.company-calculator')
 		var width = block.parent().width()
 		var area = $('.company-content')
-		var offsetTop = area.offset().top
-		var offsetLeft = area.offset().left
-		var maxDownPoint = offsetTop+area.height()-block.height()-30
-		block.css({'width':width+'px'})
-		if(currentTop>offsetTop)
-			block.addClass('fixed-calc')
-		if(currentTop<offsetTop)
-			block.removeClass('fixed-calc')
-		if(currentTop>maxDownPoint)
-			block.removeClass('fixed-calc')
+		if(area.length)
+		{
+			var offsetTop = area.offset().top
+			var offsetLeft = area.offset().left
+			var maxDownPoint = offsetTop+area.height()-block.height()-30
+			block.css({'width':width+'px'})
+			if(currentTop>offsetTop)
+				block.addClass('fixed-calc')
+			if(currentTop<offsetTop)
+				block.removeClass('fixed-calc')
+			if(currentTop>maxDownPoint)
+				block.removeClass('fixed-calc')
+		}
 
 	})
 })

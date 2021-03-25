@@ -1,7 +1,7 @@
 <div class="row d-flex align-items-center">
 	<div class="col-2 text-center ">
 		<div class="star-block">
-			<div class="star">
+			<div class="star favorites {{(array_key_exists($car->id, session()->get('favorites'))) ? 'favorite-checked' : ''}}" data-url="{{route('front.favorites.push',$car)}}">
 				<i class="fa fa-star-o"></i>
 			</div>
 			<div>Запомнить</div>

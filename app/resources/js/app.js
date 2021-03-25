@@ -28,6 +28,9 @@ require('./front/model_image');
 require('./front/model_complect_list');
 require('./front/stock');
 require('./front/company');
+require('./front/favorites');
+require('./front/configurator');
+require('./front/car');
 
 //window.Vue = require('vue');
 

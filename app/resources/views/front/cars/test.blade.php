@@ -1,5 +1,5 @@
 @if(isset($test))
-<div class="container py-3">
+<div class="container py-5">
 	<div class="row d-flex">
 		<div class="col-5">
 			@isset($test->img)

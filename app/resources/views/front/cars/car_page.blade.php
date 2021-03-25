@@ -18,80 +18,107 @@
 </div>
 <!--END CAR IMAGE-->
 
-<div class="container py-3">
+<div class="container py-5 car-actions">
 	<div class="row ">
 		<div class="col-3 text-left">
-			<span style="display: inline-block;" class="pr-2">
+			
+			<span style="display: inline-block;" class="pr-1 text-center">
 				<div class="star text-center">
-					<i class="fa fa-star-o"></i>
+					<i class="fa fa-car"></i>
 				</div>
-				<div>Запомнить</div>
+				<div>О модели</div>
 			</span>
 
-			<span style="display: inline-block;" class="px-2">
+			<span style="display: inline-block;" class="px-1 text-center">
 				<div class="star text-center">
-					<i class="fa fa-star-o"></i>
+					<i class="fa fa-file-text"></i>
 				</div>
-				<div>Запомнить</div>
+				<div>Скачать</div>
 			</span>
 		</div>
 
-		<div class="col-6 text-center">
-			<span style="display: inline-block;" class="pr-2">
+		<div class="col-6 text-center px-0">
+			@if($companies->has(2) && $companies->get(2)->count())
+			<span style="display: inline-block;position: relative;" class="pr-1">
 				<div class="star text-center">
-					<i class="fa fa-star-o"></i>
+					<i class="fa fa-gift"></i>
 				</div>
-				<div>Запомнить</div>
+				<div>Подарки</div>
+				<span class="action-count">{{$companies->get(2)->count()}}</span>
 			</span>
+			@endif
 
-			<span style="display: inline-block;" class="px-2">
+			@if($companies->has(4) && $companies->get(4)->count())
+			<span style="display: inline-block;position: relative;" class="px-1">
 				<div class="star text-center">
-					<i class="fa fa-star-o"></i>
+					<i class="fa fa-rocket"></i>
 				</div>
-				<div>Запомнить</div>
+				<div>Акции</div>
+				<span class="action-count">{{$companies->get(4)->count()}}</span>
 			</span>
-			<span style="display: inline-block;" class="px-2">
-				<div class="star text-center">
-					<i class="fa fa-star-o"></i>
-				</div>
-				<div>Запомнить</div>
-			</span>
+			@endif
 
-			<span style="display: inline-block;" class="px-2">
+			@if($companies->has(3) && $companies->get(3)->count())
+			<span style="display: inline-block;position: relative;" class="px-1">
 				<div class="star text-center">
-					<i class="fa fa-star-o"></i>
+					<i class="fa fa-database"></i>
 				</div>
-				<div>Запомнить</div>
+				<div>Сервисы</div>
+				<span class="action-count">{{$companies->get(3)->count()}}</span>
 			</span>
-			<span style="display: inline-block;" class="px-2">
-				<div class="star text-center">
-					<i class="fa fa-star-o"></i>
-				</div>
-				<div>Запомнить</div>
-			</span>
+			@endif
 
-			<span style="display: inline-block;" class="pl-2">
+			@if($companies->has(5) && $companies->get(5)->count())
+			<span style="display: inline-block;position: relative;" class="px-1">
 				<div class="star text-center">
-					<i class="fa fa-star-o"></i>
+					<i class="fa  fa-cube"></i>
 				</div>
-				<div>Запомнить</div>
+				<div>Продукты</div>
+				<span class="action-count">{{$companies->get(5)->count()}}</span>
 			</span>
+			@endif
+
+			@if($companies->has(1) && $companies->get(1)->count())
+			<span style="display: inline-block;position: relative;" class="px-1">
+				<div class="star text-center">
+					<i class="fa fa-percent"></i>
+				</div>
+				<div>Скидки</div>
+				<span class="action-count">{{$companies->get(1)->count()}}</span>
+			</span>
+			@endif
+
+			@if(isset($car->mark->credits) && $car->mark->credits->count())
+			<span style="display: inline-block;position: relative;" class="pl-1">
+				<div class="star text-center">
+					<i class="fa fa-university"></i>
+				</div>
+				<div>Кредиты</div>
+				<span class="action-count">{{$car->mark->credits->count()}}</span>
+			</span>
+			@endif
 		</div>
 
 		<div class="col-3 text-right">
-			<span style="display: inline-block;" class="px-2">
+
+			<span style="display: inline-block;position: relative;" class="px-1 text-center">
 				<div class="star text-center">
-					<i class="fa fa-star-o"></i>
+					<i class="fa fa-balance-scale"></i>
+				</div>
+				<div>
+					Сравнить
+				</div>
+				<span class="favorite-count">{{count(session()->get('favorites')) ? count(session()->get('favorites')) : '' }}</span>
+			</span>
+
+			<span style="display: inline-block;" class="pl-1 text-center">
+				<div class="star text-center favorites {{(array_key_exists($car->id, session()->get('favorites'))) ? 'favorite-checked' : ''}}" data-url="{{route('front.favorites.push',$car)}}">
+					<i class="fa fa-star"></i>
 				</div>
 				<div>Запомнить</div>
 			</span>
 
-			<span style="display: inline-block;" class="pl-2">
-				<div class="star text-center">
-					<i class="fa fa-star-o"></i>
-				</div>
-				<div>Запомнить</div>
-			</span>
+			
 		</div>
 	</div>
 </div>
@@ -112,7 +139,7 @@
 		</div>
 	</div>
 
-	<div class="row py-1">
+	<div class="row py-1 car-header-info">
 		<div class="col text bold">
 			{{$car->brand->name}}
 			{{$car->mark->name}}
@@ -122,7 +149,7 @@
 			{{$car->getFrontStatus()}}			
 		</div>
 
-		<div class="col text bold">
+		<div class="col text bold car-price">
 			{{isset($car->total_price) ? number_format($car->total_price,0,'',' ') : ''}} руб.			
 		</div>
 	</div>
@@ -177,8 +204,8 @@
 		</div>
 
 		<div class="col">
-			<div class="rn-bold">Опционное оборудование</div>
-			@if(isset($car->packs) && $car->packs->count())				
+			@if(isset($car->packs) && $car->packs->count())
+			<div class="rn-bold">Опционное оборудование</div>							
 				@foreach($car->packs as $itemPack)
 					<div>{{$itemPack->pack->name}}</div>
 					@if(isset($itemPack->pack->options))
@@ -194,6 +221,19 @@
 					@endif
 				@endforeach
 			@endif
+
+			@if(isset($car->options) && $car->options->count())
+				<div class="rn-bold">Дополнительное оборудование</div>
+				<div class="pack-line"> 
+					@foreach($car->options as $itemOption)
+						<div>{{$itemOption->option->name}}</div>
+					@endforeach
+				</div>
+				<div class="pack-price text-right">
+					{{number_format($car->option_price,0,'',' ')}} руб.
+				</div>
+			@endif
+
 			<div class="pt-3">
 				@include('front.buttons.conf_btn',['link'=>$car->complect_id])
 			</div>
@@ -325,5 +365,9 @@
 <!--Begin Credits-->
 @include('front.banner.credit',['credits'=>$car->mark->credits,'model'=>$car->mark])
 <!--End Credits-->
+
+<!--Begin footer form-->
+@include('forms.pagefooter')
+<!--End footer form-->
 
 @endsection

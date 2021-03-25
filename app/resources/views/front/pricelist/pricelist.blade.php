@@ -40,7 +40,13 @@
 								Сейчас в продаже
 							</div>
 							<div class="model-header-value">
-								{{$model->countCars}}
+								@if($model->countCars % 10 == 1 && $model->countCars!=11)
+									{{$model->countCars}} автомобиль
+								@elseif($model->countCars % 10 > 1 && $model->countCars % 10 < 5)
+									{{$model->countCars}} автомобиля
+								@else
+									{{$model->countCars}} автомобилей
+								@endif
 							</div>
 						</div>
 					</div>
@@ -96,6 +102,7 @@
 				<div class="color-name py-3">
 					@if($model->has('colors') && $model->colors->count() )
 						{{$model->colors->first()->color->name}}
+						<div>(Автомобиль на эскизе может отличаться от реального)</div>
 					@endif
 				</div>
 			</div>
@@ -174,5 +181,9 @@
 	<!--Begin Credits-->
 	@include('front.banner.credit',['credits'=>$model->credits,'model'=>$model])
 	<!--End Credits-->
+
+	<!--Begin footer form-->
+	@include('forms.pagefooter')
+	<!--End footer form-->
 
 @endsection

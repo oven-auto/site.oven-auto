@@ -58,3 +58,5 @@ window.ajaxAppend = function(url,parameters,pastInto,method="post",spiner_count)
 		})
 	}
 }
+
+

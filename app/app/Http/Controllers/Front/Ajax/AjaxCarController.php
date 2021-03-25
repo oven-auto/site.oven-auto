@@ -35,4 +35,6 @@ class AjaxCarController extends Controller
             'page'=>$cars->currentPage()+1
     	]);
     }
+
+
 }

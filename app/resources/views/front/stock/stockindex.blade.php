@@ -82,7 +82,7 @@
 
 	<div class="row pt-3">
 		<div class="col">
-			<button type="button" class="btn btn-block btn-dark clear">Очистить</a>
+			<button type="button" class="btn btn-block btn-dark clear">Очистить</button>
 		</div>
 		<div class="col"></div>
 		<div class="col">
@@ -90,7 +90,39 @@
 		</div>
 	</div>
 </div>
+
+
+<div class="container stock-control pt-3">
+	<div class="row ">
+			<div class="col-3">
+				{{Form::hidden('favorites',request('favorites'))}}
+				<button type="button" class="btn btn-block btn-grey show-favorite" data-status="0">
+					Только выбранные 
+					<span class="favorite-count">{{count(session()->get('favorites')) ? count(session()->get('favorites')) : '' }}</span>
+				</button>
+			</div>
+
+			<div class="col-3">
+				<button type="button" class="btn btn-block btn-grey">
+					Сравнить выбранные
+					<span class="favorite-count">{{count(session()->get('favorites')) ? count(session()->get('favorites')) : '' }}</span>
+				</button>
+			</div>
+			
+			<div class="col-3">
+				{{Form::hidden('order',request('order'))}}
+				<button class="btn btn-grey btn-block order" data-order="minmax" type="button">Сначало дешевле</button>
+			</div>
+
+			<div class="col-3">
+				<button class="btn btn-grey btn-block order" data-order="maxmin" type="button">Сначало дороже</button>					
+			</div>
+	</div>
+</div>
+
 {{Form::close()}}
+
+
 
 <div class="container cars-list stock pt-3 pb-3">
 	@if(isset($cars) && $cars->count())
