@@ -26,5 +26,7 @@
     @yield('content')
 
     <div class="footer" style="height: 400px; background: #333;color: #ddd;"></div>
+
+    @include('front.modal.modal')
 </body>
 </html>

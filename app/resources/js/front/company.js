@@ -37,6 +37,7 @@ $(document).ready(function(){
 
 	function addDisabledClass(click_company)
 	{
+		click_company.addClass('selected-company')
 		if(click_company.hasClass('company-main'))
 		{
 			$(document).find('.company-block').each(function(){
@@ -45,6 +46,7 @@ $(document).ready(function(){
 					$(this).addClass('company-disabled')
 					$(this).find('.company-checkbox').html('')
 					$(this).find('input').prop('checked',false)
+					$(this).removeClass('selected-company')
 				}
 			})
 		}
@@ -52,6 +54,7 @@ $(document).ready(function(){
 
 	function removeDisabledClass(click_company)
 	{
+		click_company.removeClass('selected-company')
 		if(click_company.hasClass('company-main'))
 		{
 			$(document).find('.company-block').each(function(){
@@ -91,7 +94,9 @@ $(document).ready(function(){
 			if(title != item.title)
 			{
 				title = item.title
-				$('.company-description').append('<div class="row  border-bottom-dotted"><div class="col-6 px-0">'+item.title+'</div><div class="col-6 px-0 text-right">'+number_format(sectionSum(mas,title),0,'',' ')+' руб.</div></div>')
+				if(i!=0)
+					$('.company-description').append('<div class="row" style="height:2px;border-bottom:1px dashed #ddd;"></div>')
+				$('.company-description').append('<div class="row "><div class="col-6 px-0">'+item.title+'</div><div class="col-6 px-0 text-right">'+number_format(sectionSum(mas,title),0,'',' ')+' руб.</div></div>')
 			}
 			item.value = item.value.replace(/['"]+/g, '')
 			var appended = '<div class="row"><div class="col-8 px-0">'+item.offer+'</div><div class="col-4 px-0 text-right">'+number_format(item.value,0,'',' ')+' руб.</div></div>'

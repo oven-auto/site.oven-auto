@@ -13,6 +13,7 @@
 	cursor: pointer;
 	transition: background .2s linear;
 	background: #eee;
+	margin-bottom:15px;
 }
 .star:hover{
 	background: #fc3;
@@ -21,7 +22,7 @@
 	color: #555;
 }
 .car-actions .favorite-count, .action-count{
-	position: absolute;top: 0px;right: 10px;border-radius: 10px;background: #ff6666; color:#ddd;min-width: 20px;
+	position: absolute;top: 0px;right: 10px;border-radius: 10px;background: #ff6666; color:#fff;min-width: 20px;
 }
 
 
@@ -76,8 +77,8 @@
 	background: #343a40;
 	font-family: $rn-bold;
 	font-size: $font-medium;
-	color: #ddd;
+	color: #fff;
 	border-radius: 0 0 5px 5px;
 	text-align: center;
-	border-top: solid 1px #353535;
+	border-top: solid 1px #999;
 }

@@ -21,6 +21,11 @@
 	font-size: $font-size-base;
 	background: $rn_yellow;
 	color: #555;
+	width: 30px;
+	height:30px;
+	border-radius: 100%;
+	display: inline-block;
+	line-height: 30px;
 }
 
 .pack-line{

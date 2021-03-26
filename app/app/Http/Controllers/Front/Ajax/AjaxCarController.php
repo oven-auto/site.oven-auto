@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Car;
 use DB;
+use App\Models\Complect;
 use App\Services\FrontData\FrontDataService;
 
 class AjaxCarController extends Controller
@@ -25,7 +26,10 @@ class AjaxCarController extends Controller
         else
         {
             if($request->has('complect_id') && $request->get('complect_id'))
-                $view = view('front.cars.empty_complect',compact('cars'))->render();
+            {
+                $complect = Complect::with(['mark.brand'])->find($request->get('complect_id'));
+                $view = view('front.cars.empty_complect',compact('cars','complect'))->render();
+            }
             elseif ($request->has('page')) 
                 $view = view('front.cars.empty_search',compact('cars'))->render();
         }

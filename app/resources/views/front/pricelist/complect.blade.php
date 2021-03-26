@@ -57,7 +57,7 @@
 
 			<div class="row py-2">
 				<div class="col">
-					<button class="btn btn-renault btn-block" type="button">Задать вопрос</button>
+					@include('front.buttons.question_btn')
 				</div>
 				<div class="col">
 					@include('front.buttons.modal_test_btn')

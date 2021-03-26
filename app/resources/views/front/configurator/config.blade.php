@@ -53,7 +53,7 @@
 				$complect->mark->colors->where('color_id',$color_id)->first()
 			)
 				{{$complect->mark->colors->where('color_id',$color_id)->first()->color->name}}
-				<div>(Автомобиль на эскизе может отличаться от реального)</div>
+				<div class="color-notify">Автомобиль на эскизе может отличаться от реального</div>
 			@endif
 			</div>
 		</div>
@@ -102,7 +102,7 @@
 		</div>
 
 		<div class="col">
-			<button type="button" class="btn btn-block btn-renault">Обсудить покупку</button>
+			@include('front.buttons.sale_btn')
 		</div>
 	</div>
 </div>

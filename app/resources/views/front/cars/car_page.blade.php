@@ -11,7 +11,7 @@
 
 			<div class="color-name py-3">
 				{{$car->color->name}}
-				<div>(Автомобиль на эскизе может отличаться от реального)</div>
+				<div class="color-notify">Автомобиль на эскизе может отличаться от реального</div>
 			</div>
 		</div>
 	</div>
@@ -164,7 +164,7 @@
 		</div>
 
 		<div class="col">
-			<button type="button" class="btn btn-block btn-renault">Обсудить покупку</button>
+			@include('front.buttons.sale_btn')
 		</div>
 	</div>
 </div>
@@ -345,11 +345,11 @@
 					</div>
 
 					<div class="pt-3">
-						<button type="button" class="btn btn-renault btn-block">Обсудить покупку</button>
+						@include('front.buttons.sale_btn')
 					</div>
 				</div>
 
-				<div>
+				<div class="mt-3 px-3">
 					* - не является публичной офертой
 				</div>
 			</div>

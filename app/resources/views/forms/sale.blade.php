@@ -2,21 +2,21 @@
 
 	<div class="row pb-3">
 			<div class="message"></div>
-		    <div class="input-group mb-3" >
+		    <div class="input-group mb-3">
 		        <div class="input-group-prepend">
 		          <div class="input-group-text"><i class="fa fa-user"></i></div>
 		        </div>
-		        <input type="text" class="form-control data-control" id="username" name="username" placeholder="Ваше имя" >
+		        <input type="text" class="form-control data-control" id="username" name="username" placeholder="Ваше имя">
 		    </div>
 	</div>
 
 	<div class="row pb-3">
 			<div class="message"></div>
-		    <div class="input-group mb-3">
+		    <div class="input-group mb-3" >
 		        <div class="input-group-prepend">
-		          <div class="input-group-text" ><i class="fa fa-phone"></i></div>
+		          <div class="input-group-text"><i class="fa fa-phone"></i></div>
 		        </div>
-		        <input type="text" class="form-control data-control" id="userphone" name="userphone" placeholder="Ваше телефон">
+		        <input type="text" class="form-control data-control" id="userphone" name="userphone" placeholder="Ваше телефон" >
 		    </div>
 	</div>
 
@@ -24,9 +24,9 @@
 			<div class="message"></div>
 		    <div class="input-group textarea">
 		        <div class="input-group-prepend">
-		          <div class="input-group-text"><i class="fa fa-comment"></i></div>
+		          <div class="input-group-text" ><i class="fa fa-comment"></i></div>
 		        </div>
-		        <textarea type="text" class="form-control data-control" id="userphone" name="userphone" placeholder="Ваш вопрос"></textarea>
+		        <textarea type="text" class="form-control data-control" id="userphone" name="userphone" placeholder="Ваш вопрос" ></textarea>
 		    </div>
 	</div>
 

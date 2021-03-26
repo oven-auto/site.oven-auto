@@ -1,1 +1,1 @@
-<button class="btn btn-renault btn-block" type="button">Пройти тест драйв</button>
+<button class="btn btn-renault btn-block modal-btn" type="button" data-url="{{route('front.modal.get',['type'=>'testdrive'])}}">Пройти тест драйв</button>
