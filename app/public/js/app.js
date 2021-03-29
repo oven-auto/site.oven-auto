@@ -43555,7 +43555,9 @@ __webpack_require__(/*! ./front/configurator */ "./resources/js/front/configurat
 
 __webpack_require__(/*! ./front/car */ "./resources/js/front/car.js");
 
-__webpack_require__(/*! ./front/call_modal */ "./resources/js/front/call_modal.js"); //window.Vue = require('vue');
+__webpack_require__(/*! ./front/call_modal */ "./resources/js/front/call_modal.js");
+
+__webpack_require__(/*! ./front/callback */ "./resources/js/front/callback.js"); //window.Vue = require('vue');
 
 /**
  * The following block of code may be used to automatically register your
@@ -43779,6 +43781,30 @@ $(document).ready(function () {
       modal_content.html(response.data.view);
       modal.modal('show');
     })["catch"](function (errors) {});
+  });
+});
+
+/***/ }),
+
+/***/ "./resources/js/front/callback.js":
+/*!****************************************!*\
+  !*** ./resources/js/front/callback.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  $(document).on('click', '.send-btn', function () {
+    var me = $(this);
+    var form = me.closest('form');
+    var url = form.attr('action');
+    var parameters = {};
+    var formInput = form.serializeArray();
+    formInput.forEach(function (item, i) {
+      parameters[item.name] = item.value;
+    });
+    parameters.url = document.location.href;
+    axios.post(url, parameters).then(function (response) {})["catch"](function (errors) {});
   });
 });
 

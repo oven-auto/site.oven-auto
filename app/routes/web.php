@@ -32,7 +32,11 @@ Route::group(['namespace'=>'Front','middleware'=>'favorites'],function(){
 	});
 
 	Route::group(['namespace'=>'Modal','prefix'=>'modal'],function(){
-		Route::get('/question','ModalController@get')->name('front.modal.get');
+		Route::get('/question','ModalController@getCallModal')->name('front.modal.get');
+	});
+
+	Route::group(['namespace'=>'Callback','prefix'=>'callback'],function(){
+		Route::post('/','MailController@registration')->name('front.callback.registration');
 	});
 });
 

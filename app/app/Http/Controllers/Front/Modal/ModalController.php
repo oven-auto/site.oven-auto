@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class ModalController extends Controller
 {
-    public function get(Request $request)
+    public function getCallModal(Request $request)
     {
     	$view = view('forms.question')->render();
 

@@ -24,6 +24,7 @@ class CarController extends Controller
             })
             ->groupBy('section_id');
     	$test = $this->service->getTestCarByModel($car->mark);
-    	return view('front.cars.car_page',compact('car','test','companies'));
+        $title = 'Автомобиль '.$car->brand->name.' '.$car->mark->name.' '.$car->vin;
+    	return view('front.cars.car_page',compact('car','test','companies','title'));
     }
 }

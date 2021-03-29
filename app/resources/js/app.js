@@ -32,6 +32,7 @@ require('./front/favorites');
 require('./front/configurator');
 require('./front/car');
 require('./front/call_modal');
+require('./front/callback');
 
 //window.Vue = require('vue');
 
