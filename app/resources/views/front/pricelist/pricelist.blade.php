@@ -19,10 +19,10 @@
 					<div class="row">
 						<div class="col">
 							<div class="model-header-title">
-								Начальная цена
+								Стоимость
 							</div>
 							<div class="model-header-value">
-								{{number_format($model->minPrice,0,'',' ')}} руб.
+								от {{number_format($model->minPrice,0,'',' ')}} руб.
 							</div>
 						</div>
 						<div class="col border-left border-right">
@@ -102,7 +102,7 @@
 				<div class="color-name py-3">
 					@if($model->has('colors') && $model->colors->count() )
 						{{$model->colors->first()->color->name}}
-						<div>(Автомобиль на эскизе может отличаться от реального)</div>
+						<div class="color-notify">Автомобиль на эскизе может отличаться от реального</div>
 					@endif
 				</div>
 			</div>
@@ -181,5 +181,12 @@
 	<!--Begin Credits-->
 	@include('front.banner.credit',['credits'=>$model->credits,'model'=>$model])
 	<!--End Credits-->
+
+	<!--Begin footer form-->
+	@include('forms.pagefooter',[
+		'name'=>$model->brand->name.' '.$model->name,
+		'image'=>$model->banner
+	])
+	<!--End footer form-->
 
 @endsection

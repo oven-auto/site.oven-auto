@@ -53,7 +53,7 @@
 				$complect->mark->colors->where('color_id',$color_id)->first()
 			)
 				{{$complect->mark->colors->where('color_id',$color_id)->first()->color->name}}
-				<div>(Автомобиль на эскизе может отличаться от реального)</div>
+				<div class="color-notify">Автомобиль на эскизе может отличаться от реального</div>
 			@endif
 			</div>
 		</div>
@@ -102,7 +102,7 @@
 		</div>
 
 		<div class="col">
-			<button type="button" class="btn btn-block btn-renault">Обсудить покупку</button>
+			@include('front.buttons.sale_btn')
 		</div>
 	</div>
 </div>
@@ -188,4 +188,12 @@
 <!--Begin Credits-->
 @include('front.banner.credit',['credits'=>$complect->mark->credits,'model'=>$complect->mark])
 <!--End Credits-->
+
+<!--Begin footer form-->
+@include('forms.pagefooter',[
+	'name'=>$complect->brand->name.' '.$complect->mark->name,
+	'image'=>$complect->mark->banner
+])
+<!--End footer form-->
+
 @endsection

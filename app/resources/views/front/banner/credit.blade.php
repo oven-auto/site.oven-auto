@@ -1,5 +1,5 @@
 @if(isset($credits) && isset($model))
-	<div class="container banners py-3">
+	<div class="container banners py-5">
 		<div class="row banner-carousel">
 		  	@foreach($credits as $itemCredit)
 		  	<div class="container">

@@ -30,6 +30,14 @@ Route::group(['namespace'=>'Front','middleware'=>'favorites'],function(){
 		Route::get('/push/{car}','FavoriteController@push')->name('front.favorites.push');
 		Route::get('/favoritecars','FavoriteController@show')->name('front.favorites.show');
 	});
+
+	Route::group(['namespace'=>'Modal','prefix'=>'modal'],function(){
+		Route::get('/question','ModalController@getCallModal')->name('front.modal.get');
+	});
+
+	Route::group(['namespace'=>'Callback','prefix'=>'callback'],function(){
+		Route::post('/','MailController@registration')->name('front.callback.registration');
+	});
 });
 
 Auth::routes();

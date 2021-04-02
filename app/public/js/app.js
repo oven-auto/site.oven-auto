@@ -43553,7 +43553,11 @@ __webpack_require__(/*! ./front/favorites */ "./resources/js/front/favorites.js"
 
 __webpack_require__(/*! ./front/configurator */ "./resources/js/front/configurator.js");
 
-__webpack_require__(/*! ./front/car */ "./resources/js/front/car.js"); //window.Vue = require('vue');
+__webpack_require__(/*! ./front/car */ "./resources/js/front/car.js");
+
+__webpack_require__(/*! ./front/call_modal */ "./resources/js/front/call_modal.js");
+
+__webpack_require__(/*! ./front/callback */ "./resources/js/front/callback.js"); //window.Vue = require('vue');
 
 /**
  * The following block of code may be used to automatically register your
@@ -43760,6 +43764,52 @@ window.date_format = function (date, format) {
 
 /***/ }),
 
+/***/ "./resources/js/front/call_modal.js":
+/*!******************************************!*\
+  !*** ./resources/js/front/call_modal.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  var modal = $('#main_modal');
+  var modal_content = modal.find('.modal-body');
+  $(document).on('click', '.modal-btn', function () {
+    var me = $(this);
+    var url = me.attr('data-url');
+    axios.get(url).then(function (response) {
+      modal_content.html(response.data.view);
+      modal.modal('show');
+    })["catch"](function (errors) {});
+  });
+});
+
+/***/ }),
+
+/***/ "./resources/js/front/callback.js":
+/*!****************************************!*\
+  !*** ./resources/js/front/callback.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  $(document).on('click', '.send-btn', function () {
+    var me = $(this);
+    var form = me.closest('form');
+    var url = form.attr('action');
+    var parameters = {};
+    var formInput = form.serializeArray();
+    formInput.forEach(function (item, i) {
+      parameters[item.name] = item.value;
+    });
+    parameters.url = document.location.href;
+    axios.post(url, parameters).then(function (response) {})["catch"](function (errors) {});
+  });
+});
+
+/***/ }),
+
 /***/ "./resources/js/front/car.js":
 /*!***********************************!*\
   !*** ./resources/js/front/car.js ***!
@@ -43832,18 +43882,23 @@ $(document).ready(function () {
   });
 
   function addDisabledClass(click_company) {
+    click_company.addClass('selected-company');
+
     if (click_company.hasClass('company-main')) {
       $(document).find('.company-block').each(function () {
         if ($(this).hasClass('company-mortal') && click_company.attr('data-company-id') != $(this).attr('data-company-id')) {
           $(this).addClass('company-disabled');
           $(this).find('.company-checkbox').html('');
           $(this).find('input').prop('checked', false);
+          $(this).removeClass('selected-company');
         }
       });
     }
   }
 
   function removeDisabledClass(click_company) {
+    click_company.removeClass('selected-company');
+
     if (click_company.hasClass('company-main')) {
       $(document).find('.company-block').each(function () {
         if ($(this).hasClass('company-mortal') && click_company != $(this)) {
@@ -43881,7 +43936,8 @@ $(document).ready(function () {
     mas.forEach(function (item, i) {
       if (title != item.title) {
         title = item.title;
-        $('.company-description').append('<div class="row  border-bottom-dotted"><div class="col-6 px-0">' + item.title + '</div><div class="col-6 px-0 text-right">' + number_format(sectionSum(mas, title), 0, '', ' ') + ' руб.</div></div>');
+        if (i != 0) $('.company-description').append('<div class="row" style="height:2px;border-bottom:1px dashed #ddd;"></div>');
+        $('.company-description').append('<div class="row "><div class="col-6 px-0">' + item.title + '</div><div class="col-6 px-0 text-right">' + number_format(sectionSum(mas, title), 0, '', ' ') + ' руб.</div></div>');
       }
 
       item.value = item.value.replace(/['"]+/g, '');

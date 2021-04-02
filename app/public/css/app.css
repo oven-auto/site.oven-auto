@@ -13642,11 +13642,11 @@ form img {
   width: 100px;
 }
 
-.input-group-prepend {
+.admin .input-group-prepend {
   width: 100%;
 }
 
-.input-group-text {
+admin .input-group-text {
   background: #fff;
   border: 0px;
 }
@@ -13955,6 +13955,10 @@ html {
   text-transform: lowercase;
 }
 
+.color-notify {
+  color: #aaa;
+}
+
 .model-complect-control {
   cursor: pointer;
   transition: background 0.1s linear;
@@ -13980,6 +13984,11 @@ html {
   font-size: 0.9rem;
   background: #fc3;
   color: #555;
+  width: 30px;
+  height: 30px;
+  border-radius: 100%;
+  display: inline-block;
+  line-height: 30px;
 }
 
 .pack-line {
@@ -14014,6 +14023,7 @@ html {
   cursor: pointer;
   transition: background 0.2s linear;
   background: #eee;
+  margin-bottom: 15px;
 }
 
 .star:hover {
@@ -14031,7 +14041,7 @@ html {
   right: 10px;
   border-radius: 10px;
   background: #ff6666;
-  color: #ddd;
+  color: #fff;
   min-width: 20px;
 }
 
@@ -14082,10 +14092,10 @@ html {
   background: #343a40;
   font-family: Renault;
   font-size: 1.4rem;
-  color: #ddd;
+  color: #fff;
   border-radius: 0 0 5px 5px;
   text-align: center;
-  border-top: solid 1px #353535;
+  border-top: solid 1px #999;
 }
 
 .credit-model {
@@ -14164,5 +14174,44 @@ html {
 .fixed-calc {
   position: fixed;
   top: 55px;
+}
+
+.selected-company {
+  background: #fffbdb;
+  border-color: #fffbdb !important;
+}
+
+.front-form .input-group {
+  border-radius: 10px;
+  overflow: hidden;
+  height: 50px;
+  border: #aaa solid 1px;
+}
+
+.front-form .input-group-text {
+  background: #aaa !important;
+  color: #fff;
+  border: 0px;
+  width: 40px;
+}
+
+.front-form .input-group input,
+.front-form .input-group textarea,
+.front-form .input-group select {
+  height: inherit;
+}
+
+.front-form .textarea {
+  height: 100px;
+}
+
+.front-form .textarea textarea {
+  height: 100px;
+  min-height: 100px;
+  max-height: 100px;
+}
+
+.front-form option {
+  padding-left: 0px;
 }
 
