@@ -1,8 +1,9 @@
 {{Form::open([
-	'url' => route('front.callback.registration')
+	'url' => route('front.callback.registration'),
+	'class'=>'sale'
 ])}}
 <div class="container front-form">
-
+	<input type="hidden" value="sale"  name="type">
 	<div class="row pb-3">
 			<div class="message"></div>
 		    <div class="input-group mb-3">

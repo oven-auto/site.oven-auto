@@ -10,8 +10,10 @@ $(document).ready(function(){
 		formInput.forEach(function(item,i){
 			parameters[item.name] = item.value
 		})
-		parameters.url = document.location.href
 
+
+		parameters.url = document.location.href
+			
 		axios.post(url,parameters).then(function(response){
 
 		}).catch(function(errors){

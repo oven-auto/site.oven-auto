@@ -8,10 +8,11 @@ use Illuminate\Http\Request;
 class ModalController extends Controller
 {
     public function getCallModal(Request $request)
-    {
+    {	
     	$view = view('forms.question')->render();
 
     	if($request->has('type'))
+
     		switch ($request->get('type')) {
     			
     			case 'question':
@@ -29,7 +30,9 @@ class ModalController extends Controller
     			default:
     				$view = view('forms.question')->render();
     				break;
+
     		}
+
     	return response()->json([
     		'view'=>$view
     	]);
