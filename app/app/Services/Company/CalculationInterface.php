@@ -11,4 +11,6 @@ Interface CalculationInterface
 	public function setData(Car $car);
 
 	public function fill($company);
+
+	public function price($car);
 }

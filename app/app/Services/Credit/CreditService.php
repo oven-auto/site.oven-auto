@@ -18,7 +18,13 @@ Class CreditService{
 
 	public function getCredits()
 	{
-		$credits = Credit::get();
+		$credits = Credit::with('models.model.lowcomplect')->get();
+		return $credits;
+	}
+
+	public function getAltualCredits()
+	{
+		$credits = Credit::with('models.model.lowcomplect')->where('end_date','<',date('Y-m-d'))->get();
 		return $credits;
 	}
 

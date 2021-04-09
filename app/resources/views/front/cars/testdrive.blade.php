@@ -23,7 +23,7 @@
 <!--BEGIN COMPANY ANKOR-->
 @include('front.company.ankors',[
 	'model'=>$car->mark->slug,
-	'config'=>false,
+	'config'=>true,
 ])
 <!--END COMPANY ANKOR-->
 
@@ -31,7 +31,7 @@
 <div class="container pt-3 model-info">
 	<div class="row border-bottom pb-1">
 		<div class="col text">
-			{{$car->vin}}
+			Пробная поездка
 		</div>
 
 		<div class="col text">
@@ -68,7 +68,7 @@
 		</div>
 
 		<div class="col">
-			@include('front.buttons.sale_btn')
+			@include('front.buttons.modal_test_btn')
 		</div>
 	</div>
 </div>

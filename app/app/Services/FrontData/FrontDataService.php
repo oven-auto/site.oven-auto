@@ -205,4 +205,44 @@ Class FrontDataService
 	{
 		return [1=>'На складе',2=>'Готов к отгрузке',3=>'В производстве'];
 	}
+
+	public function getCarByVin($vin)
+	{
+		$car = Car::select('cars.*',DB::raw('mark_colors.img as img, view_car_prices.total_price as total_price'))
+			->with(['mark','brand','complect.motor','complect.options.option','prodaction','receiving','color','packs.pack.options','options.option'])
+			->leftJoin('mark_colors',function($join){
+    			$join->on('mark_colors.color_id','=','cars.color_id')
+    				->on('mark_colors.mark_id','=','cars.mark_id');
+    		})
+    		->leftJoin('view_car_prices','view_car_prices.car_id','=','cars.id')
+    		->where('cars.vin',$vin)
+    		->first();
+	    return $car;
+	}
+
+	public function configCarByComplect($complect)
+	{
+		$car = new Car();
+		$car->fill([
+			'mark_id' => $complect->mark_id,
+			'complect_id' => $complect->id,
+			'year' => date('Y'),
+			'total_price' => $complect->price
+		]);
+		
+		return $car;
+	}
+
+	public function getCarForCompare()
+	{
+		$query = Car::select('cars.*', DB::raw('mark_colors.img as img, view_car_prices.total_price as total_price'))
+    		->with(['prodaction','receiving','color','brand','mark','complect.motor','complect.options.option','packs.pack.options.option','options.option'])
+    		->leftJoin('mark_colors',function($join){
+    			$join->on('mark_colors.color_id','=','cars.color_id')
+    				->on('mark_colors.mark_id','=','cars.mark_id');
+    		});
+    	$query->leftJoin('view_car_prices','view_car_prices.car_id','=','cars.id');
+    	$cars = $query->find(session()->get('favorites'));
+    	return $cars;
+	}
 }

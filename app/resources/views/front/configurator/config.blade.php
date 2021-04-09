@@ -1,6 +1,8 @@
 @extends('layouts.front')
 
 @section('content')
+<input type="hidden" name="hidden_complect" value="{{$complect->id}}">
+
 <!--Begin complect colors-->
 <div class="container model-viewer py-3">
 	<div class="row">
@@ -61,6 +63,14 @@
 </div>
 <!--end model colors-->
 
+<!--BEGIN COMPANY ANKOR-->
+@include('front.company.ankors',[
+	'model'=>$complect->mark->slug,
+	'config'=>true,
+])
+<!--END COMPANY ANKOR-->
+
+
 <!--BEGIN CAR HEADER-->
 <div class="container pt-3 model-info">
 	<div class="row border-bottom pb-1">
@@ -102,7 +112,7 @@
 		</div>
 
 		<div class="col">
-			@include('front.buttons.sale_btn')
+			@include('front.buttons.config_sale_btn')
 		</div>
 	</div>
 </div>
@@ -170,15 +180,7 @@
 <!--END COMPLECT-->
 
 <!--BEGIN COMPANY-->
-<div class="container">
-	<div class="row">
-		<div class="col">
-			<div class="block-title ">
-				
-			</div>
-		</div>
-	</div>
-</div>
+@include('front.company.grid',['button'=>'config_sale_btn'])
 <!--END COMPANY-->
 
 <!--BEGIN TEST DRIVE-->

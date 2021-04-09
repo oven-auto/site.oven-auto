@@ -27,4 +27,11 @@ class CarController extends Controller
         $title = 'Автомобиль '.$car->brand->name.' '.$car->mark->name.' '.$car->vin;
     	return view('front.cars.car_page',compact('car','test','companies','title'));
     }
+
+    public function testdrive($id)
+    {
+        $car = $this->service->getCarById($id);
+        $title = 'Автомобиль '.$car->brand->name.' '.$car->mark->name.' '.$car->vin;
+        return view('front.cars.testdrive',compact('car','title'));
+    }
 }

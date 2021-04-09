@@ -23,6 +23,10 @@
     
     @include('front.header.index')
 
+    <div class="container ">
+        @include('admin.alert.create')
+    </div>
+
     @yield('content')
 
     <div class="footer" style="height: 400px; background: #333;color: #ddd;"></div>

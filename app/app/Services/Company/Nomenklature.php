@@ -44,4 +44,9 @@ Class Nomenklature extends AbstractCompanyClass implements CalculationInterface
 	{
 		return join(', ',$this->nomenklatures);
 	}
+
+	public function price($car)
+	{
+		return 0;
+	}
 }
