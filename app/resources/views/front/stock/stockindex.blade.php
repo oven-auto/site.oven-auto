@@ -103,10 +103,10 @@
 			</div>
 
 			<div class="col-3">
-				<button type="button" class="btn btn-block btn-grey">
+				<a class="btn btn-block btn-grey" href="{{route('front.compare')}}">
 					Сравнить выбранные
 					<span class="favorite-count">{{count(session()->get('favorites')) ? count(session()->get('favorites')) : '' }}</span>
-				</button>
+				</a>
 			</div>
 			
 			<div class="col-3">

@@ -25,6 +25,16 @@
 	position: absolute;top: 0px;right: 10px;border-radius: 10px;background: #ff6666; color:#fff;min-width: 20px;
 }
 
+.car-actions a{
+	text-decoration: none;
+	color: inherit;
+}
+
+.disabled-ankor{
+	pointer-events: none;
+	opacity: 0.3;
+}
+
 
 @media screen and (max-width: 899px){
 	.car-actions .star{

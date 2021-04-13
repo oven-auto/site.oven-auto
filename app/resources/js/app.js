@@ -6,6 +6,7 @@
 
 require('./bootstrap');
 require('./range_change');
+require('./cog');
 require('./axios_query');
 require('./number_format')
 require('./date_format');
@@ -33,7 +34,7 @@ require('./front/configurator');
 require('./front/car');
 require('./front/call_modal');
 require('./front/callback');
-
+require('./front/compare');
 //window.Vue = require('vue');
 
 /**

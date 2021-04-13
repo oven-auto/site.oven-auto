@@ -43507,6 +43507,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 __webpack_require__(/*! ./range_change */ "./resources/js/range_change.js");
 
+__webpack_require__(/*! ./cog */ "./resources/js/cog.js");
+
 __webpack_require__(/*! ./axios_query */ "./resources/js/axios_query.js");
 
 __webpack_require__(/*! ./number_format */ "./resources/js/number_format.js");
@@ -43557,7 +43559,9 @@ __webpack_require__(/*! ./front/car */ "./resources/js/front/car.js");
 
 __webpack_require__(/*! ./front/call_modal */ "./resources/js/front/call_modal.js");
 
-__webpack_require__(/*! ./front/callback */ "./resources/js/front/callback.js"); //window.Vue = require('vue');
+__webpack_require__(/*! ./front/callback */ "./resources/js/front/callback.js");
+
+__webpack_require__(/*! ./front/compare */ "./resources/js/front/compare.js"); //window.Vue = require('vue');
 
 /**
  * The following block of code may be used to automatically register your
@@ -43688,6 +43692,19 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
+/***/ "./resources/js/cog.js":
+/*!*****************************!*\
+  !*** ./resources/js/cog.js ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+window.cog = function () {
+  return '<div class="text-center spiner py-5"><i class="fa fa-spinner wait-ajax"></i></div>';
+};
+
+/***/ }),
+
 /***/ "./resources/js/config_slick.js":
 /*!**************************************!*\
   !*** ./resources/js/config_slick.js ***!
@@ -43696,6 +43713,11 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /***/ (function(module, exports) {
 
 $('.banner-carousel').slick();
+$('.compare-slider').slick({
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  infinite: false
+});
 
 /***/ }),
 
@@ -43798,13 +43820,44 @@ $(document).ready(function () {
     var me = $(this);
     var form = me.closest('form');
     var url = form.attr('action');
+    var modal = $('#main_modal');
+    var modal_content = modal.find('.modal-body');
     var parameters = {};
     var formInput = form.serializeArray();
     formInput.forEach(function (item, i) {
       parameters[item.name] = item.value;
-    });
+    }); //Если это обсудить покупку то добираем доп параметры
+
+    if (me.attr('data-type') == 'sale') {
+      var company_ids = [];
+      var packs = [];
+      if ($(document).find('[name="hidden_vin"]').length > 0) parameters.vin = $('[name="hidden_vin"]').val();
+
+      if ($(document).find('[name="hidden_complect"]').length > 0) {
+        parameters.complect = $('[name="hidden_complect"]').val();
+        $(document).find('.color-btn').each(function () {
+          if ($(this).hasClass('active')) parameters.color_id = $(this).attr('data-color-id');
+        });
+        $(document).find('.config-pack').each(function () {
+          if ($(this).prop('checked') == true) packs.push($(this).val());
+        });
+        if (packs.length > 0) parameters.pack_ids = packs;
+      }
+
+      $(document).find('[name="company_ids[]"]').each(function () {
+        if ($(this).prop('checked') == true) company_ids.push($(this).val());
+      });
+      parameters.company_ids = company_ids;
+    }
+
     parameters.url = document.location.href;
-    axios.post(url, parameters).then(function (response) {})["catch"](function (errors) {});
+    modal_content.html(cog());
+    axios.post(url, parameters).then(function (response) {
+      if (response.data.view) {
+        modal_content.html(response.data.view);
+        modal.modal('show');
+      }
+    })["catch"](function (errors) {});
   });
 });
 
@@ -43981,6 +44034,23 @@ $(document).ready(function () {
       if (currentTop < offsetTop) block.removeClass('fixed-calc');
       if (currentTop > maxDownPoint) block.removeClass('fixed-calc');
     }
+  });
+});
+
+/***/ }),
+
+/***/ "./resources/js/front/compare.js":
+/*!***************************************!*\
+  !*** ./resources/js/front/compare.js ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  toOneHeight('.compare-img');
+  toOneHeight('.compare-car-info');
+  $('.compare-name').find('.compare-option').each(function () {
+    toOneHeight('.compare-option[data-id="' + $(this).attr('data-id') + '"]');
   });
 });
 

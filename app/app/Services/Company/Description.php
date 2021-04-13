@@ -26,4 +26,9 @@ Class Description extends AbstractCompanyClass  implements CalculationInterface
 	{
 		$this->company = $company;
 	}
+
+	public function price($car)
+	{
+		return 0;
+	}
 }

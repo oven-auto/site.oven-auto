@@ -64,12 +64,9 @@
 			        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 			          Покупателям
 			        </a>
-			        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-			        	@foreach($models as $slug => $itemModel)
-			          		<a class="dropdown-item" href="{{$slug}}">{{$itemModel}}</a>
-			          	@endforeach
-			          <div class="dropdown-divider"></div>
-			          <a class="dropdown-item" href="#">Автомобили в продаже</a>
+			        <div class="dropdown-menu" aria-labelledby="navbarDropdown">			 
+			          <a class="dropdown-item" href="{{route('front.page.credit')}}">Кредитные программы</a>
+			          <a class="dropdown-item" href="{{route('front.page.document')}}">Формы документов</a>
 			        </div>
 			      </li>
 

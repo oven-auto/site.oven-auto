@@ -41,7 +41,7 @@
 	</div>
 
 	<div class="row pt-2">
-		<button class="btn btn-renault btn-block send-btn" type="button">Отправить</button>
+		<button class="btn btn-renault btn-block send-btn" data-type="sale" type="button">Отправить</button>
 	</div>
 
 </div>

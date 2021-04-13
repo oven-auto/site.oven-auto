@@ -27,6 +27,10 @@ class ModalController extends Controller
     				$view = view('forms.sale')->render();
     				break;
 
+                case 'config':
+                    $view = view('forms.configure')->render();
+                    break;
+
     			default:
     				$view = view('forms.question')->render();
     				break;

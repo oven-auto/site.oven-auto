@@ -32,4 +32,12 @@ Class Budget extends AbstractCompanyClass implements CalculationInterface
 		if(isset($data->budget))
 			$this->budget = $data->budget;
 	}
+
+	public function price($car)
+	{
+		$k = 1;
+		if($this->company->section_id == 1 || $this->company->section_id == 2 || $this->company->section_id == 4)
+			$k = -1;
+		return $k*$this->budget;
+	}
 }

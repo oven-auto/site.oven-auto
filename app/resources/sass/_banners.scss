@@ -1,3 +1,22 @@
 .banners img{
 	width:100%;
 }
+
+.compare-slider .slick-prev:before,
+.compare-slider .slick-next:before{
+	color: #333 !important;
+	opacity: 1 !important;
+	font-size: 50px;
+}
+.compare-slider .slick-prev{
+	position: fixed;
+	top:50%;
+	left:25px;
+}
+
+.compare-slider .slick-next{
+	position: fixed;
+	top:50%;
+	right:50px;
+
+}

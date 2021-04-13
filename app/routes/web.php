@@ -18,6 +18,7 @@ Route::group(['namespace'=>'Front','middleware'=>'favorites'],function(){
 	Route::get('/pricelist/{slug}','PriceList\PriceListController@index')->name('front.pricelist');
 	Route::get('/stock','Stock\CarsStockController@index')->name('front.stock');
 	Route::get('/car/{id}','Car\CarController@show')->name('front.car');
+	Route::get('/testdrive/{id}','Car\CarController@testdrive')->name('front.testdrive');
 	Route::get('/configure/{id}','Configurator\ConfiguratorController@show')->name('front.configurator');
 
 	Route::group(['namespace'=>'Ajax','prefix'=>'ajax'],function(){
@@ -37,6 +38,13 @@ Route::group(['namespace'=>'Front','middleware'=>'favorites'],function(){
 
 	Route::group(['namespace'=>'Callback','prefix'=>'callback'],function(){
 		Route::post('/','MailController@registration')->name('front.callback.registration');
+	});
+
+	Route::get('/compare', 'Compare\CompareController@index')->name('front.compare');
+
+	Route::group(['prefix'=>'pages','namespace'=>'Pages'], function(){
+		Route::get('/credits','CreditPageController@index')->name('front.page.credit');
+		Route::get('/documents','DocumentPageController@index')->name('front.page.document');
 	});
 });
 

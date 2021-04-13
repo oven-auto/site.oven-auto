@@ -13643,16 +13643,16 @@ form img {
 }
 
 .admin .input-group-prepend {
-  width: 100%;
+  width: 100% !important;
 }
 
-admin .input-group-text {
-  background: #fff;
-  border: 0px;
+.admin .input-group-text {
+  background: #fff !important;
+  border: 0px !important;
 }
 
 .cars_set .input-group-text {
-  background: transparent;
+  background: transparent !important;
 }
 
 .car-set-bg {
@@ -13788,6 +13788,25 @@ admin .input-group-text {
 
 .banners img {
   width: 100%;
+}
+
+.compare-slider .slick-prev:before,
+.compare-slider .slick-next:before {
+  color: #333 !important;
+  opacity: 1 !important;
+  font-size: 50px;
+}
+
+.compare-slider .slick-prev {
+  position: fixed;
+  top: 50%;
+  left: 25px;
+}
+
+.compare-slider .slick-next {
+  position: fixed;
+  top: 50%;
+  right: 50px;
 }
 
 .header img {
@@ -14043,6 +14062,16 @@ html {
   background: #ff6666;
   color: #fff;
   min-width: 20px;
+}
+
+.car-actions a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.disabled-ankor {
+  pointer-events: none;
+  opacity: 0.3;
 }
 
 @media screen and (max-width: 899px) {

@@ -10,16 +10,16 @@ form img{
 }
 
 .admin .input-group-prepend{
-	width: 100%;
+	width: 100% !important;
 }
 
-admin .input-group-text{
-	background:#fff;
-	border:0px;
+.admin .input-group-text{
+	background:#fff !important;
+	border:0px !important;
 }
 
 .cars_set .input-group-text{
-	background: transparent;
+	background: transparent !important;
 }
 .car-set-bg{
 	

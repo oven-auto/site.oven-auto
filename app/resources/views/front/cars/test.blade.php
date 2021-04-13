@@ -24,8 +24,8 @@
 
 			<div style="width: 100%;position: relative;">
 	  			<div class="btn-group btn-block" style="position: absolute;bottom: 0px;left: 0px;">
-	  				<a href="#" class="btn btn-dark">Подробнее о тест-драйве</a>
-	  				<button type="button" class="btn btn-renault ">Пройти тест-драйв</button>
+	  				<a href="{{route('front.testdrive',$test)}}" class="btn btn-dark">Подробнее о тест-драйве</a>
+	  				@include('front.buttons.modal_test_btn',['vidget'=>'true'])
 	  			</div>
 	  		</div> 
 		</div>
