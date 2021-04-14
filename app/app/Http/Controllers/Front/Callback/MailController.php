@@ -57,7 +57,7 @@ class MailController extends Controller
 
     private function sendQuestion($data)
     {
-    	Mail::to('oit@oven-auto.ru')->send(new QuestionMail($data));
+    	Mail::to('wanokazak@gmail.com')->send(new QuestionMail($data));
     	return response()->json(['status'=>1,'view'=>view('front.response.order')->render()]);
     }
 
@@ -81,13 +81,13 @@ class MailController extends Controller
     	if(isset($data['company_ids']) && is_array($data['company_ids']) && count($data['company_ids']))
     		$data['companies'] = $this->companyService->getCheckedCompanies($data['company_ids']);
 
-    	Mail::to('oit@oven-auto.ru')->send(new SaleMail($data));
+    	Mail::to('wanokazak@gmail.com')->send(new SaleMail($data));
     	return response()->json(['status'=>2,'view'=>view('front.response.order')->render()]);
     }
 
     private function sendTestdrive($data)
     {
-    	Mail::to('oit@oven-auto.ru')->send(new TestDriveMail($data));
+    	Mail::to('wanokazak@gmail.com')->send(new TestDriveMail($data));
     	return response()->json(['status'=>3,'view'=>view('front.response.order')->render()]);
     }
 }
