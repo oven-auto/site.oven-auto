@@ -43491,6 +43491,26 @@ $(document).on('click', '.unset-checkbox', function () {
 
 /***/ }),
 
+/***/ "./resources/js/ankor_scroll.js":
+/*!**************************************!*\
+  !*** ./resources/js/ankor_scroll.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(function () {
+  $("a[href^='#']").click(function () {
+    var _href = $(this).attr("href");
+
+    $("html, body").animate({
+      scrollTop: $(_href).offset().top + "px"
+    });
+    return false;
+  });
+});
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -43538,6 +43558,8 @@ __webpack_require__(/*! ./config_sortable.js */ "./resources/js/config_sortable.
 __webpack_require__(/*! slick-carousel */ "./node_modules/slick-carousel/slick/slick.js");
 
 __webpack_require__(/*! ./one_height */ "./resources/js/one_height.js");
+
+__webpack_require__(/*! ./ankor_scroll */ "./resources/js/ankor_scroll.js");
 
 __webpack_require__(/*! ./config_slick */ "./resources/js/config_slick.js");
 

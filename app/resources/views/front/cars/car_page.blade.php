@@ -24,6 +24,7 @@
 @include('front.company.ankors',[
 	'model'=>$car->mark->slug,
 	'config'=>false,
+	'href'=>route('pdf.car',$car)
 ])
 <!--END COMPANY ANKOR-->
 

@@ -12,10 +12,12 @@
 			</span>
 
 			<span style="display: inline-block;" class="px-1 text-center">
-				<div class="star text-center">
-					<i class="fa fa-file-text"></i>
-				</div>
-				<div>Скачать</div>
+				<a href="{{$href}}" target="_blank">
+					<div class="star text-center">
+						<i class="fa fa-file-text"></i>
+					</div>
+					<div>Скачать</div>
+				</a>
 			</span>
 		</div>
 		
@@ -24,61 +26,73 @@
 		
 			@if($companies->has(2) && $companies->get(2)->count())
 			<span style="display: inline-block;position: relative;" class="pr-1">
-				<div class="star text-center">
-					<i class="fa fa-gift"></i>
-				</div>
-				<div>Подарки</div>
-				<span class="action-count">{{$companies->get(2)->count()}}</span>
+				<a href="#section2">
+					<div class="star text-center">
+						<i class="fa fa-gift"></i>
+					</div>
+					<div>Подарки</div>
+					<span class="action-count">{{$companies->get(2)->count()}}</span>
+				</a>
 			</span>
 			@endif
 
 			@if($companies->has(4) && $companies->get(4)->count())
 			<span style="display: inline-block;position: relative;" class="px-1">
+				<a href="#section4">
 				<div class="star text-center">
 					<i class="fa fa-rocket"></i>
 				</div>
 				<div>Акции</div>
 				<span class="action-count">{{$companies->get(4)->count()}}</span>
+				</a>
 			</span>
 			@endif
 
 			@if($companies->has(3) && $companies->get(3)->count())
 			<span style="display: inline-block;position: relative;" class="px-1">
+				<a href="#section3">
 				<div class="star text-center">
 					<i class="fa fa-database"></i>
 				</div>
 				<div>Сервисы</div>
 				<span class="action-count">{{$companies->get(3)->count()}}</span>
+				</a>
 			</span>
 			@endif
 
 			@if($companies->has(5) && $companies->get(5)->count())
 			<span style="display: inline-block;position: relative;" class="px-1">
+				<a href="#section5">
 				<div class="star text-center">
 					<i class="fa  fa-cube"></i>
 				</div>
 				<div>Продукты</div>
 				<span class="action-count">{{$companies->get(5)->count()}}</span>
+				</a>
 			</span>
 			@endif
 
 			@if($companies->has(1) && $companies->get(1)->count())
 			<span style="display: inline-block;position: relative;" class="px-1">
+				<a href="#section1">
 				<div class="star text-center">
 					<i class="fa fa-percent"></i>
 				</div>
 				<div>Скидки</div>
 				<span class="action-count">{{$companies->get(1)->count()}}</span>
+				</a>
 			</span>
 			@endif
 
 			@if(isset($car->mark->credits) && $car->mark->credits->count())
 			<span style="display: inline-block;position: relative;" class="pl-1">
+				<a href="#credits">
 				<div class="star text-center">
 					<i class="fa fa-university"></i>
 				</div>
 				<div>Кредиты</div>
 				<span class="action-count">{{$car->mark->credits->count()}}</span>
+				</a>
 			</span>
 			@endif
 		

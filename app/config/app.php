@@ -178,6 +178,8 @@ return [
         App\Providers\DataForSelectFacadeServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,
 
+        Barryvdh\DomPDF\ServiceProvider::class, 
+
     ],
 
     /*
@@ -230,7 +232,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'DataForSelect' => App\Facades\DataForSelect\DataForSelectFacade::class,
-
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];

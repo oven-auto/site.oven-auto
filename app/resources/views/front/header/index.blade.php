@@ -67,6 +67,10 @@
 			        <div class="dropdown-menu" aria-labelledby="navbarDropdown">			 
 			          <a class="dropdown-item" href="{{route('front.page.credit')}}">Кредитные программы</a>
 			          <a class="dropdown-item" href="{{route('front.page.document')}}">Формы документов</a>
+			          <a class="dropdown-item" href="{{route('front.page.tradein')}}">Программа TradeIn</a>
+			          <a class="dropdown-item" href="{{route('front.page.guarantee')}}">Гарантия цены</a>
+			          <a class="dropdown-item" href="{{route('front.page.saleoption')}}">Скидка на дополнительное оборудование</a>
+			          <a class="dropdown-item" href="{{route('front.page.othercity')}}">Иногородним покупателям</a>
 			        </div>
 			      </li>
 

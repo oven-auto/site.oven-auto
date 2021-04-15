@@ -22,7 +22,7 @@ require( 'jquery-ui/ui/widgets/sortable.js');
 require('./config_sortable.js');
 require('slick-carousel');
 require('./one_height');
-
+require('./ankor_scroll');
 require('./config_slick');
 require('./navbar_fixed');
 require('./front/model_image');

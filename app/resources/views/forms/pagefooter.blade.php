@@ -1,4 +1,5 @@
 <div class="container-fluid pt-5 " style="
+	@if(isset($image))
 	background:linear-gradient( 
 		to top,
 		rgba(255, 255, 255, 1), 
@@ -8,6 +9,7 @@
 	background-size:cover;
 	background-position: center;
 	background-attachment: fixed;
+	@endif
 ">
 	<div class="container text-center">
 		<div class="row align-items-stretch">

@@ -45,7 +45,14 @@ Route::group(['namespace'=>'Front','middleware'=>'favorites'],function(){
 	Route::group(['prefix'=>'pages','namespace'=>'Pages'], function(){
 		Route::get('/credits','CreditPageController@index')->name('front.page.credit');
 		Route::get('/documents','DocumentPageController@index')->name('front.page.document');
+		Route::get('/tradein','TradeInController@index')->name('front.page.tradein');
+		Route::get('/guaranteeprice','PriceGuaranteeController@index')->name('front.page.guarantee');
+		Route::get('/saleoption','SaleOptionController@index')->name('front.page.saleoption');
+		Route::get('/othercity','OtherCitySalerController@index')->name('front.page.othercity');
 	});
+
+	Route::get('/pdf/car/{id}','PDF\PDFController@getCar')->name('pdf.car');
+	Route::get('/pdf/complect/{id}','PDF\PDFController@getComplect')->name('pdf.complect');
 });
 
 Auth::routes();

@@ -71,5 +71,11 @@ class Mark extends Model
         );
     }
 
+    public static function getRandomBanner()
+    {
+        $image = self::orderByRaw("RAND()")->first()->banner;
+        return $image;
+    } 
+
 
 }

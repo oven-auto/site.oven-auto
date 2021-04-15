@@ -7,7 +7,7 @@
 				@foreach($itemSection as $itemCompany)
 					
 					@if($loop->first)
-					<div class="col-12 pb-4">
+					<div class="col-12 pb-4" id="section{{$itemCompany->section->id}}">
 						<div class="block-title">
 							{{$itemCompany->section->name}}
 						</div> 

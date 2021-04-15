@@ -67,6 +67,7 @@
 @include('front.company.ankors',[
 	'model'=>$complect->mark->slug,
 	'config'=>true,
+	'href'=>route('pdf.complect',$complect->id)
 ])
 <!--END COMPANY ANKOR-->
 
