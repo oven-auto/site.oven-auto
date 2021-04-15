@@ -9,17 +9,17 @@ form img{
 	width: 100px;
 }
 
-.input-group-prepend{
-	width: 100%;
+.admin .input-group-prepend{
+	width: 100% !important;
 }
 
-.input-group-text{
-	background:#fff;
-	border:0px;
+.admin .input-group-text{
+	background:#fff !important;
+	border:0px !important;
 }
 
 .cars_set .input-group-text{
-	background: transparent;
+	background: transparent !important;
 }
 .car-set-bg{
 	
@@ -33,4 +33,11 @@ form img{
 
 .cars_set .car-set-bg:nth-child(2n){
 	background: #eee;
+}
+
+#complect-edit .color-container  img{
+	cursor:pointer;
+}
+#complect-edit .color-container input[type="checkbox"]{
+	position:absolute;bottom:5px;right:5px;display:block;width:25px;height:25px;
 }

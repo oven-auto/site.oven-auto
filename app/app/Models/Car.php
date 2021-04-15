@@ -53,6 +53,19 @@ class Car extends Model
         return $this->hasOne(\App\Models\Color::class,'id','color_id')->withdefault();
     }
 
+    public function markcolor()
+    {
+        return $this->hasOneThrough(
+            \App\Models\MarkColor::class,
+            \App\Models\Color::class,
+            'id',
+            'color_id',
+            'mark_id', //where
+            'id',
+            'mark_id'
+        );
+    }
+
     public function getStatus()
     {
         $nowDate = date('d.m.Y');
@@ -74,5 +87,50 @@ class Car extends Model
             return "Заказана в производство";
         else
             return "Нет даты заказа в производство";  
+    }
+
+    public function getIconStatusCss()
+    {
+        if($this->receiving->accept_stock_date)
+            return "fa fa-car";
+        elseif($this->prodaction->ready_date)
+            return "fa fa-truck";
+        else
+            return "fa fa-steam";
+    }
+
+    public function getFrontStatus()
+    {
+        if($this->receiving->accept_stock_date)
+            return "А/м в наличии";
+        elseif($this->prodaction->ready_date)
+            return "Готов к отгрузке";
+        else
+            return "В производстве";
+    }
+
+    public function getStatusByDate()
+    {
+    	if($this->receiving->accept_stock_date)
+            return "1";
+        elseif($this->prodaction->ready_date)
+            return "2";
+        else
+            return "3";
+    }
+
+    public static function getStatusDelivery()
+    {
+    	return [1=>'На складе',2=>'Готов к отгрузке',3=>'В производстве'];
+    }
+
+    public function getLocationStatus()
+    {
+        if($this->receiving->accept_stock_date)
+            return "Склад Овен-Авто";
+        elseif($this->prodaction->ready_date)
+            return "Склад ".$this->mark->country->city;
+        else
+            return "Сборка ".$this->prodaction->build_date;
     }
 }

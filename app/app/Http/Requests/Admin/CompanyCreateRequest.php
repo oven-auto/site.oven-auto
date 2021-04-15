@@ -30,9 +30,9 @@ class CompanyCreateRequest extends FormRequest
             'section_id'=>'required|integer',
             'name'=>'required|max:300|min:5',
             'scenario_id'=>'required',
-            'title'=>'required|min:10|max:300',
-            'offer'=>'required|min:10|max:500',
-            'text'=>'required|min:10|max:3000',
+            'title'=>'required|min:5|max:300',
+            'offer'=>'required|min:5|max:500',
+            'text'=>'required|min:5|max:3000',
         ];
     }
 

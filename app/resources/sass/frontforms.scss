@@ -1,0 +1,30 @@
+.front-form .input-group{
+	border-radius: 10px;
+	overflow: hidden;
+	height: 50px;
+	border: #aaa solid 1px;
+}
+.front-form .input-group-text{
+	background: #aaa !important;
+	color: #fff; 
+	border:0px;
+	width: 40px;
+}
+
+.front-form .input-group input,
+.front-form .input-group textarea,
+.front-form .input-group select{
+	height: inherit;
+}
+
+.front-form .textarea{
+	height: 100px;
+}
+
+.front-form .textarea textarea{
+	height: 100px;min-height: 100px;max-height: 100px;
+}
+
+.front-form option{
+	padding-left: 0px;
+}

@@ -37,4 +37,45 @@ class Mark extends Model
     {
         return $this->hasMany(\App\Models\MarkColor::class,'mark_id','id')->with('color');
     }
+
+    public function complects()
+    {
+        return $this->hasMany(\App\Models\Complect::class,'mark_id','id')->orderBy('sort');
+    }
+
+    public function currentcomplects()
+    {
+        return $this->hasMany(\App\Models\Complect::class,'mark_id','id')->where('status',1)->orderBy('sort');
+    }
+
+    public function lowcomplect()
+    {
+        return $this->hasOne(\App\Models\Complect::class,'mark_id','id')->orderBy('price')->withDefault();
+    }
+
+    public function cars()
+    {
+        return $this->hasMany(\App\Models\Car::class,'mark_id','id');
+    }
+
+    public function credits()
+    {
+        return $this->hasManyThrough(
+            \App\Models\Credit\Credit::class,
+            \App\Models\Credit\CreditCar::class,
+            'mark_id',
+            'id',
+            'id',
+            'credit_id',
+            'id'
+        );
+    }
+
+    public static function getRandomBanner()
+    {
+        $image = self::orderByRaw("RAND()")->first()->banner;
+        return $image;
+    } 
+
+
 }

@@ -13,6 +13,7 @@
 		'required'=>'required', 
 		'data-url-pack'=>route('ajax.get.pack'),
 		'placeholder'=>'Модель', 
+		'data-url-color'=>route('ajax.get.complect.color'),
 		'data-url-complect'=>route('ajax.get.complect')
 	])}}
 </div>

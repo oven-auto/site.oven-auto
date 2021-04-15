@@ -13,8 +13,46 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['namespace'=>'Front','middleware'=>'favorites'],function(){
+	Route::get('/','IndexController@index')->name('front.index');
+	Route::get('/pricelist/{slug}','PriceList\PriceListController@index')->name('front.pricelist');
+	Route::get('/stock','Stock\CarsStockController@index')->name('front.stock');
+	Route::get('/car/{id}','Car\CarController@show')->name('front.car');
+	Route::get('/testdrive/{id}','Car\CarController@testdrive')->name('front.testdrive');
+	Route::get('/configure/{id}','Configurator\ConfiguratorController@show')->name('front.configurator');
+
+	Route::group(['namespace'=>'Ajax','prefix'=>'ajax'],function(){
+		Route::get('get/modelimage/model_id={id}/color_id={color_id?}','AjaxModelController@getModelImage')->name('front.ajax.get.modelimage');
+		Route::get('get/complect/complect_id={complect_id}','AjaxComplectController@getcomplect')->name('front.ajax.get.complect');
+		Route::get('get/cars','AjaxCarController@getcars')->name('front.ajax.get.cars');
+	});
+
+	Route::group(['namespace'=>'Favorite','prefix'=>'favorites'],function(){
+		Route::get('/push/{car}','FavoriteController@push')->name('front.favorites.push');
+		Route::get('/favoritecars','FavoriteController@show')->name('front.favorites.show');
+	});
+
+	Route::group(['namespace'=>'Modal','prefix'=>'modal'],function(){
+		Route::get('/question','ModalController@getCallModal')->name('front.modal.get');
+	});
+
+	Route::group(['namespace'=>'Callback','prefix'=>'callback'],function(){
+		Route::post('/','MailController@registration')->name('front.callback.registration');
+	});
+
+	Route::get('/compare', 'Compare\CompareController@index')->name('front.compare');
+
+	Route::group(['prefix'=>'pages','namespace'=>'Pages'], function(){
+		Route::get('/credits','CreditPageController@index')->name('front.page.credit');
+		Route::get('/documents','DocumentPageController@index')->name('front.page.document');
+		Route::get('/tradein','TradeInController@index')->name('front.page.tradein');
+		Route::get('/guaranteeprice','PriceGuaranteeController@index')->name('front.page.guarantee');
+		Route::get('/saleoption','SaleOptionController@index')->name('front.page.saleoption');
+		Route::get('/othercity','OtherCitySalerController@index')->name('front.page.othercity');
+	});
+
+	Route::get('/pdf/car/{id}','PDF\PDFController@getCar')->name('pdf.car');
+	Route::get('/pdf/complect/{id}','PDF\PDFController@getComplect')->name('pdf.complect');
 });
 
 Auth::routes();
@@ -39,7 +77,18 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>'auth'],funct
 			Route::get('/conditions/{type}','AjaxCompanyController@getEmptyCondition')->name('company.get.condition');
 		});
 	});
-	
+
+	Route::resource('credits','Credit\CreditController');
+
+	//Ресурс банеров
+	Route::resource('banners','Banner\BannerController');
+	//Маршрут для сортировки банеров
+	Route::put('ajax/banners/sort','Banner\AjaxBannerController@sort')->name('ajax.banners.sort');
+
+	//Русурс ярлыков
+	Route::resource('shortcuts','Shortcut\ShortcutController');
+	//Маршрут для сортировки банеров
+	Route::put('ajax/shortcuts/sort','Shortcut\AjaxShortcutController@sort')->name('ajax.shortcuts.sort');
 
 	Route::group(['prefix'=>'ajax','namespace'=>'Ajax'],function(){
 		Route::group(['prefix'=>'get','namespace'=>'Get'],function(){
@@ -51,6 +100,8 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>'auth'],funct
 			Route::post('mark/complects','ComplectGetController@getComplectByMark')->name('ajax.get.complect');
 			Route::post('complect/colors','ColorGetController@getColorByComplect')->name('ajax.get.complect.color');
 			Route::post('complect/packs','PackGetController@getPackByComplect')->name('ajax.get.complect.pack');
+			//Возвращает список пакетов опций закреплёных за цветом в комплектации
+			Route::post('complect/color/packs','ComplectGetController@getColorPack')->name('ajax.get.complect.color.pack');
 
 			Route::post('brand/packs','PackGetController@getPackByBrand')->name('ajax.get.pack');
 			Route::post('brand/motors','MotorGetController@getMotorByBrand')->name('ajax.get.motor');

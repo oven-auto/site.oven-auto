@@ -3,7 +3,7 @@
 		<div class="input-group-prepend">
 			<span class="input-group-text">Сумма</span>
 		</div>
-		{{Form::text('parameters[budget]','',['class'=>'form-control'])}}
+		{{Form::text('parameters[budget]',$self->budget,['class'=>'form-control'])}}
 	</div>
 </div>
 

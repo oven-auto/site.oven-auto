@@ -98,6 +98,8 @@
                                 <li><a href="{{route('options.index')}}">Оборудование</a></li>
                                 <li><a href="{{route('motors.index')}}">Агрегаты</a></li>
                                 <li><a href="{{route('packs.index')}}">Опции</a></li>
+                                <li><a href="{{route('banners.index')}}">Банеры</a></li>
+                                <li><a href="{{route('shortcuts.index')}}">Ярлыки</a></li>
                             </ul>
                         </div>
                         <div class="col">
@@ -105,6 +107,7 @@
                             <li><a href="{{route('complects.index')}}">Комплектации</a></li>
                             <li><a href="{{route('cars.index')}}">Автомобили</a></li>
                             <li><a href="{{route('companies.index')}}">Комм. акции</a></li>
+                            <li><a href="{{route('credits.index')}}">Кредиты</a></li>
                         </div>
                     </div>
                 </div>

@@ -6,6 +6,7 @@
 
 require('./bootstrap');
 require('./range_change');
+require('./cog');
 require('./axios_query');
 require('./number_format')
 require('./date_format');
@@ -16,7 +17,24 @@ require('./admin/pack');
 require('./admin/complect');
 require('./admin/car');
 require('./admin/company');
-
+require('./admin/banners');
+require( 'jquery-ui/ui/widgets/sortable.js');
+require('./config_sortable.js');
+require('slick-carousel');
+require('./one_height');
+require('./ankor_scroll');
+require('./config_slick');
+require('./navbar_fixed');
+require('./front/model_image');
+require('./front/model_complect_list');
+require('./front/stock');
+require('./front/company');
+require('./front/favorites');
+require('./front/configurator');
+require('./front/car');
+require('./front/call_modal');
+require('./front/callback');
+require('./front/compare');
 //window.Vue = require('vue');
 
 /**

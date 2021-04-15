@@ -1,0 +1,26 @@
+.model-viewer img{
+	width: 70%;
+}
+
+.color-btn{
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	box-shadow: 0 0 1px #000;
+	border-radius: 10px;
+	margin: 0 2px;
+	cursor: pointer;
+}
+
+.color-btn.active{
+	border: 3px solid #333;
+	transform: scale(0.5,0.5);
+}
+
+.lowercase{
+	text-transform:lowercase;
+}
+
+.color-notify{
+	color: #aaa;
+}

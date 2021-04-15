@@ -80,6 +80,30 @@ class ComplectController extends Controller
                     'pack_id'=>$itemPackId
                 ]);
             endforeach;
+
+        if($request->has('color_id'))
+        {
+            foreach ($complect->complectcolors as $key => $itemComplectColor) 
+                $itemComplectColor->colorpacks()->delete();
+
+            $complect->complectcolors()->delete();
+            foreach ($request->get('color_id') as $key => $color_id) 
+                if($request->has('pack_id') && array_key_exists($color_id, $request->get('pack_id')))
+                {
+                    $complectColor = $complect->complectcolors()->create([
+                        'color_id'=>$color_id
+                    ]);
+                    foreach ($request->get('pack_id')[$color_id] as $i => $pack_id) {
+                        $complectColor->colorpacks()->create([
+                            'pack_id'=>$pack_id
+                        ]);
+                    }
+                }
+                else
+                    $complect->complectcolors()->create([
+                        'color_id'=>$color_id
+                    ]);
+        }
             
         return redirect()->route('complects.edit',$complect)->with('status','Новая комплектация создана');
     }
@@ -101,8 +125,9 @@ class ComplectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Complect $complect)
-    {
+    public function edit($complect)
+    {   
+        $complect = Complect::with(['complectcolors.colorpacks','modelcolors.color'])->find($complect);
         $brands = Brand::get()->pluck('name','id'); 
         $marks = Mark::where('brand_id',$complect->brand_id)->get()->pluck('name','id');
         $motors = Motor::with('transmission','driver','type')->where('brand_id',$complect->brand_id)->get();      
@@ -115,6 +140,7 @@ class ComplectController extends Controller
             $motors = $tmp;
         }
         $options = Option::select('options.*')
+            ->with(['type'])
             ->leftJoin('option_brands','option_brands.option_id','options.id')
             ->where('option_brands.brand_id',$complect->brand_id)
             ->orderBy('options.type_id')
@@ -127,7 +153,8 @@ class ComplectController extends Controller
                 ->leftJoin('pack_marks','pack_marks.pack_id','=','packs.id')
                 ->where('pack_marks.mark_id',$complect->mark_id)
                 ->get();
-        return view('admin.complect.add',compact('brands','complect','marks','motors','options','packs'));
+        $colorPacks = $packs->where('colored',1)->pluck('code','id');
+        return view('admin.complect.add',compact('brands','complect','marks','motors','options','packs','colorPacks'));
     }
 
     /**
@@ -138,7 +165,7 @@ class ComplectController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(ComplectCreateRequest $request, Complect $complect)
-    {
+    {   
         $dataComplect = $request->only(['name','code','price','brand_id','motor_id','mark_id']);
         //$dataComplect['mark_id'] = $request->get('mark_ids')[0];
         $complect->update($dataComplect);
@@ -159,6 +186,30 @@ class ComplectController extends Controller
                     'pack_id'=>$itemPackId
                 ]);
             endforeach;
+
+        if($request->has('color_id'))
+        {
+            foreach ($complect->complectcolors as $key => $itemComplectColor) 
+                $itemComplectColor->colorpacks()->delete();
+
+            $complect->complectcolors()->delete();
+            foreach ($request->get('color_id') as $key => $color_id) 
+                if($request->has('pack_id') && array_key_exists($color_id, $request->get('pack_id')))
+                {
+                    $complectColor = $complect->complectcolors()->create([
+                        'color_id'=>$color_id
+                    ]);
+                    foreach ($request->get('pack_id')[$color_id] as $i => $pack_id) {
+                        $complectColor->colorpacks()->create([
+                            'pack_id'=>$pack_id
+                        ]);
+                    }
+                }
+                else
+                    $complect->complectcolors()->create([
+                        'color_id'=>$color_id
+                    ]);
+        }
         return redirect()->route('complects.edit',$complect)->with('status','Комплектация изменена');
     }
 

@@ -30,7 +30,21 @@
 			@include('admin.car.receiving_car')
 		</div>
 		<div class="tab-pane fade" id="car-option" role="tabpanel" aria-labelledby="car-option-tab">
-			@include('admin.car.option_car',['data'=>isset($car->options) ? $car->options : [] ])
+			
+				<div class="row">
+					<div class="col-3">
+						<div class="input-group mb-3">
+							<div class="input-group-prepend">
+								<span class="input-group-text">Цена доп. оборудования</span>
+							</div>
+							{{Form::text('option_price',isset($car->option_price) ? $car->option_price : 0, ['class'=>'form-control'])}}
+						</div>
+					</div>
+				</div>
+				
+			<div id="additional"> 
+				@include('admin.car.option_car',['data'=>isset($car->options) ? $car->options : [] ])
+			</div>
 		</div>
 	</div>
 

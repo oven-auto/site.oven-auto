@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Complect extends Model
 {
     protected $guarded = [];
+
+    protected $withCount = ['cars'];
     
     public function mark()
     {
@@ -33,9 +35,23 @@ class Complect extends Model
         return $this->hasOne(\App\Models\Brand::class,'id','brand_id')->withDefault();
     }
 
+    public function cars()
+    {
+        return $this->hasMany(\App\Models\Car::class,'complect_id','id');
+    }
+
+    public function modelcolors()
+    {
+        return $this->hasMany(\App\Models\MarkColor::class,'mark_id','mark_id');
+    }
+    public function complectcolors()
+    {
+        return $this->hasMany(\App\Models\ComplectColor::class,'complect_id','id');
+    }
+
     public function getFormatPriceAttribute()
     {
-        return number_format($this->price,0,'',' ').'р.';
+        return number_format($this->price,0,'',' ').' руб.';
     }
 
     public function getFullNameAttribute()
@@ -45,5 +61,13 @@ class Complect extends Model
         if($result)
             return $result;
         return false;
+    }
+
+    public function getFrontNameAttribute()
+    {
+        $result = [];
+        $result[] = $this->name;
+        $result[] = $this->motor->adminName;
+        return implode(' ', $result);
     }
 }
