@@ -152,6 +152,55 @@
 			</div>
 		</div>
 
+		<div class="row complect-filter border-bottom">
+			<div class="col" style="background: #f5f5f5;">
+				@if(isset($motorTypes) && count($motorTypes))
+				<div class="btn-group">
+					<a  class="motor-btn btn dropdown-toggle  pl-0 mr-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-active-id="">
+						Двигатель: <span class="type-info">Все</span>
+					</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" data-type="">Все</a>
+						<div class="dropdown-divider"></div>
+						@foreach($motorTypes as $id=>$itemType)
+							<a class="dropdown-item" data-type="{{$id}}">{{$itemType}}</a>
+						@endforeach
+					</div>
+				</div>
+				@endif
+
+				@if(isset($transmissionTypes) && count($transmissionTypes))
+				<div class="btn-group">
+					<a  class="transmission-btn btn dropdown-toggle pl-0 mr-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-active-id="">
+						Трансмиссия: <span class="type-info">Все</span>
+					</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item"  data-type="">Все</a>
+						<div class="dropdown-divider"></div>
+						@foreach($transmissionTypes as $id=>$itemType)
+							<a class="dropdown-item" data-type="{{$id}}">{{$itemType}}</a>
+						@endforeach
+					</div>
+				</div>
+				@endif
+
+				@if(isset($driverTypes) && count($driverTypes))
+				<div class="btn-group">
+					<a  class="driver-btn btn dropdown-toggle  pl-0 mr-3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-active-id="">
+						Привод: <span class="type-info">Все</span>
+					</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item"  data-type="">Все</a>
+						<div class="dropdown-divider"></div>
+						@foreach($driverTypes as $id=>$itemType)							
+							<a class="dropdown-item" data-type="{{$id}}">{{$itemType}}</a>
+						@endforeach
+					</div>
+				</div>
+				@endif
+			</div>
+		</div>
+
 		@foreach($complects->where('status',1) as $itemComplect)
 			@include('front.pricelist.complect-row',['complect'=>$itemComplect])
 		@endforeach

@@ -1,4 +1,9 @@
-<div class="row">
+<div 
+	class="row item-complect" 
+	data-motor="{{$complect->motor->type->id}}"
+	data-transmission="{{$complect->motor->transmission->type}}"
+	data-driver="{{$complect->motor->driver->type}}"
+>
 	<div 
 		class="col-12 model-complect-control py-2 {{($loop->last) ? '' : 'border-bottom'}}" 
 		data-url-complect="{{route('front.ajax.get.complect',$complect->id)}}"
